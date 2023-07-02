@@ -4,6 +4,8 @@ namespace LegalHelp
 
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
+    using LegalHelpSystem.Web.Infrastructure.Extensions;
+    using LegalHelpSystem.Services.Data.Interfaces;
 
     public class Program
     {
@@ -37,7 +39,7 @@ namespace LegalHelp
             })
                 .AddEntityFrameworkStores<LegalHelpDbContext>();
 
-           // builder.Services.AddApplicationServices(typeof(IDocumentService));
+            builder.Services.AddApplicationServices(typeof(IDocumentService));
 
             builder.Services.AddControllersWithViews();
 

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Web", "LegalHelp\LegalHelpSystem.Web.csproj", "{E73FD091-AECC-41B3-9CC2-4C62986E36DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegalHelpSystem.Web", "LegalHelp\LegalHelpSystem.Web.csproj", "{E73FD091-AECC-41B3-9CC2-4C62986E36DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{08D923E6-28EB-486B-B23A-5375217C6398}"
 EndProject
@@ -11,13 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{99
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{1F901A9B-A29B-4B33-9D4C-296A20283C58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Common", "LegalHelp.Common\LegalHelpSystem.Common.csproj", "{8ADF4DA8-748A-4262-9546-28851A01352C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegalHelpSystem.Common", "LegalHelp.Common\LegalHelpSystem.Common.csproj", "{8ADF4DA8-748A-4262-9546-28851A01352C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Data", "LegalHelp.Data\LegalHelpSystem.Data.csproj", "{703F25BF-F432-45B2-B2BB-F7D062B3A10A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegalHelpSystem.Data", "LegalHelp.Data\LegalHelpSystem.Data.csproj", "{703F25BF-F432-45B2-B2BB-F7D062B3A10A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Data.Models", "LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj", "{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegalHelpSystem.Data.Models", "LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj", "{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Web.ViewModels", "LegalHelpSystem.Web.ViewModels\LegalHelpSystem.Web.ViewModels.csproj", "{CA6C3A49-F801-489F-A013-DD573EBE659F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LegalHelpSystem.Web.ViewModels", "LegalHelpSystem.Web.ViewModels\LegalHelpSystem.Web.ViewModels.csproj", "{CA6C3A49-F801-489F-A013-DD573EBE659F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Services.Data", "LegalHelpSystem.Services.Data\LegalHelpSystem.Services.Data.csproj", "{FEE95057-49F4-4678-B6A3-DDC0D5FCF2DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Web.Infrastructure", "LegalHelpSystem.Web.Infrastructure\LegalHelpSystem.Web.Infrastructure.csproj", "{621DA1F2-B934-425A-8B58-9D3B131EBE36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{CA6C3A49-F801-489F-A013-DD573EBE659F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA6C3A49-F801-489F-A013-DD573EBE659F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA6C3A49-F801-489F-A013-DD573EBE659F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEE95057-49F4-4678-B6A3-DDC0D5FCF2DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEE95057-49F4-4678-B6A3-DDC0D5FCF2DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEE95057-49F4-4678-B6A3-DDC0D5FCF2DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEE95057-49F4-4678-B6A3-DDC0D5FCF2DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{621DA1F2-B934-425A-8B58-9D3B131EBE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{621DA1F2-B934-425A-8B58-9D3B131EBE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{621DA1F2-B934-425A-8B58-9D3B131EBE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{621DA1F2-B934-425A-8B58-9D3B131EBE36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +66,8 @@ Global
 		{703F25BF-F432-45B2-B2BB-F7D062B3A10A} = {08D923E6-28EB-486B-B23A-5375217C6398}
 		{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F} = {08D923E6-28EB-486B-B23A-5375217C6398}
 		{CA6C3A49-F801-489F-A013-DD573EBE659F} = {1F901A9B-A29B-4B33-9D4C-296A20283C58}
+		{FEE95057-49F4-4678-B6A3-DDC0D5FCF2DE} = {994B83B2-D3B1-4B44-BC7D-67DD098D4A8E}
+		{621DA1F2-B934-425A-8B58-9D3B131EBE36} = {1F901A9B-A29B-4B33-9D4C-296A20283C58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66108E7D-79AB-4660-A76E-A9F299B7FF2E}

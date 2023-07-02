@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LegalHelp.Common\LegalHelpSystem.Common.csproj" />
+    <ProjectReference Include="..\LegalHelp.Data\LegalHelpSystem.Data.csproj" />
+    <ProjectReference Include="..\LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\LegalHelpSystem.Web.ViewModels\LegalHelpSystem.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

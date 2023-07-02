@@ -21,6 +21,9 @@
   <ItemGroup>
     <ProjectReference Include="..\LegalHelp.Common\LegalHelpSystem.Common.csproj" />
     <ProjectReference Include="..\LegalHelp.Data\LegalHelpSystem.Data.csproj" />
+    <ProjectReference Include="..\LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\LegalHelpSystem.Services.Data\LegalHelpSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\LegalHelpSystem.Web.Infrastructure\LegalHelpSystem.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\LegalHelpSystem.Web.ViewModels\LegalHelpSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
