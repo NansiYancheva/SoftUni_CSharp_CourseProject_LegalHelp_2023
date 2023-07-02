@@ -1,0 +1,14 @@
+﻿@model TicketAddOrEditFormModel
+@{
+    ViewData["Title"] = "Add Ticket";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_TicketFormPartial" model="@Model"/>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial"/>
+}

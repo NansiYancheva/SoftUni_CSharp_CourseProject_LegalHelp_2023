@@ -1,0 +1,33 @@
+﻿@model TicketAddOrEditFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Subject"></label>
+                <input asp-for="Subject" class="form-control" placeholder="Subject...">
+                <span asp-validation-for="Subject" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestDescription"></label>
+                <input asp-for="RequestDescription" class="form-control" placeholder="RequestDescription...">
+                <span asp-validation-for="RequestDescription" class="small text-danger"></span>
+            </div>
+ 
+            <div class="form-group">
+                <label asp-for="TicketCategoryId"></label>
+                <select asp-for="TicketCategoryId" class="form-control">
+                    @foreach (var category in Model.TicketCategories)
+                    {
+                            <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="TicketCategoryId" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Sent" />
+            </div>
+        </form>
+    </div>
+</div>
