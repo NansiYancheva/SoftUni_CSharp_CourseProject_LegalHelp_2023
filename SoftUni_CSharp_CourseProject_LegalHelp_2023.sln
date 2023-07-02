@@ -5,6 +5,20 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Web", "LegalHelp\LegalHelpSystem.Web.csproj", "{E73FD091-AECC-41B3-9CC2-4C62986E36DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{08D923E6-28EB-486B-B23A-5375217C6398}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{994B83B2-D3B1-4B44-BC7D-67DD098D4A8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{1F901A9B-A29B-4B33-9D4C-296A20283C58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Common", "LegalHelp.Common\LegalHelpSystem.Common.csproj", "{8ADF4DA8-748A-4262-9546-28851A01352C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Data", "LegalHelp.Data\LegalHelpSystem.Data.csproj", "{703F25BF-F432-45B2-B2BB-F7D062B3A10A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Data.Models", "LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj", "{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegalHelpSystem.Web.ViewModels", "LegalHelpSystem.Web.ViewModels\LegalHelpSystem.Web.ViewModels.csproj", "{CA6C3A49-F801-489F-A013-DD573EBE659F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +29,31 @@ Global
 		{E73FD091-AECC-41B3-9CC2-4C62986E36DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E73FD091-AECC-41B3-9CC2-4C62986E36DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E73FD091-AECC-41B3-9CC2-4C62986E36DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ADF4DA8-748A-4262-9546-28851A01352C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ADF4DA8-748A-4262-9546-28851A01352C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ADF4DA8-748A-4262-9546-28851A01352C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ADF4DA8-748A-4262-9546-28851A01352C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703F25BF-F432-45B2-B2BB-F7D062B3A10A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703F25BF-F432-45B2-B2BB-F7D062B3A10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703F25BF-F432-45B2-B2BB-F7D062B3A10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703F25BF-F432-45B2-B2BB-F7D062B3A10A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6C3A49-F801-489F-A013-DD573EBE659F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6C3A49-F801-489F-A013-DD573EBE659F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6C3A49-F801-489F-A013-DD573EBE659F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6C3A49-F801-489F-A013-DD573EBE659F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E73FD091-AECC-41B3-9CC2-4C62986E36DE} = {1F901A9B-A29B-4B33-9D4C-296A20283C58}
+		{703F25BF-F432-45B2-B2BB-F7D062B3A10A} = {08D923E6-28EB-486B-B23A-5375217C6398}
+		{EA194080-D6CC-4E4C-A631-EDDDECBEBC8F} = {08D923E6-28EB-486B-B23A-5375217C6398}
+		{CA6C3A49-F801-489F-A013-DD573EBE659F} = {1F901A9B-A29B-4B33-9D4C-296A20283C58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {66108E7D-79AB-4660-A76E-A9F299B7FF2E}

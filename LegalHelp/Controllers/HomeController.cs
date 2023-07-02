@@ -1,23 +1,26 @@
-﻿using LegalHelp.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-
-namespace LegalHelp.Controllers
+﻿namespace LegalHelp.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Diagnostics;
 
-        public HomeController(ILogger<HomeController> logger)
+    using LegalHelpSystem.Web.Controllers;
+    using LegalHelpSystem.Web.ViewModels.Home;
+
+    public class HomeController : BaseController
+    {
+        public HomeController()
         {
-            _logger = logger;
+
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Privacy()
         {
             return View();

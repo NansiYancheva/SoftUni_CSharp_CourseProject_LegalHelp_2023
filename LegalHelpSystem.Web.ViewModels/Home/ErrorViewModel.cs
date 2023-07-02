@@ -1,4 +1,4 @@
-namespace LegalHelp.Models
+namespace LegalHelpSystem.Web.ViewModels.Home
 {
     public class ErrorViewModel
     {

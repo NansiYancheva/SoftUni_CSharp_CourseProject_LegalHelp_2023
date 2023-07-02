@@ -1,16 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-LegalHelp-2f4e3d80-d1d1-4fbd-aa7e-7f5a6c14bb00</UserSecretsId>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.11">
       <PrivateAssets>all</PrivateAssets>
@@ -19,9 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LegalHelp.Common\LegalHelpSystem.Common.csproj" />
-    <ProjectReference Include="..\LegalHelp.Data\LegalHelpSystem.Data.csproj" />
-    <ProjectReference Include="..\LegalHelpSystem.Web.ViewModels\LegalHelpSystem.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>
