@@ -29,14 +29,15 @@
         [Required]
         public Guid UserId { get; set; }
         [Required]
-        public virtual ApplicationUser RequestReporter { get; set; } = null!;
+        public virtual ApplicationUser User { get; set; } = null!;
 
         [Required]
-        public int TicketStatusId { get; set; } = 1;
+        public int TicketStatusId { get; set; } 
         [Required]
         public virtual TicketStatus TicketStatus { get; set; } = null!;
 
         public Guid? LegalAdviseId { get; set; }
+        //should the naming be changed?
         public virtual LegalAdvise? Response { get; set; }
     }
 }

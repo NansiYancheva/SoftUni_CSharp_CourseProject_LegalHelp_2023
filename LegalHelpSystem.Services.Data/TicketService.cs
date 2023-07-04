@@ -15,19 +15,20 @@
         }
 
         //Add-post
-        public async Task AddTicketAsync(TicketAddOrEditFormModel model, string userId)
+        public async Task<string> AddTicketAsync(TicketAddOrEditFormModel formModel, string userId)
         {
             Ticket ticket = new Ticket
             {
-                Subject = model.Subject,
-                TicketCategoryId = model.TicketCategoryId,
-                RequestDescription = model.RequestDescription,
-                UserId = Guid.Parse(userId),
-                TicketStatusId = 1
+                Subject = formModel.Subject,
+                TicketCategoryId = formModel.TicketCategoryId,
+                RequestDescription = formModel.RequestDescription,
+                UserId = Guid.Parse(userId)
             };
 
             await dbContext.Tickets.AddAsync(ticket);
             await dbContext.SaveChangesAsync();
+
+            return ticket.Id.ToString();
         }
     }
 }

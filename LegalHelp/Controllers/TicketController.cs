@@ -7,6 +7,7 @@
 
 
     using static Common.NotificationMessagesConstants;
+    using LegalHelpSystem.Web.Infrastructure.Extensions;
 
     public class TicketController : BaseController
     {
@@ -60,11 +61,13 @@
 
             try
             {
-                var userId = GetUserId();
-                await ticketService.AddTicketAsync(model, userId);
+                string? userId = this.User.GetId();
+                string ticketId = await ticketService.AddTicketAsync(model, userId);
 
                 this.TempData[SuccessMessage] = "Ticket was added successfully!";
-                return this.RedirectToAction("All", "Requests");
+                //to be changed = My/All, Tickets
+                //return this.RedirectToAction("Details", "House", new { id = houseId });
+                return this.RedirectToAction("Index", "Home");
             }
             catch (Exception)
             {
