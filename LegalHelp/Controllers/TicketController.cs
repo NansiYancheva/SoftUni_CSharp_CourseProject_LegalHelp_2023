@@ -109,79 +109,81 @@
                 //return this.RedirectToAction("Add", "Ticket");
                 return this.RedirectToAction("Index", "Home");
             }
-            //to be removed
-            return this.RedirectToAction("Index", "Home");
-            //        try
-            //        {
-            //            HouseFormModel formModel = await this.houseService
-            //                .GetHouseForEditByIdAsync(id);
-            //            formModel.Categories = await this.categoryService.AllCategoriesAsync();
+            try
+            {
+                TicketAddOrEditFormModel formModel = await this.ticketService
+                    .GetTicketForEditByIdAsync(id);
+                formModel.TicketCategories = await this.ticketCategoryService.AllCategoriesAsync();
 
-            //            return this.View(formModel);
-            //        }
-            //        catch (Exception)
-            //        {
-            //            return this.GeneralError();
-            //        }
-            //    }
-
-            //    //Edit
-            //    [HttpPost]
-            //    public async Task<IActionResult> Edit(string id, HouseFormModel model)
-            //    {
-            //        if (!this.ModelState.IsValid)
-            //        {
-            //            model.Categories = await this.categoryService.AllCategoriesAsync();
-
-            //            return this.View(model);
-            //        }
-
-            //        bool houseExists = await this.houseService
-            //            .ExistsByIdAsync(id);
-            //        if (!houseExists)
-            //        {
-            //            this.TempData[ErrorMessage] = "House with the provided id does not exist!";
-
-            //            return this.RedirectToAction("All", "House");
-            //        }
-
-            //        bool isUserAgent = await this.agentService
-            //            .AgentExistsByUserIdAsync(this.User.GetId()!);
-            //        if (!isUserAgent)
-            //        {
-            //            this.TempData[ErrorMessage] = "You must become an agent in order to edit house info!";
-
-            //            return this.RedirectToAction("Become", "Agent");
-            //        }
-
-            //        string? agentId =
-            //            await this.agentService.GetAgentIdByUserIdAsync(this.User.GetId()!);
-            //        bool isAgentOwner = await this.houseService
-            //            .IsAgentWithIdOwnerOfHouseWithIdAsync(id, agentId!);
-            //        if (!isAgentOwner)
-            //        {
-            //            this.TempData[ErrorMessage] = "You must be the agent owner of the house you want to edit!";
-
-            //            return this.RedirectToAction("Mine", "House");
-            //        }
-
-            //        try
-            //        {
-            //            await this.houseService.EditHouseByIdAndFormModelAsync(id, model);
-            //        }
-            //        catch (Exception)
-            //        {
-            //            this.ModelState.AddModelError(string.Empty,
-            //                "Unexpected error occurred while trying to update the house. Please try again later or contact administrator!");
-            //            model.Categories = await this.categoryService.AllCategoriesAsync();
-
-            //            return this.View(model);
-            //        }
-
-            //        this.TempData[SuccessMessage] = "House was edited successfully!";
-            //        return this.RedirectToAction("Details", "House", new { id });
+                return this.View(formModel);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+                //  return this.GeneralError();
+            }
         }
 
+        //Edit
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, TicketAddOrEditFormModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                model.TicketCategories = await this.ticketCategoryService.AllCategoriesAsync();
+
+                return this.View(model);
+            }
+
+            bool ticketExists = await this.ticketService
+                .ExistsByIdAsync(id);
+            if (!ticketExists)
+            {
+                this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
+
+                //return this.RedirectToAction("Add", "Ticket");
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            string? userId = this.User.GetId();
+            bool isReporter = await this.ticketService
+                .IsUserReporterOfTheTicket(id, userId!);
+            if (!isReporter)
+            {
+                this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit!";
+
+                //return this.RedirectToAction("Add", "Ticket");
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            bool resolvedStatus = await this.ticketService
+                  .ResolvedTicket(id);
+            if (resolvedStatus == true)
+            {
+                this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved and cannot be edited!";
+
+                //return this.RedirectToAction("Add", "Ticket");
+                return this.RedirectToAction("Index", "Home");
+            }
+
+            try
+            {
+                await this.ticketService.EditTicketByIdAndFormModelAsync(id, model);
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty,
+                    "Unexpected error occurred while trying to edit the ticket. Please try again later or contact administrator!");
+                model.TicketCategories = await this.ticketCategoryService.AllCategoriesAsync();
+
+                return this.View(model);
+            }
+
+            this.TempData[SuccessMessage] = "Ticket was edited successfully!";
+           // return this.RedirectToAction("Details", "House", new { id });
+            return this.RedirectToAction("Index", "Home");
+        }
     }
+
 }
 

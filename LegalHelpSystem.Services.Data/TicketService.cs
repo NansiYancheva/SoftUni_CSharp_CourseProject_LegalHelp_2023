@@ -34,6 +34,37 @@
             return ticket.Id.ToString();
         }
 
+        //Edit-get
+        public async Task<TicketAddOrEditFormModel> GetTicketForEditByIdAsync(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .Include(h => h.TicketCategory)
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            return new TicketAddOrEditFormModel
+            {
+                Subject = ticket.Subject,
+                TicketCategoryId = ticket.TicketCategoryId,
+                RequestDescription = ticket.RequestDescription
+            };
+        }
+
+        //Edit-post
+        public async Task EditTicketByIdAndFormModelAsync(string ticketId, TicketAddOrEditFormModel formModel)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            ticket.Subject = formModel.Subject;
+            ticket.RequestDescription = formModel.RequestDescription;
+            ticket.TicketCategoryId = formModel.TicketCategoryId;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+
         //Common
         public async Task<bool> ExistsByIdAsync(string ticketId)
         {
