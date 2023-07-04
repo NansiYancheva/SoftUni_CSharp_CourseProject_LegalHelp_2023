@@ -11,12 +11,6 @@
         public void Configure(EntityTypeBuilder<Ticket> builder)
         {
             builder
-                .HasOne(s => s.TicketStatus)
-                .WithMany(t => t.Tickets)
-                .HasForeignKey(s => s.TicketStatusId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
                 .HasOne(c => c.TicketCategory)
                 .WithMany(t => t.Tickets)
                 .HasForeignKey(c => c.TicketCategoryId)
@@ -29,9 +23,9 @@
                 .HasForeignKey<Ticket>(t => t.LegalAdviseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .Property(h => h.TicketStatusId)
-                .HasDefaultValueSql("1");
+            //builder
+            //    .Property(h => h.ResolvedTicketStatus)
+            //    .HasDefaultValueSql(false); = no because by default it is false
 
             //builder
             //.Property(a => a.TicketId)

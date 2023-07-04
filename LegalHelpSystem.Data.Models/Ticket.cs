@@ -32,9 +32,7 @@
         public virtual ApplicationUser User { get; set; } = null!;
 
         [Required]
-        public int TicketStatusId { get; set; } 
-        [Required]
-        public virtual TicketStatus TicketStatus { get; set; } = null!;
+        public bool ResolvedTicketStatus { get; set; } 
 
         public Guid? LegalAdviseId { get; set; }
         //should the naming be changed?

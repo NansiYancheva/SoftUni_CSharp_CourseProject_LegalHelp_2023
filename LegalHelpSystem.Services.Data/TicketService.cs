@@ -1,9 +1,12 @@
 ﻿namespace LegalHelpSystem.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Ticket;
+
 
     public class TicketService : ITicketService
     {
@@ -29,6 +32,31 @@
             await dbContext.SaveChangesAsync();
 
             return ticket.Id.ToString();
+        }
+
+        //Common
+        public async Task<bool> ExistsByIdAsync(string ticketId)
+        {
+            bool result = await this.dbContext
+                .Tickets
+                .AnyAsync(t => t.Id.ToString() == ticketId);
+            return result;
+        }
+
+        public async Task<bool> IsUserReporterOfTheTicket(string ticketId, string userId)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            return ticket.UserId.ToString() == userId;
+        }
+        public async Task<bool> ResolvedTicket(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+            return ticket.ResolvedTicketStatus == true;
         }
     }
 }
