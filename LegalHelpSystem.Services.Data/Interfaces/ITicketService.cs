@@ -5,6 +5,6 @@ namespace LegalHelpSystem.Services.Data.Interfaces
     public interface ITicketService
     {
         //Add-Post
-        Task AddTicketAsync(TicketAddOrEditFormModel model);
+        Task AddTicketAsync(TicketAddOrEditFormModel model, string userId);
     }
 }
