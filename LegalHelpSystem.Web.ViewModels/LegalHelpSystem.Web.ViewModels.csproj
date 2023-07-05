@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LegalHelp.Common\LegalHelpSystem.Common.csproj" />
+    <ProjectReference Include="..\LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

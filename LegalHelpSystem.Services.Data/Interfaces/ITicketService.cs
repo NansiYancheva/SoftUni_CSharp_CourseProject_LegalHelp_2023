@@ -13,6 +13,11 @@
         //Edit-Post
         Task EditTicketByIdAndFormModelAsync(string ticketId, TicketAddOrEditFormModel formModel);
 
+        //Delete-Get
+        Task<TicketPerDeleteFormModel> GetTicketForDeleteByIdAsync(string ticketId);
+        //Delete-Post
+        Task DeleteTicketByIdAsync(string ticketId);
+
         //Common
         Task<bool> ExistsByIdAsync(string ticketId);
         Task<bool> IsUserReporterOfTheTicket(string ticketId, string userId);

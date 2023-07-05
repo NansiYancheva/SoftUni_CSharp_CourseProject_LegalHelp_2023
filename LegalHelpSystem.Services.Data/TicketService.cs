@@ -64,6 +64,36 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        //Delete - get
+        public async Task<TicketPerDeleteFormModel> GetTicketForDeleteByIdAsync(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .Include(h => h.Response)
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            return new TicketPerDeleteFormModel
+            {
+                Subject = ticket.Subject,
+                RequestDescription = ticket.RequestDescription,
+                ResolvedTicketStatus = ticket.ResolvedTicketStatus,
+                LegalAdviseId = ticket.LegalAdviseId
+            };
+        }
+        //Delte-post
+        public async Task DeleteTicketByIdAsync(string ticketId)
+        {
+            Ticket ticketToDelete = await this.dbContext
+                .Tickets
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+            
+            //is this because of delete restrictions?
+            //ticketToDelete.IsActive = false;
+
+            this.dbContext.Remove(ticketToDelete);
+            await this.dbContext.SaveChangesAsync();
+        }
+
 
         //Common
         public async Task<bool> ExistsByIdAsync(string ticketId)

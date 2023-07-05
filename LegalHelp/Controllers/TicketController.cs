@@ -183,6 +183,87 @@
            // return this.RedirectToAction("Details", "House", new { id });
             return this.RedirectToAction("Index", "Home");
         }
+
+        //Delete
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool houseExists = await this.ticketService
+                .ExistsByIdAsync(id);
+            if (!houseExists)
+            {
+                this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "Ticket");
+            }
+
+            string? userId = this.User.GetId();
+            bool isReporter = await this.ticketService
+                .IsUserReporterOfTheTicket(id, userId!);
+            if (!isReporter)
+            {
+                this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to delete!";
+
+                return this.RedirectToAction("Mine", "Ticket");
+            }
+            //if the category is request for document - there should not be a possibility to delete?
+            //taking into consideration - if according to GDPR you could delete all your tickets, or only the one which are with status != resolved.
+
+            try
+            {
+                TicketPerDeleteFormModel viewModel =
+                    await this.ticketService.GetTicketForDeleteByIdAsync(id);
+
+                return this.View(viewModel);
+            }
+            catch (Exception)
+            {
+                return View("Error");
+                //return this.GeneralError();
+            }
+        }
+        //Delete
+        
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id, TicketPerDeleteFormModel model)
+        {
+            bool ticketExists = await this.ticketService
+                .ExistsByIdAsync(id);
+            if (!ticketExists)
+            {
+                this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
+
+                return this.RedirectToAction("All", "Ticket");
+            }
+
+            string? userId = this.User.GetId();
+            bool isReporter = await this.ticketService
+                .IsUserReporterOfTheTicket(id, userId!);
+            if (!isReporter)
+            {
+                this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to delete!";
+
+                return this.RedirectToAction("Mine", "Ticket");
+            }
+
+            //if the category is request for document - there should not be a possibility to delete?
+            //taking into consideration - if according to GDPR you could delete all your tickets, or only the one which are with status != resolved.
+            try
+            {
+                await this.ticketService.DeleteTicketByIdAsync(id);
+
+                this.TempData[WarningMessage] = "The ticket was successfully deleted!";
+                return this.RedirectToAction("Mine", "Ticket");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+                //return this.GeneralError();
+            }
+        }
+
+        //ChangeStatus?
+        //if LegalAdviseId != null - then...
     }
 
 }
