@@ -21,6 +21,10 @@
         //Mine
         Task<IEnumerable<TicketAllViewModel>> AllByUserIdAsync(string userId);
 
+        //All-user
+        Task<IEnumerable<TicketAllViewModel>> GetAllTicketsAsync();
+
+
         //Common
         Task<bool> ExistsByIdAsync(string ticketId);
         Task<bool> IsUserReporterOfTheTicket(string ticketId, string userId);

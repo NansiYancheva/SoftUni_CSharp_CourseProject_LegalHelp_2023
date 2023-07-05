@@ -114,7 +114,23 @@
 
             return allUserTickets;
         }
-
+        //All
+        public async Task<IEnumerable<TicketAllViewModel>> GetAllTicketsAsync()
+        {
+            return await this.dbContext
+                .Tickets
+                .Include(h => h.TicketCategory)
+                .Include(h => h.Response)
+                .Select(h => new TicketAllViewModel
+                {
+                    Id = h.Id.ToString(),
+                    Subject = h.Subject,
+                    TicketCategory = h.TicketCategory.Name,
+                    RequestDescription = h.RequestDescription,
+                    Response = h.Response.AdviseResponse
+                })
+                .ToListAsync();
+        }
         //Common
         public async Task<bool> ExistsByIdAsync(string ticketId)
         {

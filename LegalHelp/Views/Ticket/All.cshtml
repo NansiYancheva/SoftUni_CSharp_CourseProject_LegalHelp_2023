@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TicketAllViewModel>
+@{
+    ViewBag.Title = "All Tickets";
+}
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Subject</th>
+                <th scope="col">Ticket Category</th>
+                <th scope="col">Request Description</th>
+                <th scope="col">Ticket Status</th>
+                <th scope="col">Response</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var ticket in Model)
+            {
+                <tr>
+                    <th scope="row"></th>
+                    <td>@ticket.Subject</td>
+                    <td>@ticket.TicketCategory</td>
+                    <td>@ticket.RequestDescription</td>
+                    <td>@(ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved")</td>
+                    @if (ticket.LegalAdviseId != null && this.User.Identity.IsAuthenticated)
+                    {
+                        <td>@ticket.Response</td>
+                    }
+                    <td>
+                        @if (ticket.LegalAdviseId == null && this.User.Identity.IsAuthenticated)
+                        {
+                            <span style="float:left">
+                                <form class="input-group-sm" asp-controller="LegalAdvise" asp-action="Add" asp-route-ticketId="@ticket.Id">
+                                    <input type="submit" value="Add Legal Advise" class="fs-6 btn btn-success mb-3 p-2" />
+                                </form>
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

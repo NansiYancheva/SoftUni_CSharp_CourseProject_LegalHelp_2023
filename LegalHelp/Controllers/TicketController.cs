@@ -9,16 +9,19 @@
     using static Common.NotificationMessagesConstants;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using Microsoft.AspNetCore.Authorization;
+    using LegalHelpSystem.Services.Data;
 
     public class TicketController : BaseController
     {
         private readonly ITicketCategoryService ticketCategoryService;
         private readonly ITicketService ticketService;
+        private readonly ILegalAdvisorService legalAdvisorService;
 
-        public TicketController(ITicketCategoryService _ticketCategoryService, ITicketService _ticketService)
+        public TicketController(ITicketCategoryService _ticketCategoryService, ITicketService _ticketService, ILegalAdvisorService _legalAdvisorService)
         {
             this.ticketCategoryService = _ticketCategoryService;
             this.ticketService = _ticketService;
+            this.legalAdvisorService = _legalAdvisorService;
         }
         //Add
         [HttpGet]
@@ -277,6 +280,13 @@
             {
                 return this.GeneralError();
             }
+        }
+        [AllowAnonymous]
+        //All
+        public async Task<IActionResult> All()
+        {
+                var modelByUser = await ticketService.GetAllTicketsAsync();
+                return View(modelByUser);
         }
 
         //Common
