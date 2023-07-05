@@ -1,0 +1,37 @@
+﻿@model TicketAllViewModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <div class="card-body text-center">
+            <h4><b>@Model.Subject</b></h4>
+            <h6>Description: <b>@Model.RequestDescription</b></h6>
+            <h6>Category: <b>@Model.TicketCategory </b></h6>
+
+            <h6>Ticket Status: <b>@(Model.ResolvedTicketStatus ? "Resolved" : "Not Resolved")</b></h6>
+           
+            @if (this.User.Identity?.IsAuthenticated ?? false)
+            {
+                    <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@Model.Id"
+               class="btn btn-warning">Edit</a>
+                    <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@Model.Id"
+               class="btn btn-danger">Delete</a>
+
+               //if Model.LegalAdvise != null
+@*                @if (!Model.ResolvedTicketStatus)
+                {
+                            <form class="input-group-sm" asp-controller="Ticket"
+                  asp-action="DoSomethingMore" asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-primary" type="submit" value="DoSomethingMore" />
+                            </form>
+                }
+                else
+                {
+                    <form asp-controller="Ticket" asp-action="DoSomethingMoreMore"
+                  asp-route-id="@Model.Id" method="post">
+                        <input class="btn btn-primary" type="submit" value="DoSomethingMoreMore" />
+                            </form>
+                }*@
+            }
+        </div>
+    </div>
+</div>

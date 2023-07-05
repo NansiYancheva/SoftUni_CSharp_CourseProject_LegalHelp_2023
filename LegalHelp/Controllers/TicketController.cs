@@ -35,8 +35,8 @@
             }
             catch (Exception)
             {
-                return View("Error");
-                //  return this.GeneralError();
+                
+                return this.GeneralError();
             }
         }
         //Add
@@ -118,12 +118,12 @@
                 return this.View(formModel);
             }
             catch (Exception)
-            {
-                return View("Error");
-                //  return this.GeneralError();
+            {             
+                 return this.GeneralError();
             }
         }
-
+        //ChangeStatus?
+        //if LegalAdviseId != null - then...
         //Edit
         [HttpPost]
         public async Task<IActionResult> Edit(string id, TicketAddOrEditFormModel model)
@@ -165,7 +165,6 @@
                 //return this.RedirectToAction("Add", "Ticket");
                 return this.RedirectToAction("Index", "Home");
             }
-
             try
             {
                 await this.ticketService.EditTicketByIdAndFormModelAsync(id, model);
@@ -217,13 +216,11 @@
                 return this.View(viewModel);
             }
             catch (Exception)
-            {
-                return View("Error");
-                //return this.GeneralError();
+            {            
+                return this.GeneralError();
             }
         }
-        //Delete
-        
+        //Delete        
         [HttpPost]
         public async Task<IActionResult> Delete(string id, TicketPerDeleteFormModel model)
         {
@@ -257,13 +254,39 @@
             }
             catch (Exception)
             {
-                return View("Error");
-                //return this.GeneralError();
+               return this.GeneralError();
             }
         }
 
-        //ChangeStatus?
-        //if LegalAdviseId != null - then...
+        //Mine
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            List<TicketAllViewModel> myTickets =
+                new List<TicketAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            try
+            {
+                myTickets.AddRange(await this.ticketService.AllByUserIdAsync(userId!));
+              
+                return this.View(myTickets);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+
+        //Common
+        private IActionResult GeneralError()
+        {
+            this.TempData[ErrorMessage] =
+                "Unexpected error occurred! Please try again later or contact administrator";
+
+            return this.RedirectToAction("Index", "Home");
+        }
     }
 
 }

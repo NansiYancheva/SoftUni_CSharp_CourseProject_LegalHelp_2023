@@ -18,6 +18,9 @@
         //Delete-Post
         Task DeleteTicketByIdAsync(string ticketId);
 
+        //Mine
+        Task<IEnumerable<TicketAllViewModel>> AllByUserIdAsync(string userId);
+
         //Common
         Task<bool> ExistsByIdAsync(string ticketId);
         Task<bool> IsUserReporterOfTheTicket(string ticketId, string userId);

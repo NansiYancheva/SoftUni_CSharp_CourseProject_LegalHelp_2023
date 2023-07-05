@@ -94,6 +94,26 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        //Mine
+        public async Task<IEnumerable<TicketAllViewModel>> AllByUserIdAsync(string userId)
+        {
+            IEnumerable<TicketAllViewModel> allUserTickets = await this.dbContext
+                .Tickets
+                .Include(h => h.TicketCategory)
+                .Include(h => h.Response)
+                .Where(h => h.UserId.ToString() == userId)
+                .Select(h => new TicketAllViewModel
+                {
+                    Id = h.Id.ToString(),
+                    Subject = h.Subject,
+                    TicketCategory = h.TicketCategory.Name,
+                    RequestDescription = h.RequestDescription,
+                    Response = h.Response.AdviseResponse
+                })
+                .ToArrayAsync(); 
+
+            return allUserTickets;
+        }
 
         //Common
         public async Task<bool> ExistsByIdAsync(string ticketId)
