@@ -7,8 +7,6 @@
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Ticket;
 
-
-
     public class LegalAdviseService : ILegalAdviseService
     {
         private readonly LegalHelpDbContext dbContext;
