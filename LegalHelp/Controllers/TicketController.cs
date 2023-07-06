@@ -277,7 +277,7 @@
             }
         }
         [AllowAnonymous]
-        //All
+        //All - get
         public async Task<IActionResult> All()
         {
                 var modelByUser = await ticketService.GetAllTicketsAsync();

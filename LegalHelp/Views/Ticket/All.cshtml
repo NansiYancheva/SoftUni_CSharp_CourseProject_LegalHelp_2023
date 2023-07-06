@@ -35,11 +35,14 @@
                     <td>
                         @if (ticket.LegalAdviseId == null && this.User.Identity.IsAuthenticated)
                         {
-                            <span style="float:left">
-                                <form class="input-group-sm" asp-controller="LegalAdvise" asp-action="Add" asp-route-ticketId="@ticket.Id">
-                                    <input type="submit" value="Add Legal Advise" class="fs-6 btn btn-success mb-3 p-2" />
-                                </form>
-                            </span>
+                            <button id="redirectButton">Add a legal advise</button>
+                            <script>
+                                document.getElementById('redirectButton').addEventListener('click', function () {
+                                    var rememberedProperty = '@ticket.Id';
+                                    var redirectUrl = '@Url.Action("Add", "LegalAdvise")/' + encodeURIComponent(rememberedProperty);
+                                    window.location.href = redirectUrl;
+                                });
+                            </script>
                         }
                     </td>
                 </tr>

@@ -42,6 +42,11 @@ namespace LegalHelp
             builder.Services.AddApplicationServices(typeof(IDocumentService));
 
             builder.Services.AddControllersWithViews();
+            //cookies to remember the id
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+            });
 
             WebApplication app = builder.Build();
 

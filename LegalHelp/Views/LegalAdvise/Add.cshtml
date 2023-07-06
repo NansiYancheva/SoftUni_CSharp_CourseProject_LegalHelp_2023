@@ -1,0 +1,19 @@
+﻿@model TicketForAnswerFormModel
+
+<div>
+    <label>Subject:</label>
+    <span>@Model.Subject</span>
+</div>
+<div>
+    <label>RequestDescription:</label>
+    <span>@Model.RequestDescription</span>
+</div>
+<div>
+    <label>Your legal advise:</label>
+    <input type="text" value="@Model.Response" />
+</div>
+
+
+<form method="post" action="/LegalAdvise/Add">
+    <button type="submit">Submit</button>
+</form>

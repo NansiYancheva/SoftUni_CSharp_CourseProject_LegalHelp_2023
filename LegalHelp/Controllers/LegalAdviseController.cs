@@ -5,7 +5,6 @@
     using LegalHelpSystem.Services.Data;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
-    using LegalHelpSystem.Web.ViewModels.LegalAdvise;
     using LegalHelpSystem.Web.ViewModels.Ticket;
     using static Common.NotificationMessagesConstants;
 
@@ -17,7 +16,7 @@
         private readonly ITicketCategoryService ticketCategoryService;
         private readonly ILegalAdviseService legalAdviseService;
 
-        public LegalAdviseController(TicketService _ticketService, ILegalAdvisorService _legalAdvisorService, ITicketCategoryService _ticketCategoryService, ILegalAdviseService _legalAdviseService)
+        public LegalAdviseController(ITicketService _ticketService, ILegalAdvisorService _legalAdvisorService, ITicketCategoryService _ticketCategoryService, ILegalAdviseService _legalAdviseService)
         {
             this.ticketService = _ticketService;
             this.legalAdvisorService = _legalAdvisorService;
@@ -26,17 +25,18 @@
         }
         //Add
         [HttpGet]
-        public async Task<IActionResult> Add(string ticketId)
+        public async Task<IActionResult> Add(string id)
         {
+
             bool ticketExists = await this.ticketService
-                .ExistsByIdAsync(ticketId);
+                .ExistsByIdAsync(id);
             if (!ticketExists)
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
                 return this.RedirectToAction("All", "Ticket");
             }
             bool resolvedStatus = await this.ticketService
-                .ResolvedTicket(ticketId);
+                .ResolvedTicket(id);
             if (resolvedStatus == true)
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved!";
@@ -53,7 +53,7 @@
 
             try
             {
-                TicketForAnswerFormModel model = await this.ticketService.GetTicketForAnswerByIdAsync(ticketId);
+                TicketForAnswerFormModel model = await this.ticketService.GetTicketForAnswerByIdAsync(id);
                 model.TicketCategories = await this.ticketCategoryService.AllCategoriesAsync();
                 return View(model);
             }
@@ -63,8 +63,10 @@
             }
         }
         //Add
+        //до тук добре, обаче тук не ми помни модела
+        //в legal advise add.cshtml - пак като при адд гет - да се взима, но не само ид, а целия модел - как?
         [HttpPost]
-        public async Task<IActionResult> Add(TicketForAnswerFormModel model, string ticketId)
+        public async Task<IActionResult> Add(TicketForAnswerFormModel model, string id)
         {
             if (!this.ModelState.IsValid)
             {
@@ -72,14 +74,14 @@
                 return this.View(model);
             }
             bool ticketExists = await this.ticketService
-                .ExistsByIdAsync(ticketId);
+                .ExistsByIdAsync(id);
             if (!ticketExists)
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
                 return this.RedirectToAction("All", "Ticket");
             }
             bool resolvedStatus = await this.ticketService
-                .ResolvedTicket(ticketId);
+                .ResolvedTicket(id);
             if (resolvedStatus == true)
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved!";
@@ -95,7 +97,7 @@
             }
             try
             {
-                await this.legalAdviseService.AddLegalAdviseToTicketByIdAsync(ticketId, model);
+                await this.legalAdviseService.AddLegalAdviseToTicketByIdAsync(id, model);
             }
             catch (Exception)
             {
