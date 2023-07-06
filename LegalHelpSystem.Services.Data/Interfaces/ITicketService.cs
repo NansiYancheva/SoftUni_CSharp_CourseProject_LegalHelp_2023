@@ -9,9 +9,13 @@
 
         //Edit-Get
         Task<TicketAddOrEditFormModel> GetTicketForEditByIdAsync(string ticketId);
-
         //Edit-Post
         Task EditTicketByIdAndFormModelAsync(string ticketId, TicketAddOrEditFormModel formModel);
+
+        //AnswerTicket-Get
+        Task<TicketForAnswerFormModel> GetTicketForAnswerByIdAsync(string ticketId);
+
+
 
         //Delete-Get
         Task<TicketPerDeleteFormModel> GetTicketForDeleteByIdAsync(string ticketId);

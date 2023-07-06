@@ -1,27 +1,23 @@
 ﻿namespace LegalHelpSystem.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Ticket;
-
+    using LegalHelpSystem.Web.Infrastructure.Extensions;
 
     using static Common.NotificationMessagesConstants;
-    using LegalHelpSystem.Web.Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Authorization;
-    using LegalHelpSystem.Services.Data;
 
     public class TicketController : BaseController
     {
         private readonly ITicketCategoryService ticketCategoryService;
         private readonly ITicketService ticketService;
-        private readonly ILegalAdvisorService legalAdvisorService;
 
-        public TicketController(ITicketCategoryService _ticketCategoryService, ITicketService _ticketService, ILegalAdvisorService _legalAdvisorService)
+        public TicketController(ITicketCategoryService _ticketCategoryService, ITicketService _ticketService)
         {
             this.ticketCategoryService = _ticketCategoryService;
             this.ticketService = _ticketService;
-            this.legalAdvisorService = _legalAdvisorService;
         }
         //Add
         [HttpGet]
@@ -37,8 +33,7 @@
                 return View(formModel);
             }
             catch (Exception)
-            {
-                
+            {               
                 return this.GeneralError();
             }
         }
@@ -289,14 +284,7 @@
                 return View(modelByUser);
         }
 
-        //Common
-        private IActionResult GeneralError()
-        {
-            this.TempData[ErrorMessage] =
-                "Unexpected error occurred! Please try again later or contact administrator";
 
-            return this.RedirectToAction("Index", "Home");
-        }
     }
 
 }

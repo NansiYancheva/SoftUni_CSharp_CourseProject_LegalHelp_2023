@@ -64,6 +64,25 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        //Answer-get
+        public async Task<TicketForAnswerFormModel> GetTicketForAnswerByIdAsync(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .Include(h => h.TicketCategory)
+                .Include(h => h.Response)
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            return new TicketForAnswerFormModel
+            {
+                Subject = ticket.Subject,
+                TicketCategoryId = ticket.TicketCategoryId,
+                RequestDescription = ticket.RequestDescription,
+               // LegalAdviseId = ticket.LegalAdviseId,
+                Response = ticket.Response             
+            };
+        }
+
         //Delete - get
         public async Task<TicketPerDeleteFormModel> GetTicketForDeleteByIdAsync(string ticketId)
         {
