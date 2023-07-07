@@ -1,0 +1,29 @@
+﻿@model TicketForAnswerFormModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div>
+                <label asp-for="@Model.Subject" class="form-label">Request Subject</label>
+                <span>@Model.Subject</span>
+               @* <span asp-validation-for="Subject" class="text-danger"></span>*@
+            </div>
+            <div>
+                <label asp-for="@Model.RequestDescription" class="form-label">Request Description</label>
+                <span>@Model.RequestDescription</span>
+               @* <span asp-validation-for="RequestDescription" class="text-danger"></span>*@
+            </div>
+            <div class="mb-3">
+                <label asp-for="@Model.Response" class="form-label">Legal Advise</label>
+                <input asp-for="@Model.Response" class="form-control" aria-required="true" />
+                <span asp-validation-for="Response" class="text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

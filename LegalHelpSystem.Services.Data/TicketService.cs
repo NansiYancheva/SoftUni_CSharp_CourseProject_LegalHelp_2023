@@ -69,14 +69,12 @@
         {
             Ticket ticket = await this.dbContext
                 .Tickets
-                .Include(h => h.TicketCategory)
                 .Include(h => h.Response)
                 .FirstAsync(h => h.Id.ToString() == ticketId);
 
             return new TicketForAnswerFormModel
             {
                 Subject = ticket.Subject,
-                TicketCategoryId = ticket.TicketCategoryId,
                 RequestDescription = ticket.RequestDescription,
                // LegalAdviseId = ticket.LegalAdviseId,
                 Response = ticket.Response             

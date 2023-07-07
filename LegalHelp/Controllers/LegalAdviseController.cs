@@ -54,7 +54,7 @@
             try
             {
                 TicketForAnswerFormModel model = await this.ticketService.GetTicketForAnswerByIdAsync(id);
-                model.TicketCategories = await this.ticketCategoryService.AllCategoriesAsync();
+               
                 return View(model);
             }
             catch (Exception)
@@ -65,12 +65,13 @@
         //Add
         //до тук добре, обаче тук не ми помни модела
         //в legal advise add.cshtml - пак като при адд гет - да се взима, но не само ид, а целия модел - как?
+        //does the URL changes with some info for the model or only with the ID
         [HttpPost]
         public async Task<IActionResult> Add(TicketForAnswerFormModel model, string id)
         {
             if (!this.ModelState.IsValid)
             {
-                model.TicketCategories = await this.ticketCategoryService.AllCategoriesAsync();
+               
                 return this.View(model);
             }
             bool ticketExists = await this.ticketService
@@ -103,7 +104,6 @@
             {
                 this.ModelState.AddModelError(string.Empty,
                     "Unexpected error occurred while trying to edit the ticket. Please try again later or contact administrator!");
-                model.TicketCategories = await this.ticketCategoryService.AllCategoriesAsync();
 
                 return this.View(model);
             }

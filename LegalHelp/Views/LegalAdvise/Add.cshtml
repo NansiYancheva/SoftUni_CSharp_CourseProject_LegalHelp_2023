@@ -1,19 +1,16 @@
 ﻿@model TicketForAnswerFormModel
 
-<div>
-    <label>Subject:</label>
-    <span>@Model.Subject</span>
-</div>
-<div>
-    <label>RequestDescription:</label>
-    <span>@Model.RequestDescription</span>
-</div>
-<div>
-    <label>Your legal advise:</label>
-    <input type="text" value="@Model.Response" />
-</div>
+@{
+    ViewData["Title"] = "Add legal advise";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_LegalAdviseFormPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 
 
-<form method="post" action="/LegalAdvise/Add">
-    <button type="submit">Submit</button>
-</form>
