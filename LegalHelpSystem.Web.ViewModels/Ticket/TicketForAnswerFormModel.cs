@@ -9,14 +9,10 @@
     {
 
         [Required]
-        [StringLength(SubjectMaxLength, MinimumLength = SubjectMinLength)]
         public string Subject { get; set; } = null!;
 
 
         [Required]
-        [StringLength(RequestDescriptionMaxLength, MinimumLength = RequestDescriptionMinLength)]
         public string RequestDescription { get; set; } = null!;
-
-        public virtual LegalAdvise? Response { get; set; }
     }
 }

@@ -1,7 +1,5 @@
 ﻿namespace LegalHelpSystem.Web.ViewModels.Ticket
 {
-    using LegalHelpSystem.Web.ViewModels.TicketCategory;
-    using System.ComponentModel.DataAnnotations;
     public class TicketAllViewModel
     {
         public string Id { get; set; } = null!;

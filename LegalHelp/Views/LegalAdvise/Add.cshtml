@@ -1,16 +1,26 @@
-﻿@model TicketForAnswerFormModel
+﻿@model LegalAdviseFormModel
 
-@{
-    ViewData["Title"] = "Add legal advise";
-}
+@using (Html.BeginForm("Add", "LegalAdvise", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(m => m.TicketSubject)
+        @Html.DisplayFor(m => m.TicketSubject)
+    </div>
 
-<h2 class="text-center">@ViewData["Title"]</h2>
-<hr />
+    <div>
+        @Html.LabelFor(m => m.TicketDescription)
+        @Html.DisplayFor(m => m.TicketDescription)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.AdviseResponse)
+        @Html.TextBoxFor(m => m.AdviseResponse)
+    </div>
 
-<partial name="_LegalAdviseFormPartial" model="@Model" />
+    @Html.HiddenFor(m => m.TicketSubject)
+    @Html.HiddenFor(m => m.TicketDescription)
+    @Html.HiddenFor(m => m.TicketId)
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <input type="submit" value="Submit" />
 }
 
 

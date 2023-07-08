@@ -40,5 +40,17 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        public async Task<string?> GetLegalAdvisorIdByUserIdAsync(string userId)
+        {
+            LegalAdvisor? legalAdvisor = await this.dbContext
+                .LegalAdvisors
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+            if (legalAdvisor == null)
+            {
+                return null;
+            }
+
+            return legalAdvisor.Id.ToString();
+        }
     }
 }

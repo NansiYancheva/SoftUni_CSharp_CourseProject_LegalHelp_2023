@@ -12,11 +12,6 @@
         //Edit-Post
         Task EditTicketByIdAndFormModelAsync(string ticketId, TicketAddOrEditFormModel formModel);
 
-        //AnswerTicket-Get
-        Task<TicketForAnswerFormModel> GetTicketForAnswerByIdAsync(string ticketId);
-
-
-
         //Delete-Get
         Task<TicketPerDeleteFormModel> GetTicketForDeleteByIdAsync(string ticketId);
         //Delete-Post
@@ -28,11 +23,15 @@
         //All-user
         Task<IEnumerable<TicketAllViewModel>> GetAllTicketsAsync();
 
+        //Add LegalAdvise To Ticket
+        Task AddLegalAdviseToTicketByIdAsync(string ticketId, string legalAdviseId);
 
         //Common
         Task<bool> ExistsByIdAsync(string ticketId);
         Task<bool> IsUserReporterOfTheTicket(string ticketId, string userId);
         Task<bool> ResolvedTicket(string ticketId);
+        Task<string> GetTicketSubjectAsync(string ticketId);
+        Task<string> GetTicketDescription(string ticketId);
 
     }
 }

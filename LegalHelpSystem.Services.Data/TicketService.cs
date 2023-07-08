@@ -6,6 +6,7 @@
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Ticket;
+    using System.Net.Sockets;
 
 
     public class TicketService : ITicketService
@@ -62,23 +63,6 @@
             ticket.TicketCategoryId = formModel.TicketCategoryId;
 
             await this.dbContext.SaveChangesAsync();
-        }
-
-        //Answer-get
-        public async Task<TicketForAnswerFormModel> GetTicketForAnswerByIdAsync(string ticketId)
-        {
-            Ticket ticket = await this.dbContext
-                .Tickets
-                .Include(h => h.Response)
-                .FirstAsync(h => h.Id.ToString() == ticketId);
-
-            return new TicketForAnswerFormModel
-            {
-                Subject = ticket.Subject,
-                RequestDescription = ticket.RequestDescription,
-               // LegalAdviseId = ticket.LegalAdviseId,
-                Response = ticket.Response             
-            };
         }
 
         //Delete - get
@@ -148,6 +132,28 @@
                 })
                 .ToListAsync();
         }
+
+        //Add Legal Advise to Ticket
+        public async Task AddLegalAdviseToTicketByIdAsync(string ticketId, string legalAdviseId)
+        {
+            Ticket ticketToBeUpdated = await this.dbContext
+               .Tickets
+               .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            LegalAdvise legalAdviseToBeAddedToTicket = await this.dbContext
+               .LegalAdvises
+               .FirstAsync(h => h.Id.ToString() == legalAdviseId);
+
+            ticketToBeUpdated.LegalAdviseId = legalAdviseToBeAddedToTicket.Id;
+            //LegalAdvise = ?
+            ticketToBeUpdated.ResolvedTicketStatus = true;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+
+
+
         //Common
         public async Task<bool> ExistsByIdAsync(string ticketId)
         {
@@ -172,5 +178,25 @@
                 .FirstAsync(h => h.Id.ToString() == ticketId);
             return ticket.ResolvedTicketStatus == true;
         }
+
+        public async Task<string> GetTicketSubjectAsync(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            return ticket.Subject;
+        }
+
+        public async Task<string> GetTicketDescription(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+                .Tickets
+                .FirstAsync(h => h.Id.ToString() == ticketId);
+
+            return ticket.RequestDescription;
+        }
+
+
     }
 }

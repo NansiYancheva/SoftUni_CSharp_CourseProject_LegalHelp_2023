@@ -7,7 +7,7 @@
         Task<bool> LegalAdvisorExistsByUserIdAsync(string userId);
 
         Task Create(string userId, BecomeLegalAdvisorFormModel model);
-
-
+        
+        Task<string?> GetLegalAdvisorIdByUserIdAsync(string userId);
     }
 }
