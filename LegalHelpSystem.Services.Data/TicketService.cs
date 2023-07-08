@@ -128,6 +128,8 @@
                     Subject = h.Subject,
                     TicketCategory = h.TicketCategory.Name,
                     RequestDescription = h.RequestDescription,
+                    ResolvedTicketStatus = h.ResolvedTicketStatus,
+                    LegalAdviseId = h.LegalAdviseId,
                     Response = h.Response.AdviseResponse
                 })
                 .ToListAsync();
