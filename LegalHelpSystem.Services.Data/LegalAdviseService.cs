@@ -1,13 +1,15 @@
 ﻿namespace LegalHelpSystem.Services.Data
 {
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
 
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
+    using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
     using LegalHelpSystem.Web.ViewModels.Ticket;
-    using Microsoft.EntityFrameworkCore;
+
 
     public class LegalAdviseService : ILegalAdviseService
     {
@@ -49,25 +51,58 @@
             await dbContext.SaveChangesAsync();
         }
 
-        //Mine
-        public async Task<IEnumerable<LegalAdviseViewModel>> AllByLegalAdvisorIdAsync(string legalAdvisorId)
-        {
-            IEnumerable<LegalAdviseViewModel> allLegalAdvisorAdvises = await this.dbContext
-                .LegalAdvises
-                .Include(h => h.LegalAdvisor)
-                .Include(h => h.Ticket)
-                .Where(h => h.LegalAdvisorId.ToString() == legalAdvisorId)
-                .Select(h => new LegalAdviseViewModel
-                {
-                    Id = h.Id.ToString(),
-                    AdviseResponse = h.AdviseResponse,
-                    TicketId = h.Ticket.Id,
-                    Ticket = h.Ticket,
-                    LegalAdvisor = h.LegalAdvisor
-                })
-                .ToArrayAsync();
+        ////Mine
+        //public async Task<IEnumerable<LegalAdvisorViewModel>> AllByLegalAdvisorIdAsync(string legalAdvisorId)
+        //{
+        //   var allLegalAdvisorAdvises = await this.dbContext
+        //        .LegalAdvisors
+        //        .Where(lar => lar.Id.ToString() == legalAdvisorId)
+        //        .Include(lar => lar.LegalAdvises)
+        //        .Select(lar => new LegalAdvisorViewModel
+        //        {
+        //            LegalAdvises = lar.LegalAdvises
+        //            .Select(las => new LegalAdviseViewModel
+        //            {
+        //                AdviseResponse = las.AdviseResponse,
+        //                Ticket = las.Ticket
+        //            })
+        //            .ToArray()
+        //        })
+        //        .ToArrayAsync();
 
-            return allLegalAdvisorAdvises;
+        //        //.Where(h => h.Id.ToString() == legalAdvisorId)
+        //        //.Include(h => h.LegalAdvises)
+        //        //.Select(h => new LegalAdvisorViewModel
+        //        //{
+        //        //    LegalAdvises = h.LegalAdvises
+        //        //    .Select(h => new LegalAdviseViewModel
+        //        //    {
+        //        //        AdviseResponse = h.AdviseResponse,
+        //        //        TicketId = h.Ticket.Id,
+        //        //        Ticket = h.Ticket,
+        //        //        LegalAdvisor = h.LegalAdvisor
+        //        //    })
+        //        //     .ToArray()
+        //        //})
+        //        //.ToArrayAsync();
+
+        //    return allLegalAdvisorAdvises;
+        //}
+
+        //Mine - just listing
+        public async Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId)
+        {
+            var listOfLegalAdvises = 
+                 await dbContext.LegalAdvises
+                .Where(la => la.LegalAdvisorId.ToString() == legalAdvisorId)
+                .Select(la => new LegalAdviseViewModel
+                {
+                    TicketSubject = la.Ticket.Subject,
+                    TicketDescription = la.Ticket.RequestDescription,
+                    AdviseResponse = la.AdviseResponse,
+                }).ToListAsync();
+
+            return listOfLegalAdvises;
         }
 
 

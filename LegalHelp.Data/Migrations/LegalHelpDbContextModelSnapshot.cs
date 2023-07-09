@@ -124,7 +124,7 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.HasIndex("UploaderId");
 
-                    b.ToTable("Documents");
+                    b.ToTable("Documents", (string)null);
                 });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.DocumentType", b =>
@@ -142,7 +142,7 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DocumentTypes");
+                    b.ToTable("DocumentTypes", (string)null);
 
                     b.HasData(
                         new
@@ -198,7 +198,7 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.HasIndex("LegalAdvisorId");
 
-                    b.ToTable("LegalAdvises");
+                    b.ToTable("LegalAdvises", (string)null);
                 });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.LegalAdvisor", b =>
@@ -238,7 +238,7 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("LegalAdvisors");
+                    b.ToTable("LegalAdvisors", (string)null);
                 });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.Ticket", b =>
@@ -279,7 +279,7 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.TicketCategory", b =>
@@ -297,7 +297,7 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TicketCategories");
+                    b.ToTable("TicketCategories", (string)null);
 
                     b.HasData(
                         new
@@ -330,7 +330,7 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Uploaders");
+                    b.ToTable("Uploaders", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
