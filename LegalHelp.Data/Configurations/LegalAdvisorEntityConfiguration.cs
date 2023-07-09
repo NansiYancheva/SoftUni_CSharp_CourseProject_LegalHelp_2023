@@ -1,5 +1,4 @@
-﻿using System;
-namespace LegalHelpSystem.Data.Configurations
+﻿namespace LegalHelpSystem.Data.Configurations
 {
 
     using Microsoft.EntityFrameworkCore;

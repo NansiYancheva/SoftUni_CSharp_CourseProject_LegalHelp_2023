@@ -16,20 +16,12 @@
                 .HasForeignKey(c => c.TicketCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //the naming can be a problem? Response and LegalAdvise
             builder
                 .HasOne(t => t.Response)
                 .WithOne(t => t.Ticket)
                 .HasForeignKey<Ticket>(t => t.LegalAdviseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //builder
-            //    .Property(h => h.ResolvedTicketStatus)
-            //    .HasDefaultValueSql(false); = no because by default it is false
-
-            //builder
-            //.Property(a => a.TicketId)
-            //.IsRequired(false);
         }
     }
 }

@@ -22,10 +22,6 @@
                 .WithOne(t => t.Response)
                 .HasForeignKey<LegalAdvise>(t => t.TicketId)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            //builder
-            //.Property(a => a.TicketId)
-            //.IsRequired(false);
         }
     }
 }

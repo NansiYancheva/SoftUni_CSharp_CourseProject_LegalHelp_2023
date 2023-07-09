@@ -35,7 +35,7 @@
         public bool ResolvedTicketStatus { get; set; } 
 
         public Guid? LegalAdviseId { get; set; }
-        //should the naming be changed?
+
         public virtual LegalAdvise? Response { get; set; }
     }
 }

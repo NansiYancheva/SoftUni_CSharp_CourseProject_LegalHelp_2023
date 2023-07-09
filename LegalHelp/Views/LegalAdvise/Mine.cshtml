@@ -1,0 +1,21 @@
+﻿@model List<LegalAdviseViewModel>
+@{
+    ViewData["Title"] = "My Legal Advises";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h2 class="text-center">You do not have any legal advises yet!</h2>
+}
+else
+{
+    <div class="row">
+        @foreach (LegalAdviseViewModel legalAdvise in Model)
+        {
+            <partial name="_LegalAdvisePartial" model="legalAdvise" />
+        }
+    </div>
+}

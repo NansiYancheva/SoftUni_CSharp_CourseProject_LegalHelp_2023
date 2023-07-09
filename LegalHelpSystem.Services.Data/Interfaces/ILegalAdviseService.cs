@@ -9,5 +9,8 @@ namespace LegalHelpSystem.Services.Data.Interfaces
         //Add legal advise
         Task<string> AddLegalAdviseAsync(LegalAdviseFormModel formModel, string userId);
         Task AddLegalAdviseToTicketByIdAsync(string ticketId, TicketForAnswerFormModel model);
+
+        //Mine
+        Task<IEnumerable<LegalAdviseViewModel>> AllByLegalAdvisorIdAsync(string legalAdvisorId);
     }
 }

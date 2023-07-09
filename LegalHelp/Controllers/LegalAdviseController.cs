@@ -2,12 +2,11 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-   // using LegalHelpSystem.Services.Data;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
-    using LegalHelpSystem.Web.ViewModels.Ticket;
     using static Common.NotificationMessagesConstants;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
+    using LegalHelpSystem.Web.ViewModels.Ticket;
 
     public class LegalAdviseController : BaseController
     {
@@ -66,10 +65,6 @@
             }
         }
         //Add
-        //до тук добре, обаче тук не ми помни модела
-        //в legal advise add.cshtml - пак като при адд гет - да се взима, но не само ид, а целия модел - как?
-        //does the URL changes with some info for the model or only with the ID
-
         [HttpPost]
         public async Task<IActionResult> Add (LegalAdviseFormModel model)
         {
@@ -121,6 +116,35 @@
 
             //return this.RedirectToAction("Mine", "LegalAdvise");
             return this.RedirectToAction("All", "Ticket");
+        }
+        //Mine
+        [HttpGet]
+        public async Task<IActionResult> Mine()
+        {
+            bool isLegalAdvisor =
+               await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
+            if (!isLegalAdvisor)
+            {
+                this.TempData[ErrorMessage] = "You must be a legal advisor or login as such in order to view yours legal advises!";
+
+                return this.RedirectToAction("Become", "LegalAdvisor");
+            }
+
+            List<LegalAdviseViewModel> myLegalAdvises =
+                new List<LegalAdviseViewModel>();
+
+            string legalAdvisorId = this.User.GetId()!;
+
+            try
+            {
+                myLegalAdvises.AddRange(await this.legalAdviseService.AllByLegalAdvisorIdAsync(legalAdvisorId!));
+
+                return this.View(myLegalAdvises);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
     }
 }

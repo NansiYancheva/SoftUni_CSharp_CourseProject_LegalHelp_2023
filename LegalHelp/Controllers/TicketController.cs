@@ -120,8 +120,6 @@
                  return this.GeneralError();
             }
         }
-        //ChangeStatus?
-        //if LegalAdviseId != null - then...
         //Edit
         [HttpPost]
         public async Task<IActionResult> Edit(string id, TicketAddOrEditFormModel model)

@@ -49,6 +49,27 @@
             await dbContext.SaveChangesAsync();
         }
 
+        //Mine
+        public async Task<IEnumerable<LegalAdviseViewModel>> AllByLegalAdvisorIdAsync(string legalAdvisorId)
+        {
+            IEnumerable<LegalAdviseViewModel> allLegalAdvisorAdvises = await this.dbContext
+                .LegalAdvises
+                .Include(h => h.LegalAdvisor)
+                .Include(h => h.Ticket)
+                .Where(h => h.LegalAdvisorId.ToString() == legalAdvisorId)
+                .Select(h => new LegalAdviseViewModel
+                {
+                    Id = h.Id.ToString(),
+                    AdviseResponse = h.AdviseResponse,
+                    TicketId = h.Ticket.Id,
+                    Ticket = h.Ticket,
+                    LegalAdvisor = h.LegalAdvisor
+                })
+                .ToArrayAsync();
+
+            return allLegalAdvisorAdvises;
+        }
+
 
     }
 }
