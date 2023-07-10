@@ -52,6 +52,7 @@
             try
             {
                 await this.legalAdvisorService.Create(userId, model);
+                this.TempData[SuccessMessage] = "You have successfully become a legal advisor!";
             }
             catch (Exception)
             {

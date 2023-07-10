@@ -16,15 +16,6 @@
             this.dbContext = dbContext;
         }
 
-        public async Task<bool> UploaderExistsByUserIdAsync(string userId)
-        {
-            bool result = await this.dbContext
-                .Uploaders
-                .AnyAsync(a => a.UserId.ToString() == userId);
-
-            return result;
-        }
-
         public async Task Create(string userId, BecomeUploaderFormModel model)
         {
             Uploader newUploader = new Uploader()
@@ -35,6 +26,16 @@
 
             await this.dbContext.Uploaders.AddAsync(newUploader);
             await this.dbContext.SaveChangesAsync();
+        }
+
+        //Common
+        public async Task<bool> UploaderExistsByUserIdAsync(string userId)
+        {
+            bool result = await this.dbContext
+                .Uploaders
+                .AnyAsync(a => a.UserId.ToString() == userId);
+
+            return result;
         }
 
 
