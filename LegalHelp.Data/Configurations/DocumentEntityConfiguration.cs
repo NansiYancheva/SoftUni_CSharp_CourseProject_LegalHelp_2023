@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using LegalHelpSystem.Data.Models;
-    using System.Reflection.Emit;
+
 
     public class DocumentEntityConfiguration : IEntityTypeConfiguration<Document>
     {
@@ -23,14 +23,8 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-           .HasMany(d => d.Downloaders)
-           .WithMany(d => d.DownloadedDocuments);
-
-            //builder
-            //    .HasOne(d => d.Downloader)
-            //    .WithMany(d => d.DownloadedDocuments)
-            //    .HasForeignKey(d => d.DownloaderId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+               .HasMany(d => d.Downloaders)
+               .WithMany(d => d.DownloadedDocuments);
         }
 
         //private Document[] GenerateDocuments()

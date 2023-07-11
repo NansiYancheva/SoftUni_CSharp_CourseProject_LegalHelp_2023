@@ -1,10 +1,14 @@
 ﻿namespace LegalHelpSystem.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Document;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
+    using System.Xml.Linq;
+
 
     public class DocumentService : IDocumentService
     {
@@ -15,9 +19,23 @@
         }
 
         //All - get
-        public Task<IEnumerable<DocumentAllViewModel>> GetAllDocumentsAsync()
+        public async Task<IEnumerable<DocumentAllViewModel>> GetAllDocumentsAsync()
         {
-            throw new NotImplementedException();
+            return await this.dbContext
+                .Documents
+                .Include(h => h.DocumentType)
+                .Include(h => h.Uploader)
+                .Select(h => new DocumentAllViewModel
+                {
+                    Id = h.Id.ToString(),
+                    Name = h.Name,
+                    DocumentType = h.DocumentType.Name,
+                    Description = h.Description,
+                    FileUrl = h.FileUrl,
+                    UploaderId = h.UploaderId,
+                    Downloaders = h.Downloaders
+                })
+                .ToListAsync();
         }
     }
 }
