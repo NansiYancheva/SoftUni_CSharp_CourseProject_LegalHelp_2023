@@ -9,6 +9,7 @@
         public Document()
         {
             this.Id = Guid.NewGuid();
+            this.Downloaders = new HashSet<ApplicationUser>();
         }
 
 
@@ -37,8 +38,6 @@
         [Required]
         public virtual Uploader Uploader { get; set; } = null!;
 
-        public Guid? DownloaderId { get; set; }
-
-        public virtual ApplicationUser? Downloader { get; set; }
+        public virtual ICollection<ApplicationUser> Downloaders { get; set; }
     }
 }

@@ -59,7 +59,7 @@
             try
             {
                 string? userId = this.User.GetId();
-                string ticketId = await ticketService.AddTicketAsync(model, userId);
+                string ticketId = await ticketService.AddTicketAsync(model, userId!);
 
                 this.TempData[SuccessMessage] = "Ticket was added successfully!";
                 //to be changed = My/All, Tickets
@@ -278,7 +278,7 @@
         //All - get
         public async Task<IActionResult> All()
         {
-                var modelByUser = await ticketService.GetAllTicketsAsync();
+                IEnumerable<TicketAllViewModel> modelByUser = await ticketService.GetAllTicketsAsync();
                 return View(modelByUser);
         }
 
