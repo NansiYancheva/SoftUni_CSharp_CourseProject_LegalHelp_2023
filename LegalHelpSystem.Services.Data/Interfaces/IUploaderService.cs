@@ -8,6 +8,8 @@
         //Common
         Task<bool> UploaderExistsByUserIdAsync(string userId);
 
+        Task<string?> GetUploaderIdByUserIdAsync(string userId);
+
 
     }
 }

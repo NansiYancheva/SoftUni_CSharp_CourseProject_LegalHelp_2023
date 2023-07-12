@@ -37,6 +37,19 @@
 
             return result;
         }
+        public async Task<string?> GetUploaderIdByUserIdAsync(string userId)
+        {
+            Uploader? uploader = await this.dbContext
+                .Uploaders
+                .FirstOrDefaultAsync(a => a.UserId.ToString() == userId);
+            if (uploader == null)
+            {
+                return null;
+            }
+
+            return uploader.Id.ToString();
+        }
+
 
 
     }

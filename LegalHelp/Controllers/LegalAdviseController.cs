@@ -6,21 +6,18 @@
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using static Common.NotificationMessagesConstants;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
-    using LegalHelpSystem.Web.ViewModels.Ticket;
-    using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
+
 
     public class LegalAdviseController : BaseController
     {
         private readonly ITicketService ticketService;
         private readonly ILegalAdvisorService legalAdvisorService;
-        private readonly ITicketCategoryService ticketCategoryService;
         private readonly ILegalAdviseService legalAdviseService;
 
         public LegalAdviseController(ITicketService _ticketService, ILegalAdvisorService _legalAdvisorService, ITicketCategoryService _ticketCategoryService, ILegalAdviseService _legalAdviseService)
         {
             this.ticketService = _ticketService;
             this.legalAdvisorService = _legalAdvisorService;
-            this.ticketCategoryService = _ticketCategoryService;
             this.legalAdviseService = _legalAdviseService;
         }
         //Add
@@ -122,36 +119,6 @@
             //return this.RedirectToAction("Mine", "LegalAdvise");
             return this.RedirectToAction("All", "Ticket");
         }
-        //Mine
-        //[HttpGet]
-        //public async Task<IActionResult> Mine()
-        //{
-
-        //    bool isLegalAdvisor =
-        //       await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
-        //    if (!isLegalAdvisor)
-        //    {
-        //        this.TempData[ErrorMessage] = "You must be a legal advisor or login as such in order to view yours legal advises!";
-
-        //        return this.RedirectToAction("Become", "LegalAdvisor");
-        //    }
-
-        //    List<LegalAdvisorViewModel> myLegalAdvises =
-        //        new List<LegalAdvisorViewModel>();
-
-        //    string legalAdvisorId = this.User.GetId()!;
-
-        //    try
-        //    {
-        //        myLegalAdvises.AddRange(await this.legalAdviseService.AllByLegalAdvisorIdAsync(legalAdvisorId!));
-
-        //        return this.View(myLegalAdvises);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return this.GeneralError();
-        //    }
-        //}
 
         //Mine - just listing
         public async Task<IActionResult> Mine()

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<DocumentAllViewModel>
+
+<div class="text-center row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Document Type</th>
+                <th scope="col">Description</th>
+                <th scope="col">FileUrl</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var document in Model)
+            {
+                <tr>
+                    <th scope="row"></th>
+                    <td>@document.Name</td>
+                    <td>@document.DocumentType</td>
+                    <td>@document.Description</td>
+                    <td>@document.FileUrl</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
