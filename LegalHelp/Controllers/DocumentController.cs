@@ -42,5 +42,14 @@
             IEnumerable<DocumentAllViewModel> model = await documentService.GetMyUploadedDocumentsAsync(uploaderId!);
             return View(model);
         }
+
+        //Downloaded
+        public async Task<IActionResult> Downloaded()
+        {
+            IEnumerable<DocumentAllViewModel> model = await documentService.GetDownloadedByUserAsync(this.User.GetId()!);
+            return View(model);
+        }
+
+
     }
 }

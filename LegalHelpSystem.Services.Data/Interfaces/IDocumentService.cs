@@ -11,5 +11,8 @@
 
         //Mine - just listing
         Task<IEnumerable<DocumentAllViewModel>> GetMyUploadedDocumentsAsync(string uploaderId);
+
+        //Downloaded
+        Task<IEnumerable<DocumentAllViewModel>> GetDownloadedByUserAsync(string userId);
     }
 }

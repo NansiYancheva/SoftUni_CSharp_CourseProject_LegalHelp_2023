@@ -12,15 +12,22 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            @foreach (var document in Model)
+            @if (Model.Any())
             {
-                <tr>
-                    <th scope="row"></th>
-                    <td>@document.Name</td>
-                    <td>@document.DocumentType</td>
-                    <td>@document.Description</td>
-                    <td>@document.FileUrl</td>
-                </tr>
+                @foreach (var document in Model)
+                {
+                    <tr>
+                        <th scope="row"></th>
+                        <td>@document.Name</td>
+                        <td>@document.DocumentType</td>
+                        <td>@document.Description</td>
+                        <td>@document.FileUrl</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <h2 class="text-center">You do not have any documents yet!</h2>
             }
         </tbody>
     </table>

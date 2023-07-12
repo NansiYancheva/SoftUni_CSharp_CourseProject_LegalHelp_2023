@@ -1,0 +1,14 @@
+﻿@model IEnumerable<DocumentAllViewModel>
+@{
+    ViewData["Title"] = "Mine Downloaded Documents";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<partial name="_DocumentFormPartial" model="@Model" />
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}
