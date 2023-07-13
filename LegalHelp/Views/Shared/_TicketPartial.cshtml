@@ -7,7 +7,16 @@
             <h6>Description: <b>@Model.RequestDescription</b></h6>
             <h6>Category: <b>@Model.TicketCategory </b></h6>
 
-            <h6>Ticket Status: <b>@(Model.ResolvedTicketStatus ? "Resolved" : "Not Resolved")</b></h6>
+            <h6>Ticket Status:
+                @if (@Model.ResolvedTicketStatus == true)
+                {
+                    <p>Resolved Ticket.</p>
+                }
+                else if (@Model.ResolvedTicketStatus == false)
+                {
+                    <p>Not Resolved Ticket.</p>
+                }
+            </h6>
            
             @if (this.User.Identity?.IsAuthenticated ?? false)
             {

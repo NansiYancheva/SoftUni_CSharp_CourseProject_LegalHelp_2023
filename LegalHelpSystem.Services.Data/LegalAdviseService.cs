@@ -43,7 +43,7 @@
         {
             LegalAdvise legalAdvise = new LegalAdvise
             {
-                //AdviseResponse = model.Response.AdviseResponse,
+                //AdviseResponse = model.AdviseResponse,
                 TicketId = Guid.Parse(ticketId),
             };
 

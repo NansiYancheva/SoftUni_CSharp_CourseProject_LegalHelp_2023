@@ -107,6 +107,7 @@
                 {
                     Id = h.Id.ToString(),
                     Subject = h.Subject,
+                    ResolvedTicketStatus = h.ResolvedTicketStatus,
                     TicketCategory = h.TicketCategory.Name,
                     RequestDescription = h.RequestDescription,
                     Response = h.Response.AdviseResponse
