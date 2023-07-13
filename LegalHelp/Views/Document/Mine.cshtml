@@ -13,10 +13,7 @@
 else
 {
     <div class="row">
-        @foreach (DocumentAllViewModel document in Model)
-        {
-            <partial name="_DocumentFormPartial" model="@Model" />
-        }
+        <partial name="_DocumentPartial" model="@Model" />
     </div>
 }
 
