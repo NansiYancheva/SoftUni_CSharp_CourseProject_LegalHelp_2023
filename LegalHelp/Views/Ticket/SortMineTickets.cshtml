@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<TicketAllViewModel>
 @{
-    ViewBag.Title = "All Tickets";
+    ViewBag.Title = "Sort by status tickets";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
@@ -12,7 +12,7 @@
 else
 {
     <div class="row">
-        <partial name="_TicketAllPartial" model="@Model" />
+        <partial name="_TicketMinePartial" model="@Model" />
     </div>
 }
 

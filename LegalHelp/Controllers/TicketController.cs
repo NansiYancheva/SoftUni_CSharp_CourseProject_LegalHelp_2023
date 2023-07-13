@@ -283,14 +283,49 @@
                 return View(modelByUser);
         }
 
-        //Sort
-        public async Task<IActionResult> SortData()
+        //Sort - all
+        [HttpPost]
+        public async Task<IActionResult> SortAllTickets(string sortOrder)
         {
             IEnumerable<TicketAllViewModel> getAllTicketsModel = await ticketService.GetAllTicketsAsync();
-            getAllTicketsModel = getAllTicketsModel.OrderBy(x => x.ResolvedTicketStatus).ToList();
-            return Json(getAllTicketsModel, System.Web.Mvc.JsonRequestBehavior.AllowGet);
+            if (sortOrder == "desc")
+            {
+                getAllTicketsModel = getAllTicketsModel.OrderBy(t => t.ResolvedTicketStatus).ToList();
+            }
+            else if (sortOrder == "asc")
+            {
+                getAllTicketsModel = getAllTicketsModel.OrderByDescending(t => t.ResolvedTicketStatus).ToList();
+            }
+            return View(getAllTicketsModel);
         }
 
+        //Sort - mine
+        [HttpPost]
+        public async Task<IActionResult> SortMineTickets(string sortOrder)
+        {
+            List<TicketAllViewModel> myTickets =
+               new List<TicketAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            try
+            {
+                myTickets.AddRange(await this.ticketService.AllByUserIdAsync(userId!));
+                if (sortOrder == "desc")
+                {
+                    myTickets = myTickets.OrderBy(t => t.ResolvedTicketStatus).ToList();
+                }
+                else if (sortOrder == "asc")
+                {
+                    myTickets = myTickets.OrderByDescending(t => t.ResolvedTicketStatus).ToList();
+                }
+                return View(myTickets);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
 
     }
 

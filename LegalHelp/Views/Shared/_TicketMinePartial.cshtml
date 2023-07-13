@@ -11,18 +11,18 @@
                 <th scope="col">Response</th>
                 <th scope="col">Ticket Status</th>
                 <th scope="col">
-                    @using (Html.BeginForm("SortData", "Ticket", FormMethod.Post))
-                {
-                    <div>
-                        <label for="sortOrder">Sort Tickets By Status:</label>
-                        <hr></hr>
-                        <select id="sortOrder" name="sortOrder">
-                            <option value="asc">FirstResolved</option>
-                            <option value="desc">FirstNotResolved</option>
-                        </select>
-                        <button type="submit">Sort</button>
-                    </div>
-                }
+                    @using (Html.BeginForm("SortMineTickets", "Ticket", FormMethod.Post))
+                    {
+                        <div>
+                            <label for="sortOrder">Sort Tickets By Status:</label>
+                            <hr></hr>
+                            <select id="sortOrder" name="sortOrder">
+                                <option value="asc">FirstResolved</option>
+                                <option value="desc">FirstNotResolved</option>
+                            </select>
+                            <button type="submit">Sort</button>
+                        </div>
+                    }
                 </th>
 
             </tr>
@@ -39,7 +39,7 @@
                     <td>
                         @(
                             ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved"
-                         )
+                            )
                     </td>
                     @if (ticket.LegalAdviseId != null && this.User.Identity.IsAuthenticated)
                     {
@@ -60,10 +60,8 @@
                     </td>
                 </tr>
             }
-            
+
         </tbody>
     </table>
 </div>
-
-
 

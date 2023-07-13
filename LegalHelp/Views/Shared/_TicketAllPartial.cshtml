@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TicketAllViewModel>
+
+<div class="text-center row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Subject</th>
+                <th scope="col">Ticket Category</th>
+                <th scope="col">Request Description</th>
+                <th scope="col">Response</th>
+                <th scope="col">Ticket Status</th>
+                <th scope="col">
+                    @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
+                {
+                    <div>
+                        <label for="sortOrder">Sort Tickets By Status:</label>
+                        <hr></hr>
+                        <select id="sortOrder" name="sortOrder">
+                            <option value="asc">FirstResolved</option>
+                            <option value="desc">FirstNotResolved</option>
+                        </select>
+                        <button type="submit">Sort</button>
+                    </div>
+                }
+                </th>
+
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+
+            @foreach (var ticket in Model)
+            {
+                <tr>
+                    <th scope="row"></th>
+                    <td>@ticket.Subject</td>
+                    <td>@ticket.TicketCategory</td>
+                    <td>@ticket.RequestDescription</td>
+                    <td>
+                        @(
+                            ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved"
+                         )
+                    </td>
+                    @if (ticket.LegalAdviseId != null && this.User.Identity.IsAuthenticated)
+                    {
+                        <td>@ticket.Response</td>
+                    }
+                    <td>
+                        @if (ticket.LegalAdviseId == null && this.User.Identity.IsAuthenticated)
+                        {
+                            <button id="redirectButton">Add a legal advise</button>
+                            <script>
+                                document.getElementById('redirectButton').addEventListener('click', function () {
+                                    var rememberedProperty = '@ticket.Id';
+                                    var redirectUrl = '@Url.Action("Add", "LegalAdvise")/' + encodeURIComponent(rememberedProperty);
+                                    window.location.href = redirectUrl;
+                                });
+                            </script>
+                        }
+                    </td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>
+
+
+
