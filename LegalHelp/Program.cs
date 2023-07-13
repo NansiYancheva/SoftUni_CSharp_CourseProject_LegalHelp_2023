@@ -6,6 +6,7 @@ namespace LegalHelp
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using LegalHelpSystem.Services.Data.Interfaces;
+    using Microsoft.AspNetCore.Mvc;
 
     public class Program
     {
@@ -41,7 +42,12 @@ namespace LegalHelp
 
             builder.Services.AddApplicationServices(typeof(IDocumentService));
 
-            builder.Services.AddControllersWithViews();
+            builder.Services
+               .AddControllersWithViews()
+               .AddMvcOptions(options =>
+               {
+                   options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+               });
             //cookies to remember the id
             //builder.Services.ConfigureApplicationCookie(options =>
             //{
