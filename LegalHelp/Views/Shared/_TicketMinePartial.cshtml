@@ -8,8 +8,8 @@
                 <th scope="col">Subject</th>
                 <th scope="col">Ticket Category</th>
                 <th scope="col">Request Description</th>
-                <th scope="col">Response</th>
                 <th scope="col">Ticket Status</th>
+                <th scope="col">Response</th>
                 <th scope="col">
                     @using (Html.BeginForm("SortMineTickets", "Ticket", FormMethod.Post))
                     {
@@ -39,7 +39,7 @@
                     <td>
                         @(
                             ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved"
-                            )
+                         )
                     </td>
                     @if (ticket.LegalAdviseId != null && this.User.Identity.IsAuthenticated)
                     {
@@ -48,14 +48,7 @@
                     <td>
                         @if (ticket.LegalAdviseId == null && this.User.Identity.IsAuthenticated)
                         {
-                            <button id="redirectButton">Add a legal advise</button>
-                            <script>
-                                document.getElementById('redirectButton').addEventListener('click', function () {
-                                    var rememberedProperty = '@ticket.Id';
-                                    var redirectUrl = '@Url.Action("Add", "LegalAdvise")/' + encodeURIComponent(rememberedProperty);
-                                    window.location.href = redirectUrl;
-                                });
-                            </script>
+                            <h>The ticket is not resolved!</h>
                         }
                     </td>
                 </tr>

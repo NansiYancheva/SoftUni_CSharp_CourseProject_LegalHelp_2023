@@ -1,4 +1,14 @@
-﻿@using static LegalHelpSystem.Common.GeneralApplicationConstants;
+﻿@using LegalHelpSystem.Services.Data.Interfaces;
+@using LegalHelpSystem.Web.Infrastructure.Extensions;
+@using static LegalHelpSystem.Common.GeneralApplicationConstants;
+
+@inject IUploaderService UploaderService
+@inject ILegalAdvisorService LegalAdvisorService
+
+@{
+    bool isUploader = await this.UploaderService.UploaderExistsByUserIdAsync(this.User.GetId());
+    bool isLegalAdvisor = await this.LegalAdvisorService.LegalAdvisorExistsByUserIdAsync(this.User.GetId());
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,16 +41,81 @@
                         @if (this.User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="All">All Documents (for download)</a>
+                                <div class="dropdown">
+                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="ticketsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Tickets
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="ticketsDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="All">All Tickets</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="Mine">Mine Tickets</a></li>
+                                    </ul>
+                                </div>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Document" asp-action="Mine">Mine Downloaded Documents</a>
+                                <div class="dropdown">
+                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="documentsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Documents
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="documentsDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="All">All Documents</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="Downloaded">Mine Downloaded Documents</a></li>
+
+                                        @if (isUploader)
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="Mine">Mine Uploaded Documents</a></li>
+                                        }
+                                    </ul>
+                                </div>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Request" asp-action="All">All Requests</a>
+                                <div class="dropdown">
+                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="teamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Become part of the team
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="teamDropdown">
+
+                                        @if (isUploader)
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                        }
+
+                                        @if (isLegalAdvisor)
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                        }
+                                    </ul>
+                                </div>
                             </li>
+                        }
+                        else
+                        {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Request" asp-action="Mine">Mine Requests</a>
+                                <div class="dropdown">
+                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="ticketsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Tickets
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="ticketsDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="All">All Tickets</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="documentsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Documents
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="documentsDropdown">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="All">All Documents</a></li>
+                                    </ul>
+                                </div>
                             </li>
                         }
                         <li class="nav-item">
@@ -63,7 +138,8 @@
             &copy; @ReleaseYear
             @if (DateTime.UtcNow.Year != ReleaseYear)
             {
-                @Html.Raw($" - {DateTime.UtcNow.Year}");
+                @Html.Raw($" - {DateTime.UtcNow.Year}")
+                ;
             }
             Legal Help <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

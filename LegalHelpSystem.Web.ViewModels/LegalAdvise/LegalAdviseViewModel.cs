@@ -1,6 +1,5 @@
 ﻿namespace LegalHelpSystem.Web.ViewModels.LegalAdvise
 {
-    using LegalHelpSystem.Data.Models;
     public class LegalAdviseViewModel
     {
         //public string Id { get; set; } = null!;

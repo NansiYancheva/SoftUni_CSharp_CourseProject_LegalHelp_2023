@@ -50,16 +50,10 @@
         public static class TicketConstants
         {
             public const int SubjectMinLength = 2;
-            public const int SubjectMaxLength = 20;
+            public const int SubjectMaxLength = 30;
 
             public const int RequestDescriptionMinLength = 10;
             public const int RequestDescriptionMaxLength = 500;
-        }
-
-        public static class TicketStatusConstants
-        {
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 50;
         }
 
         public static class TicketCategoryConstants

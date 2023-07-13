@@ -1,7 +1,8 @@
 ﻿namespace LegalHelpSystem.Web.ViewModels.Ticket
 {
-    using LegalHelpSystem.Web.ViewModels.TicketCategory;
     using System.ComponentModel.DataAnnotations;
+
+    using LegalHelpSystem.Web.ViewModels.TicketCategory;
 
     using static LegalHelpSystem.Common.EntitiesValidationConstants.TicketConstants;
     public class TicketAddOrEditFormModel

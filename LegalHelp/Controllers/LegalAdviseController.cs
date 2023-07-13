@@ -67,8 +67,7 @@
         public async Task<IActionResult> Add (LegalAdviseFormModel model)
         {
             if (!this.ModelState.IsValid)
-            {
-               
+            {              
                 return this.View(model);
             }
             bool ticketExists = await this.ticketService
