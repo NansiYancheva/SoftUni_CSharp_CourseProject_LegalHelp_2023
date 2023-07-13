@@ -1,21 +1,21 @@
-﻿@model List<TicketAllViewModel>
+﻿@model IEnumerable<TicketAllViewModel>
 @{
-    ViewData["Title"] = "My Tickets";
+    ViewBag.Title = "Mine Tickets";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
-<hr/>
 
 @if (!Model.Any())
 {
-    <h2 class="text-center">You do not have any tickets yet!</h2>
+    <h4 class="text-center">You do not have any tickets yet!</h4>
 }
 else
 {
     <div class="row">
-        @foreach (TicketAllViewModel ticket in Model)
-        {
-            <partial name="_TicketPartial" model="ticket" />
-        }
+        <partial name="_TicketPartial" model="@Model" />
     </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

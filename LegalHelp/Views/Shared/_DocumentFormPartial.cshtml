@@ -12,8 +12,7 @@
             </tr>
         </thead>
         <tbody class="table-group-divider">
-            @if (Model.Any())
-            {
+           
                 @foreach (var document in Model)
                 {
                     <tr>
@@ -23,12 +22,7 @@
                         <td>@document.Description</td>
                         <td>@document.FileUrl</td>
                     </tr>
-                }
-            }
-            else
-            {
-                <h2 class="text-center">You do not have any documents yet!</h2>
-            }
+                }        
         </tbody>
     </table>
 </div>

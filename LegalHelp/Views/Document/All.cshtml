@@ -4,9 +4,21 @@
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
-<hr />
 
-<partial name="_DocumentFormPartial" model="@Model" />
+
+@if (!Model.Any())
+{
+    <h4 class="text-center">There are no uploaded documents yet!</h4>
+}
+else
+{
+    <div class="row">
+        @foreach (DocumentAllViewModel document in Model)
+        {
+            <partial name="_DocumentFormPartial" model="@Model" />
+        }
+    </div>
+}
 
 @section Scripts
     {

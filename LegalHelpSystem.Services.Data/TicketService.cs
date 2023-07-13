@@ -6,7 +6,6 @@
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Ticket;
-    using System.Net.Sockets;
 
 
     public class TicketService : ITicketService
@@ -110,7 +109,8 @@
                     ResolvedTicketStatus = h.ResolvedTicketStatus,
                     TicketCategory = h.TicketCategory.Name,
                     RequestDescription = h.RequestDescription,
-                    Response = h.Response.AdviseResponse
+                    Response = h.Response.AdviseResponse,
+                    LegalAdviseId = h.LegalAdviseId
                 })
                 .ToArrayAsync(); 
 
