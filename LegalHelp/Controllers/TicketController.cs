@@ -9,6 +9,7 @@
 
     using static Common.NotificationMessagesConstants;
 
+
     public class TicketController : BaseController
     {
         private readonly ITicketCategoryService ticketCategoryService;
@@ -280,6 +281,14 @@
         {
                 IEnumerable<TicketAllViewModel> modelByUser = await ticketService.GetAllTicketsAsync();
                 return View(modelByUser);
+        }
+
+        //Sort
+        public async Task<IActionResult> SortData()
+        {
+            IEnumerable<TicketAllViewModel> getAllTicketsModel = await ticketService.GetAllTicketsAsync();
+            getAllTicketsModel = getAllTicketsModel.OrderBy(x => x.ResolvedTicketStatus).ToList();
+            return Json(getAllTicketsModel, System.Web.Mvc.JsonRequestBehavior.AllowGet);
         }
 
 
