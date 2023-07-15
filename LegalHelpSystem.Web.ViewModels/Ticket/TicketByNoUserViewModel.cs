@@ -2,8 +2,6 @@
 {
     public class TicketByNoUserViewModel
     {
-        //public string Id { get; set; } = null!;
-
         public string Subject { get; set; } = null!;
 
         public string TicketCategory { get; set; } = null!;

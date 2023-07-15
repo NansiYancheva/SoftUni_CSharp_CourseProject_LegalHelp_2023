@@ -22,6 +22,12 @@
                 .HasForeignKey<Ticket>(t => t.LegalAdviseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder
+                .HasOne(t => t.Document)
+                .WithOne(t => t.Ticket)
+                .HasForeignKey<Ticket>(t => t.DocumentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

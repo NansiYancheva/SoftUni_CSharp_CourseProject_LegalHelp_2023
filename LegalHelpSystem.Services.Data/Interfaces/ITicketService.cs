@@ -25,6 +25,9 @@
 
         //Add LegalAdvise To Ticket
         Task AddLegalAdviseToTicketByIdAsync(string ticketId, string legalAdviseId);
+        //Add Document To Ticket
+        Task AddDocumentToTicketByIdAsync(string ticketId, string documentId);
+
 
         //Common
         Task<bool> ExistsByIdAsync(string ticketId);

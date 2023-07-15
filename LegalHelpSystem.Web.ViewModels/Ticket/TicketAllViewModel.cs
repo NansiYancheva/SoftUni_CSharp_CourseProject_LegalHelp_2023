@@ -13,7 +13,10 @@
         public bool ResolvedTicketStatus { get; set; }
 
         public Guid? LegalAdviseId { get; set; }
-        public string? Response { get; set; } 
+        public string? Response { get; set; }
+
+        public Guid? DocumentId { get; set; }
+        public string? Document { get; set; }
 
 
     }

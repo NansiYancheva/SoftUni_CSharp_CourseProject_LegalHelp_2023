@@ -1,6 +1,8 @@
 ﻿@using LegalHelpSystem.Services.Data.Interfaces;
 @using LegalHelpSystem.Web.Infrastructure.Extensions;
+
 @using static LegalHelpSystem.Common.GeneralApplicationConstants;
+
 
 @inject IUploaderService UploaderService
 @inject ILegalAdvisorService LegalAdvisorService
@@ -26,104 +28,115 @@
 <body>
     <header>
         <partial name="_NotificationsPartial" />
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Legal Help</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+        
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Legal Help</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @if (this.User.Identity?.IsAuthenticated ?? false)
-                        {
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <div class="dropdown">
-                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="ticketsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Tickets
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="ticketsDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="All">All Tickets</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="Mine">Mine Tickets</a></li>
-                                    </ul>
-                                </div>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
+                            @if (this.User.Identity?.IsAuthenticated ?? false)
+                            {
+                                <li class="nav-item">
+                                    <div class="dropdown">
+                                        <button class="nav-link text-dark dropdown-toggle" type="button" id="ticketsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Tickets
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="ticketsDropdown">
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="All">All Tickets</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="Mine">Mine Tickets</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="nav-item">
+                                    <div class="dropdown">
+                                        <button class="nav-link text-dark dropdown-toggle" type="button" id="documentsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Documents
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="documentsDropdown">
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="All">All Documents</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="Downloaded">Mine Downloaded Documents</a></li>
+
+                                            @if (isUploader)
+                                            {
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="Mine">Mine Uploaded Documents</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
 
                             <li class="nav-item">
                                 <div class="dropdown">
                                     <button class="nav-link text-dark dropdown-toggle" type="button" id="documentsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Documents
+                                        LegalAdvises
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="documentsDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="All">All Documents</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="Downloaded">Mine Downloaded Documents</a></li>
-
-                                        @if (isUploader)
-                                        {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="Mine">Mine Uploaded Documents</a></li>
-                                        }
-                                    </ul>
-                                </div>
-                            </li>
-
-                            <li class="nav-item">
-                                <div class="dropdown">
-                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="teamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Become part of the team
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="teamDropdown">
-
-                                        @if (isUploader)
-                                        {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
-                                        }
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvise" asp-action="All">All LegalAdvises</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvise" asp-action="Received">Received Legal Advises</a></li>
 
                                         @if (isLegalAdvisor)
                                         {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="Mine">Given Legal Advises</a></li>
                                         }
-                                        else
-                                        {
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
-                                        }
-                                    </ul>
-                                </div>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <div class="dropdown">
-                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="ticketsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Tickets
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="ticketsDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="All">All Tickets</a></li>
                                     </ul>
                                 </div>
                             </li>
 
-                            <li class="nav-item">
-                                <div class="dropdown">
-                                    <button class="nav-link text-dark dropdown-toggle" type="button" id="documentsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Documents
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="documentsDropdown">
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Document" asp-action="All">All Documents</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        }
-                       
+                                <li class="nav-item">
+                                    <div class="dropdown">
+                                        <button class="nav-link text-dark dropdown-toggle" type="button" id="teamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Become part of the team
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="teamDropdown">
+
+                                            @if (isUploader)
+                                            {
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                            }
+
+                                            @if (isLegalAdvisor)
+                                            {
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <div class="dropdown">
+                                        <button class="nav-link text-dark dropdown-toggle" type="button" id="ticketsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Tickets
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="ticketsDropdown">
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Ticket" asp-action="All">All Tickets</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            }
+
                     </ul>
+                    
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
+        
     </header>
     <div class="container">
         <main role="main" class="pb-3">

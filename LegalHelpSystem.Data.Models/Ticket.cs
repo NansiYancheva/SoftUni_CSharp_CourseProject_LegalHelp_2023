@@ -37,5 +37,11 @@
         public Guid? LegalAdviseId { get; set; }
 
         public virtual LegalAdvise? Response { get; set; }
+
+        public Guid? DocumentId { get; set; }
+
+        public virtual Document? Document { get; set; }
+
+
     }
 }

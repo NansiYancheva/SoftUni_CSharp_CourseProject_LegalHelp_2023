@@ -38,6 +38,11 @@
         [Required]
         public virtual Uploader Uploader { get; set; } = null!;
 
+        [Required]
+        public Guid TicketId { get; set; }
+        [Required]
+        public virtual Ticket Ticket { get; set; } = null!;
+
         public virtual ICollection<ApplicationUser> Downloaders { get; set; }
     }
 }

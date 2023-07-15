@@ -16,6 +16,7 @@
             this.dbContext = dbContext;
         }
 
+        //Become
         public async Task Create(string userId, BecomeUploaderFormModel model)
         {
             Uploader newUploader = new Uploader()
@@ -25,6 +26,21 @@
             };
 
             await this.dbContext.Uploaders.AddAsync(newUploader);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        //Add Document To Uploader
+        public async Task AddDocumentToUploaderByIdAsync(string uploaderId, string documentId)
+        {
+            Document documentToBeAddedToUploader = await this.dbContext
+               .Documents
+               .FirstAsync(d => d.Id.ToString() == documentId);
+
+            Uploader currentUploader = await this.dbContext
+               .Uploaders
+               .FirstAsync(u => u.Id.ToString() == uploaderId);
+
+            currentUploader.UploadedDocuments.Add(documentToBeAddedToUploader);
             await this.dbContext.SaveChangesAsync();
         }
 
@@ -49,7 +65,6 @@
 
             return uploader.Id.ToString();
         }
-
 
 
     }

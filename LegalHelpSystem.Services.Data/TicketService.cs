@@ -137,24 +137,37 @@
         }
 
         //Add Legal Advise to Ticket
-        public async Task AddLegalAdviseToTicketByIdAsync(string ticketId, string legalAdviseId)
+        public async  Task AddLegalAdviseToTicketByIdAsync(string ticketId, string legalAdviseId)
         {
             Ticket ticketToBeUpdated = await this.dbContext
                .Tickets
-               .FirstAsync(h => h.Id.ToString() == ticketId);
+               .FirstAsync(t => t.Id.ToString() == ticketId);
 
             LegalAdvise legalAdviseToBeAddedToTicket = await this.dbContext
                .LegalAdvises
-               .FirstAsync(h => h.Id.ToString() == legalAdviseId);
+               .FirstAsync(la => la.Id.ToString() == legalAdviseId);
 
             ticketToBeUpdated.LegalAdviseId = legalAdviseToBeAddedToTicket.Id;
-            //LegalAdvise = ?
             ticketToBeUpdated.ResolvedTicketStatus = true;
 
             await this.dbContext.SaveChangesAsync();
         }
+        //Add Document to Ticket
+        public async Task AddDocumentToTicketByIdAsync(string ticketId, string documentId)
+        {
+            Ticket ticketToBeUpdated = await this.dbContext
+               .Tickets
+               .FirstAsync(t => t.Id.ToString() == ticketId);
 
+            Document documentToBeAddedToTicket = await this.dbContext
+               .Documents
+               .FirstAsync(d => d.Id.ToString() == documentId);
 
+            ticketToBeUpdated.DocumentId= documentToBeAddedToTicket.Id;
+            ticketToBeUpdated.ResolvedTicketStatus = true;
+
+            await this.dbContext.SaveChangesAsync();
+        }
 
 
         //Common

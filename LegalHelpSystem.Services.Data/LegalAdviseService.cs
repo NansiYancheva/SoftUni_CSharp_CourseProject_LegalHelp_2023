@@ -7,7 +7,6 @@
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
-    using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
     using LegalHelpSystem.Web.ViewModels.Ticket;
 
 
@@ -50,8 +49,24 @@
             await dbContext.LegalAdvises.AddAsync(legalAdvise);
             await dbContext.SaveChangesAsync();
         }
+        //List Received by User Legal Advises
+        public async Task<IEnumerable<LegalAdviseViewModel>> AllByUserIdAsync(string userId)
+        {
+            IEnumerable<LegalAdviseViewModel> allUserReceivedLegalAdvises = await this.dbContext
+                .LegalAdvises
+                .Include(la => la.Ticket)
+                .Where(la => la.Ticket.UserId.ToString() == userId)
+                .Select(la => new LegalAdviseViewModel
+                {
+                    TicketSubject = la.Ticket.Subject,
+                    TicketDescription = la.Ticket.RequestDescription,
+                    AdviseResponse = la.AdviseResponse,
+                }).ToListAsync();
 
-        //Mine - just listing
+            return allUserReceivedLegalAdvises;
+        }
+
+        //Mine(legal advisor)
         public async Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId)
         {
             var listOfLegalAdvises = 

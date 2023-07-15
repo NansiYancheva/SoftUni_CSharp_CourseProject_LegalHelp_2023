@@ -1,4 +1,9 @@
-﻿@model IEnumerable<TicketAllViewModel>
+﻿@using LegalHelpSystem.Data.Models;
+@using Microsoft.AspNetCore.Identity;
+
+@model IEnumerable<TicketAllViewModel>
+
+@inject SignInManager<ApplicationUser> SignInManager
 
 <div class="text-center row">
     <table class="table">
@@ -9,7 +14,7 @@
                 <th scope="col">Ticket Category</th>
                 <th scope="col">Request Description</th>
                 <th scope="col">Ticket Status</th>
-                <th scope="col">Response</th>
+                <th scope="col">Result</th>
                 <th scope="col">
                     @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
                     {
@@ -37,30 +42,54 @@
                     <td>@ticket.TicketCategory</td>
                     <td>@ticket.RequestDescription</td>
                     <td>
-                        @(
-                            ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved"
-                            )
+                        @(ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved")
                     </td>
 
-                        @if (ticket.LegalAdviseId != null && this.User.Identity.IsAuthenticated)
+
+
+
+
+
+                    <td>
+                        @if (SignInManager.IsSignedIn(User))
                         {
-                        <td>@ticket.Response</td>
+
+                            @if (ticket.TicketCategory == "Request for advise")
+                            {
+                                @if (ticket.LegalAdviseId != null)
+                                {
+                                    //span?
+                                    <span>@ticket.Response</span>
+                                }
+                                else if (ticket.LegalAdviseId == null)
+                                {
+                                    <form method="get" action="@Url.Action("Add", "LegalAdvise")">
+                                        <button type="submit" class="action-button">Add a legal advise</button>
+                                        <input type="hidden" name="ticketId" value="@ticket.Id" />
+                                    </form>
+                                    //<a href="@Url.Action("Add", "LegalAdvise", new { ticketId = ticket.Id })">Add a legal advise</a>
+                                }
+                            }
+
+                            else if (ticket.TicketCategory == "Request for document")
+                            {
+                                @if (ticket.DocumentId != null)
+                                {
+                                    <span>@ticket.Document</span>
+                                }
+                                else if (ticket.DocumentId == null)
+                                {
+                                    <form method="get" action="@Url.Action("Upload", "Document")">
+                                        <button type="submit" class="action-button">Upload a document</button>
+                                        <input type="hidden" name="ticketId" value="@ticket.Id" />
+                                    </form>
+                                    //<a href="@Url.Action("Upload", "Document", new { ticketId = ticket.Id })">Upload a document</a>
+                                }
+                            }
                         }
-                        else if (ticket.LegalAdviseId != null && this.User.Identity.IsAuthenticated == false)
+                        else
                         {
-                        <td>Please login/register in order to see the result</td>
-                        }
-                        <td>
-                        @if (ticket.LegalAdviseId == null && this.User.Identity.IsAuthenticated)
-                        {
-                            <button id="redirectButton">Add a legal advise</button>
-                            <script>
-                                document.getElementById('redirectButton').addEventListener('click', function () {
-                                    var rememberedProperty = '@ticket.Id';
-                                    var redirectUrl = '@Url.Action("Add", "LegalAdvise")/' + encodeURIComponent(rememberedProperty);
-                                    window.location.href = redirectUrl;
-                                });
-                            </script>
+                            <span>Please login/register to view the result</span>
                         }
                     </td>
                 </tr>
@@ -69,6 +98,7 @@
         </tbody>
     </table>
 </div>
+
 
 
 

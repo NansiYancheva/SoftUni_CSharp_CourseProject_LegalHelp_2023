@@ -22,21 +22,21 @@
         }
         //Add
         [HttpGet]
-        public async Task<IActionResult> Add(string id)
+        public async Task<IActionResult> Add(string ticketId)
         {
 
             bool ticketExists = await this.ticketService
-                .ExistsByIdAsync(id);
+                .ExistsByIdAsync(ticketId);
             if (!ticketExists)
             {
-                this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Ticket with the provided ticketId does not exist!";
                 return this.RedirectToAction("All", "Ticket");
             }
             bool resolvedStatus = await this.ticketService
-                .ResolvedTicket(id);
+                .ResolvedTicket(ticketId);
             if (resolvedStatus == true)
             {
-                this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved!";
+                this.TempData[ErrorMessage] = "Ticket with the provided ticketId was already resolved!";
                 return this.RedirectToAction("All", "Ticket");
             }
             bool isLegalAdvisor =
@@ -51,9 +51,9 @@
             try
             {
                 LegalAdviseFormModel legalAdviseFormModel = new LegalAdviseFormModel();
-                legalAdviseFormModel.TicketSubject = await this.ticketService.GetTicketSubjectAsync(id);
-                legalAdviseFormModel.TicketDescription = await this.ticketService.GetTicketDescription(id);
-                legalAdviseFormModel.TicketId = id;
+                legalAdviseFormModel.TicketSubject = await this.ticketService.GetTicketSubjectAsync(ticketId);
+                legalAdviseFormModel.TicketDescription = await this.ticketService.GetTicketDescription(ticketId);
+                legalAdviseFormModel.TicketId = ticketId;
 
                 return View(legalAdviseFormModel);
             }
@@ -74,14 +74,14 @@
                 .ExistsByIdAsync(model.TicketId);
             if (!ticketExists)
             {
-                this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
+                this.TempData[ErrorMessage] = "Ticket with the provided ticketId does not exist!";
                 return this.RedirectToAction("All", "Ticket");
             }
             bool resolvedStatus = await this.ticketService
                 .ResolvedTicket(model.TicketId);
             if (resolvedStatus == true)
             {
-                this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved!";
+                this.TempData[ErrorMessage] = "Ticket with the provided ticketId was already resolved!";
                 return this.RedirectToAction("All", "Ticket");
             }
             bool isLegalAdvisor =
@@ -134,5 +134,25 @@
             IEnumerable<LegalAdviseViewModel> model = await legalAdviseService.GetMyLegalAdvisesAsync(legalAdvisorId!);
             return View(model);
         }
+
+        public async Task<IActionResult> Received()
+        {
+            List<LegalAdviseViewModel> myReceivedLegalAdvises =
+                  new List<LegalAdviseViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            try
+            {
+                myReceivedLegalAdvises.AddRange(await this.legalAdviseService.AllByUserIdAsync(userId!));
+
+                return this.View(myReceivedLegalAdvises);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+        
     }
 }

@@ -87,12 +87,24 @@
 
             return listOfDownloadedDocuments;
 
-            // .ToListAsync();
+        }
 
+        //Add Document-Post
+        public async Task<string> UploadDocumentAsync(DocumentFormModel formModel, string uploaderId)
+        {
+            Document document = new Document
+            {
+                TicketId = Guid.Parse(formModel.TicketId),
+                UploaderId = Guid.Parse(uploaderId),
+                FileUrl = formModel.DocumentForUploadFileUrl,
+                Description = formModel.DocumentDescription,
+                DocumentTypeId = formModel.DocumentTypeId
+            };
 
+            await this.dbContext.Documents.AddAsync(document);
+            await this.dbContext.SaveChangesAsync();
 
-
-            return listOfDownloadedDocuments;
+            return document.Id.ToString();
         }
     }
 }
