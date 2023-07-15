@@ -15,7 +15,7 @@
 <div class="row">
 
 
-  <form method="post" asp-controller="LegalAdvise" asp-action="Add"> asp-route-ticketId="@Model.TicketId">
+  <form method="post" asp-controller="LegalAdvise" asp-action="Add" asp-route-ticketId="@Model.TicketId">
        <input type="hidden" asp-for="TicketId" value="@Model.TicketId" />
         <input type="hidden" asp-for="TicketSubject" value="@Model.TicketSubject" />
         <input type="hidden" asp-for="TicketDescription" value="@Model.TicketDescription" />

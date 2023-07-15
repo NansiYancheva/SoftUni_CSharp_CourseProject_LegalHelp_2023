@@ -6,6 +6,21 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 <div class="text-center row">
+    <div class="row">
+        @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
+        {
+            <div>
+                <select id="sortOrder" name="sortOrder">
+                    <option value="asc">FirstResolved</option>
+                    <option value="desc">FirstNotResolved</option>
+                </select>
+                <button type="submit">Sort</button>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="text-center row">
     <table class="table">
         <thead>
             <tr>
@@ -15,21 +30,6 @@
                 <th scope="col">Request Description</th>
                 <th scope="col">Ticket Status</th>
                 <th scope="col">Result</th>
-                <th scope="col">
-                    @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
-                    {
-                        <div>
-                            <label for="sortOrder">Sort Tickets By Status:</label>
-                            <hr></hr>
-                            <select id="sortOrder" name="sortOrder">
-                                <option value="asc">FirstResolved</option>
-                                <option value="desc">FirstNotResolved</option>
-                            </select>
-                            <button type="submit">Sort</button>
-                        </div>
-                    }
-                </th>
-
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -44,12 +44,6 @@
                     <td>
                         @(ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved")
                     </td>
-
-
-
-
-
-
                     <td>
                         @if (SignInManager.IsSignedIn(User))
                         {

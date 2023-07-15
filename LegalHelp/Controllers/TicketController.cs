@@ -85,8 +85,7 @@
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
 
-                //return this.RedirectToAction("All"/Mine, "Ticket");
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Mine", "Ticket");
             }
             string? userId = this.User.GetId();
             bool isReporter = await this.ticketService
@@ -95,8 +94,7 @@
             {
                 this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit!";
 
-                //return this.RedirectToAction("Mine", "House");
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Mine", "Ticket");
             }
 
             bool resolvedStatus = await this.ticketService
@@ -105,8 +103,7 @@
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved and cannot be edited!";
 
-                //return this.RedirectToAction("Add", "Ticket");
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Mine", "Ticket");
             }
             try
             {
@@ -138,8 +135,7 @@
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
 
-                //return this.RedirectToAction("Add", "Ticket");
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Mine", "Ticket");
             }
 
             string? userId = this.User.GetId();
@@ -149,8 +145,7 @@
             {
                 this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit!";
 
-                //return this.RedirectToAction("Add", "Ticket");
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Mine", "Ticket");
             }
 
             bool resolvedStatus = await this.ticketService
@@ -159,8 +154,7 @@
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved and cannot be edited!";
 
-                //return this.RedirectToAction("Add", "Ticket");
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("Mine", "Ticket");
             }
             try
             {
@@ -176,8 +170,7 @@
             }
 
             this.TempData[SuccessMessage] = "Ticket was edited successfully!";
-           // return this.RedirectToAction("Details", "House", new { id });
-            return this.RedirectToAction("Index", "Home");
+            return this.RedirectToAction("Mine", "Ticket");
         }
 
         //Delete
@@ -227,7 +220,7 @@
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
 
-                return this.RedirectToAction("All", "Ticket");
+                return this.RedirectToAction("Mine", "Ticket");
             }
 
             string? userId = this.User.GetId();
