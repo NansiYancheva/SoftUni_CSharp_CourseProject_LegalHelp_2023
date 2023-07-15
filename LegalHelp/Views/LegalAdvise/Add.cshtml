@@ -1,26 +1,32 @@
 ﻿@model LegalAdviseFormModel
 
-@using (Html.BeginForm("Add", "LegalAdvise", FormMethod.Post))
-{
-    <div>
-        @Html.LabelFor(m => m.TicketSubject)
-        @Html.DisplayFor(m => m.TicketSubject)
-    </div>
-
-    <div>
-        @Html.LabelFor(m => m.TicketDescription)
-        @Html.DisplayFor(m => m.TicketDescription)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.AdviseResponse)
-        @Html.TextBoxFor(m => m.AdviseResponse)
-    </div>
-
-    @Html.HiddenFor(m => m.TicketSubject)
-    @Html.HiddenFor(m => m.TicketDescription)
-    @Html.HiddenFor(m => m.TicketId)
-
-    <input type="submit" value="Submit" />
+@{
+    ViewData["Title"] = "Add Legal Advise To Ticket";
 }
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr></hr>
+
+<h8>Ticket Subject: @Model.TicketSubject</h8>
+<p></p>
+<h9>Ticket Description: @Model.TicketDescription</h9>
+<p></p>
+
+<div class="row">
+
+
+  <form method="post" asp-controller="LegalAdvise" asp-action="Add"> asp-route-ticketId="@Model.TicketId">
+       <input type="hidden" asp-for="TicketId" value="@Model.TicketId" />
+        <input type="hidden" asp-for="TicketSubject" value="@Model.TicketSubject" />
+        <input type="hidden" asp-for="TicketDescription" value="@Model.TicketDescription" />
+          <div class="form-group">
+                <label asp-for="AdviseResponse"></label>
+                <input asp-for="AdviseResponse" class="form-control" placeholder="Enter your legal advise">
+                <span asp-validation-for="AdviseResponse" class="small text-danger"></span>
+            </div>
+        <p></p>
+        <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+</div>
 
 
