@@ -5,20 +5,24 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 
-<div class="text-center row">
-    <div class="row">
-        @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
-        {
-            <div>
-                <select id="sortOrder" name="sortOrder">
-                    <option value="asc">FirstResolved</option>
-                    <option value="desc">FirstNotResolved</option>
-                </select>
-                <button type="submit">Sort</button>
-            </div>
-        }
+@if (SignInManager.IsSignedIn(User))
+{
+    //or to give them option to sort the tickets by status?
+    <div class="text-center row">
+        <div class="row">
+            @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
+            {
+                <div>
+                    <select id="sortOrder" name="sortOrder">
+                        <option value="asc">FirstResolved</option>
+                        <option value="desc">FirstNotResolved</option>
+                    </select>
+                    <button type="submit">Sort</button>
+                </div>
+            }
+        </div>
     </div>
-</div>
+}
 
 <div class="text-center row">
     <table class="table">

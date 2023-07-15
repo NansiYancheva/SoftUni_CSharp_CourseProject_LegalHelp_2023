@@ -4,7 +4,7 @@
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
-
+<hr />
 
 @if (!Model.Any())
 {
@@ -13,7 +13,7 @@
 else
 {
     <div class="row">
-        <partial name="_DocumentPartial" model="@Model" />
+        <partial name="_DocumentAllPartial" model="@Model" />
     </div>
 }
 

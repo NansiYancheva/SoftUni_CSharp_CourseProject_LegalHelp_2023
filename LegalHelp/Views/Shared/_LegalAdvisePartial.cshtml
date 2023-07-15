@@ -1,25 +1,27 @@
-﻿@model LegalAdviseViewModel
+﻿@model IEnumerable<LegalAdviseViewModel>
 
-@if (@Model.TicketSubject == null)
-{
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <div class="card-body text-center">
-                <h10>The ticket was deleted by its creator, but your legal advise was as follows:</h10>
-                <h2>@Model.AdviseResponse</h2>
-            </div>
-        </div>
-    </div>
-}
-else
-{
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <div class="card-body text-center">
-                <h6>@Model.TicketSubject</h6>
-                <h6>@Model.TicketDescription</h6>
-                <h4>Your Legal Advise: <b>@Model.AdviseResponse</b></h4>
-            </div>
-        </div>
-    </div>
-}
+<div class="text-center row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Subject</th>
+                <th scope="col">Request Description</th>
+                <th scope="col">Legal Advise</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+
+            @foreach (var legalAdvise in Model)
+            {
+                <tr>
+                    <th scope="row"></th>
+                    <td>@legalAdvise.TicketSubject</td>
+                    <td>@legalAdvise.TicketDescription</td>
+                    <td>@legalAdvise.AdviseResponse</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

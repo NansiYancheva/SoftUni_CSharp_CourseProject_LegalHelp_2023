@@ -6,7 +6,16 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 <hr />
 
-<partial name="_DocumentFormPartial" model="@Model" />
+@if (!Model.Any())
+{
+    <h4 class="text-center">You do not have any downloaded documents yet!</h4>
+}
+else
+{
+    <div class="row">
+        <partial name="_DocumentAllPartial" model="@Model" />
+    </div>
+}
 
 @section Scripts
     {

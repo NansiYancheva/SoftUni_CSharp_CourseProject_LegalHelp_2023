@@ -10,7 +10,6 @@
 
         public string TicketDescription { get; set; } = null!;
 
-
         //public Guid TicketId { get; set; }
 
         //public Ticket Ticket { get; set; } = null!;
