@@ -131,7 +131,9 @@
                     RequestDescription = h.RequestDescription,
                     ResolvedTicketStatus = h.ResolvedTicketStatus,
                     LegalAdviseId = h.LegalAdviseId,
-                    Response = h.Response.AdviseResponse
+                    Response = h.Response.AdviseResponse,
+                    DocumentId = h.DocumentId,
+                    Document = h.Document.FileUrl
                 })
                 .ToListAsync();
         }
