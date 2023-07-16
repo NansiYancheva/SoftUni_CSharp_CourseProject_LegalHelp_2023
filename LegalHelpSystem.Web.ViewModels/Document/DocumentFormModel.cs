@@ -32,7 +32,7 @@
         public string? DocumentDescription { get; set; }
 
         [Display(Name = "Document Link")]
-        public string DocumentForUploadFileUrl { get; set; }
+        public string? DocumentForUploadFileUrl { get; set; }
 
         [Display(Name = "Document Type")]
         public int DocumentTypeId { get; set; }

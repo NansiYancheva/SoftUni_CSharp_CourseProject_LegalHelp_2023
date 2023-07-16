@@ -180,7 +180,6 @@
                 .AnyAsync(t => t.Id.ToString() == ticketId);
             return result;
         }
-
         public async Task<bool> IsUserReporterOfTheTicket(string ticketId, string userId)
         {
             Ticket ticket = await this.dbContext
@@ -196,7 +195,6 @@
                 .FirstAsync(h => h.Id.ToString() == ticketId);
             return ticket.ResolvedTicketStatus == true;
         }
-
         public async Task<string> GetTicketSubjectAsync(string ticketId)
         {
             Ticket ticket = await this.dbContext
@@ -205,7 +203,6 @@
 
             return ticket.Subject;
         }
-
         public async Task<string> GetTicketDescription(string ticketId)
         {
             Ticket ticket = await this.dbContext

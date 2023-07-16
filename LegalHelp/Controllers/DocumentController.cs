@@ -14,13 +14,15 @@
         private readonly IUploaderService uploaderService;
         private readonly ITicketService ticketService;
         private readonly IDocumentTypeService documentTypeService;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService)
+        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService, IWebHostEnvironment _webHostEnvironment)
         {
             this.documentService = _documentService;
             this.uploaderService = _uploaderService;
             this.ticketService = _ticketService;
             this.documentTypeService = _documentTypeService;
+            webHostEnvironment = _webHostEnvironment;
         }
 
         [AllowAnonymous]
@@ -102,7 +104,7 @@
         }
         //Add
         [HttpPost]
-        public async Task<IActionResult> Upload(DocumentFormModel model)
+        public async Task<IActionResult> Upload(DocumentFormModel model, IFormFile documentFile)
         {
             if (!this.ModelState.IsValid)
             {
@@ -136,8 +138,23 @@
             {
                 this.ModelState.AddModelError(nameof(model.DocumentTypeId), "Selected category does not exist!");
             }
+
             try
             {
+                if (documentFile != null && documentFile.Length > 0)
+                {
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + documentFile.FileName;
+
+                    string filePath = Path.Combine(webHostEnvironment.WebRootPath, "WordFiles", uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await documentFile.CopyToAsync(fileStream);
+                    }
+                    model.DocumentForUploadFileUrl = uniqueFileName;
+                }
+
+
                 string? uploaderId = await this.uploaderService.GetUploaderIdByUserIdAsync(this.User.GetId()!);
 
                 string documentId = await this.documentService.UploadDocumentAsync(model, uploaderId!);
