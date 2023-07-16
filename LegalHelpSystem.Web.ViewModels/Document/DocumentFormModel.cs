@@ -31,8 +31,8 @@
         [StringLength(DocumentDescriptionMaxLength)]
         public string? DocumentDescription { get; set; }
 
-        [Display(Name = "Document Link")]
-        public string? DocumentForUploadFileUrl { get; set; }
+        [Display(Name = "Document File")]
+        public byte[]? DocumentFile { get; set; }
 
         [Display(Name = "Document Type")]
         public int DocumentTypeId { get; set; }

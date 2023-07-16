@@ -32,7 +32,7 @@
                     Name = h.Name,
                     DocumentType = h.DocumentType.Name,
                     Description = h.Description,
-                    FileUrl = h.FileUrl
+                   // FileUrl = h.Attachment
                     //UploaderId = h.UploaderId,
                     //Downloaders = h.Downloaders
                     //ToDo: to add how many times the document was downloaded
@@ -51,7 +51,7 @@
                     Name = la.Name,
                     DocumentType = la.DocumentType.Name,
                     Description = la.Description,
-                    FileUrl = la.FileUrl
+                    //FileUrl = la.Attachment
                     //UploaderId = la.UploaderId,
                     //Downloaders = la.Downloaders
                 })
@@ -79,7 +79,7 @@
                      Name = la.Name,
                      DocumentType = la.DocumentType.Name,
                      Description = la.Description,
-                     FileUrl = la.FileUrl
+                    // FileUrl = la.Attachment
                      //UploaderId = la.UploaderId,
                      //Downloaders = la.Downloaders
                  })
@@ -90,14 +90,14 @@
         }
 
         //Add Document-Post
-        public async Task<string> UploadDocumentAsync(DocumentFormModel formModel, string uploaderId)
+        public async Task<string> UploadDocumentAsync(DocumentFormModel formModel, string uploaderId, byte[] fileBytes)
         {
             Document document = new Document
             {
                 Name = formModel.DocumentName,
                 DocumentTypeId = formModel.DocumentTypeId,
                 Description = formModel.DocumentDescription,
-                FileUrl = formModel.DocumentForUploadFileUrl,
+                AttachedFile = fileBytes,
                 UploaderId = Guid.Parse(uploaderId),
                 TicketId = Guid.Parse(formModel.TicketId)
             };
@@ -106,6 +106,20 @@
             await this.dbContext.SaveChangesAsync();
 
             return document.Id.ToString();
+        }
+
+        //Download document
+        public async Task<DocumentForDownloadViewModel> GetDocumentForDownload(string ticketId)
+        {
+            Document document = await this.dbContext
+               .Documents
+               .FirstAsync(x => x.TicketId.ToString() == ticketId);
+
+            return new DocumentForDownloadViewModel
+            {
+               DocumentName = document.Name,
+               DocumentFile = document.AttachedFile
+            };
         }
     }
 }

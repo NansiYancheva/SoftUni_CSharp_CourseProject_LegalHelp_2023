@@ -118,7 +118,7 @@ namespace LegalHelpSystem.Data.Migrations
                     b.Property<int>("DocumentTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FileUrl")
+                    b.Property<string>("Attachment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

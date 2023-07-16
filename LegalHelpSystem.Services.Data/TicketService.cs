@@ -133,7 +133,7 @@
                     LegalAdviseId = h.LegalAdviseId,
                     Response = h.Response.AdviseResponse,
                     DocumentId = h.DocumentId,
-                    Document = h.Document.FileUrl
+                   // Document = h.Document.Attachment
                 })
                 .ToListAsync();
         }

@@ -106,7 +106,7 @@ namespace LegalHelpSystem.Data.Migrations
                     b.Property<Guid?>("DownloaderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("FileUrl")
+                    b.Property<string>("Attachment")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

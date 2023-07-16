@@ -16,6 +16,9 @@
         Task<IEnumerable<DocumentAllViewModel>> GetDownloadedByUserAsync(string userId);
 
         //Add Document-Post
-        Task<string> UploadDocumentAsync(DocumentFormModel model, string uploaderId);
+        Task<string> UploadDocumentAsync(DocumentFormModel model, string uploaderId, byte[] fileBytes);
+
+        //download document
+        Task<DocumentForDownloadViewModel> GetDocumentForDownload(string ticketId);
     }
 }

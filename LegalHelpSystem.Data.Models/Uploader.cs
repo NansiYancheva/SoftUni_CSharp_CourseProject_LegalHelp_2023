@@ -27,7 +27,5 @@
 
         public virtual ICollection<Document> UploadedDocuments { get; set; }
 
-
-
     }
 }

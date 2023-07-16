@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\LegalHelp.Common\LegalHelpSystem.Common.csproj" />
     <ProjectReference Include="..\LegalHelp.Data\LegalHelpSystem.Data.csproj" />
     <ProjectReference Include="..\LegalHelpSystem.Data.Models\LegalHelpSystem.Data.Models.csproj" />

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegalHelpSystem.Data.Migrations
 {
     [DbContext(typeof(LegalHelpDbContext))]
-    [Migration("20230704203805_RemoveTicketStatusEntityAndReplaceItWithTicketPropertyWithBooleanType")]
-    partial class RemoveTicketStatusEntityAndReplaceItWithTicketPropertyWithBooleanType
+    [Migration("20230716160357_DeletingDocumentPropertyFileUrl")]
+    partial class DeletingDocumentPropertyFileUrl
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace LegalHelpSystem.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ApplicationUserDocument", b =>
+                {
+                    b.Property<Guid>("DownloadedDocumentsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DownloadersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DownloadedDocumentsId", "DownloadersId");
+
+                    b.HasIndex("DownloadersId");
+
+                    b.ToTable("ApplicationUserDocument");
+                });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.ApplicationUser", b =>
                 {
@@ -103,17 +118,13 @@ namespace LegalHelpSystem.Data.Migrations
                     b.Property<int>("DocumentTypeId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("DownloaderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Attachment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<Guid>("TicketId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UploaderId")
                         .HasColumnType("uniqueidentifier");
@@ -121,8 +132,6 @@ namespace LegalHelpSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DocumentTypeId");
-
-                    b.HasIndex("DownloaderId");
 
                     b.HasIndex("UploaderId");
 
@@ -249,6 +258,9 @@ namespace LegalHelpSystem.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("DocumentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("LegalAdviseId")
                         .HasColumnType("uniqueidentifier");
 
@@ -262,8 +274,8 @@ namespace LegalHelpSystem.Data.Migrations
 
                     b.Property<string>("Subject")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<int>("TicketCategoryId")
                         .HasColumnType("int");
@@ -272,6 +284,10 @@ namespace LegalHelpSystem.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DocumentId")
+                        .IsUnique()
+                        .HasFilter("[DocumentId] IS NOT NULL");
 
                     b.HasIndex("LegalAdviseId")
                         .IsUnique()
@@ -470,6 +486,21 @@ namespace LegalHelpSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ApplicationUserDocument", b =>
+                {
+                    b.HasOne("LegalHelpSystem.Data.Models.Document", null)
+                        .WithMany()
+                        .HasForeignKey("DownloadedDocumentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LegalHelpSystem.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("DownloadersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LegalHelpSystem.Data.Models.Document", b =>
                 {
                     b.HasOne("LegalHelpSystem.Data.Models.DocumentType", "DocumentType")
@@ -478,10 +509,6 @@ namespace LegalHelpSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("LegalHelpSystem.Data.Models.ApplicationUser", "Downloader")
-                        .WithMany("DownloadedDocuments")
-                        .HasForeignKey("DownloaderId");
-
                     b.HasOne("LegalHelpSystem.Data.Models.Uploader", "Uploader")
                         .WithMany("UploadedDocuments")
                         .HasForeignKey("UploaderId")
@@ -489,8 +516,6 @@ namespace LegalHelpSystem.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("DocumentType");
-
-                    b.Navigation("Downloader");
 
                     b.Navigation("Uploader");
                 });
@@ -519,6 +544,11 @@ namespace LegalHelpSystem.Data.Migrations
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.Ticket", b =>
                 {
+                    b.HasOne("LegalHelpSystem.Data.Models.Document", "Document")
+                        .WithOne("Ticket")
+                        .HasForeignKey("LegalHelpSystem.Data.Models.Ticket", "DocumentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("LegalHelpSystem.Data.Models.LegalAdvise", "Response")
                         .WithOne("Ticket")
                         .HasForeignKey("LegalHelpSystem.Data.Models.Ticket", "LegalAdviseId")
@@ -535,6 +565,8 @@ namespace LegalHelpSystem.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Document");
 
                     b.Navigation("Response");
 
@@ -607,9 +639,13 @@ namespace LegalHelpSystem.Data.Migrations
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("DownloadedDocuments");
-
                     b.Navigation("Requests");
+                });
+
+            modelBuilder.Entity("LegalHelpSystem.Data.Models.Document", b =>
+                {
+                    b.Navigation("Ticket")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.DocumentType", b =>

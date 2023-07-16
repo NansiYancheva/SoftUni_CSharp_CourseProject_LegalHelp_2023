@@ -73,7 +73,10 @@
                             {
                                 @if (ticket.DocumentId != null)
                                 {
-                                    <span>@ticket.Document</span>
+                                    <form method="get" action="@Url.Action("Download", "Document")">
+                                        <button type="submit" class="action-button">Download document</button>
+                                        <input type="hidden" name="ticketId" value="@ticket.Id" />
+                                    </form>
                                 }
                                 else if (ticket.DocumentId == null)
                                 {

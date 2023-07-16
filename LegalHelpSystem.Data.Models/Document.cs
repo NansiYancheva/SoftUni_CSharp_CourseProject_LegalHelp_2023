@@ -30,7 +30,7 @@
         public string? Description { get; set; }
 
         [Required]
-        public string FileUrl { get; set; } = null!;
+        public byte[] AttachedFile { get; set; } = null!;
 
         [Required]
         public Guid UploaderId { get; set; }
