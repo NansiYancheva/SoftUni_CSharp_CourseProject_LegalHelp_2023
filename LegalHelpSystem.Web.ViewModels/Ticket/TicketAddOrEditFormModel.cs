@@ -13,7 +13,7 @@
         }
 
         [Required]
-        [StringLength(SubjectMaxLength, MinimumLength = SubjectMinLength)]
+        [StringLength(TicketSubjectMaxLength, MinimumLength = TicketSubjectMinLength)]
         public string Subject { get; set; } = null!;
 
         [Required]
@@ -23,7 +23,7 @@
         public IEnumerable<TicketSelectCategoryFormModel> TicketCategories { get; set; } 
 
         [Required]
-        [StringLength(RequestDescriptionMaxLength, MinimumLength = RequestDescriptionMinLength)]
+        [StringLength(TicketDescriptionMaxLength, MinimumLength = TicketDescriptionMinLength)]
         public string RequestDescription { get; set; } = null!;
     }
 }

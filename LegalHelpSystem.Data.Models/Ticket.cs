@@ -14,7 +14,7 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(SubjectMaxLength)]
+        [MaxLength(TicketSubjectMaxLength)]
         public string Subject { get; set; } = null!;
 
         [Required]
@@ -23,7 +23,7 @@
         public virtual TicketCategory TicketCategory { get; set; } = null!;
 
         [Required]
-        [MaxLength(RequestDescriptionMaxLength)]
+        [MaxLength(TicketDescriptionMaxLength)]
         public string RequestDescription { get; set; } = null!;
 
         [Required]

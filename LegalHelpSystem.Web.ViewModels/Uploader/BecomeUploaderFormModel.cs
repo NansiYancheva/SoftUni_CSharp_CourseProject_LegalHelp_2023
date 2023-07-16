@@ -6,7 +6,7 @@
     public class BecomeUploaderFormModel
     {
         [Required]
-        [StringLength(AuthorRightsDescriptionMaxLength, MinimumLength = AuthorRightsDescriptionMinLength)]
+        [StringLength(UploaderAuthorRightsDescriptionMaxLength, MinimumLength = UploaderAuthorRightsDescriptionMinLength)]
         [Display(Name = "Description of authors rights")]
         public string AuthorRightsDescription { get; set; } = null!;
 

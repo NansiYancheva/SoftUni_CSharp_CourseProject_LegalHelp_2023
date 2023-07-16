@@ -94,11 +94,12 @@
         {
             Document document = new Document
             {
-                TicketId = Guid.Parse(formModel.TicketId),
-                UploaderId = Guid.Parse(uploaderId),
-                FileUrl = formModel.DocumentForUploadFileUrl,
+                Name = formModel.DocumentName,
+                DocumentTypeId = formModel.DocumentTypeId,
                 Description = formModel.DocumentDescription,
-                DocumentTypeId = formModel.DocumentTypeId
+                FileUrl = formModel.DocumentForUploadFileUrl,
+                UploaderId = Guid.Parse(uploaderId),
+                TicketId = Guid.Parse(formModel.TicketId)
             };
 
             await this.dbContext.Documents.AddAsync(document);

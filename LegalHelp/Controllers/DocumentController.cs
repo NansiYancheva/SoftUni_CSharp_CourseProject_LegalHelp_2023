@@ -102,7 +102,7 @@
         }
         //Add
         [HttpPost]
-        public async Task<IActionResult> Add(DocumentFormModel model)
+        public async Task<IActionResult> Upload(DocumentFormModel model)
         {
             if (!this.ModelState.IsValid)
             {

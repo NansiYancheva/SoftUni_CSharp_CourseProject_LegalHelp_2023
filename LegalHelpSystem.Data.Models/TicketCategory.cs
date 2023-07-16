@@ -14,7 +14,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(TicketCategoryNameMaxLength)]
         public string Name { get; set; } = null!;
 
         public virtual ICollection<Ticket> Tickets { get; set; }

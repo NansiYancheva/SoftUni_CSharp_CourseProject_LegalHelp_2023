@@ -16,7 +16,7 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(AuthorRightsDescriptionMaxLength)]
+        [MaxLength(UploaderAuthorRightsDescriptionMaxLength)]
         public string AuthorRightsDescription { get; set; } = null!;
 
         [Required]

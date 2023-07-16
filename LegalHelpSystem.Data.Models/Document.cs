@@ -17,7 +17,7 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(DocumentNameMaxLength)]
         public string Name { get; set; } = null!;
 
         [Required]
@@ -26,7 +26,7 @@
         [Required]
         public virtual DocumentType DocumentType { get; set; } = null!;
 
-        [MaxLength(DescriptionMaxLength)]
+        [MaxLength(DocumentDescriptionMaxLength)]
         public string? Description { get; set; }
 
         [Required]

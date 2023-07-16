@@ -15,7 +15,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(DocumentTypeNameMaxLength)]
         public string Name { get; set; } = null!;
 
         public virtual ICollection<Document> Documents { get; set; }

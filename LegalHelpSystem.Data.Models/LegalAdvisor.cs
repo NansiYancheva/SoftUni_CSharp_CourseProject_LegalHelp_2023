@@ -16,19 +16,19 @@
         public Guid Id { get; set; }
 
         [Required]
-        [MaxLength(NameMaxLength)]
+        [MaxLength(LegalAdvisorNameMaxLength)]
         public string FullName { get; set; } = null!;
 
         [Required]
-        [MaxLength(EmailMaxLength)]
+        [MaxLength(LegalAdvisorEmailMaxLength)]
         public string Email { get; set; } = null!;
 
         [Required]
-        [MaxLength(PhoneNumberMaxLength)]
+        [MaxLength(LegalAdvisorPhoneNumberMaxLength)]
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
-        [MaxLength(AddressMaxLength)]
+        [MaxLength(LegalAdvisorAddressMaxLength)]
         public string Address { get; set; } = null!;
 
         public decimal? Rating { get; set; }

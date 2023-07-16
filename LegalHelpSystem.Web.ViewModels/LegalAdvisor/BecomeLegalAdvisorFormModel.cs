@@ -7,21 +7,21 @@
     public class BecomeLegalAdvisorFormModel
     {
         [Required]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
+        [StringLength(LegalAdvisorNameMaxLength, MinimumLength = LegalAdvisorNameMinLength)]
         public string FullName { get; set; } = null!;
 
         [Required]
-        [StringLength(EmailMaxLength, MinimumLength = EmailMinLength)]
+        [StringLength(LegalAdvisorEmailMaxLength, MinimumLength = LegalAdvisorEmailMinLength)]
         [EmailAddress]
         public string Email { get; set; } = null!;
 
         [Required]
-        [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
-        [RegularExpression(PhoneNumberRegulation)]
+        [StringLength(LegalAdvisorPhoneNumberMaxLength, MinimumLength = LegalAdvisorPhoneNumberMinLength)]
+        [RegularExpression(LegalAdvisorPhoneNumberRegulation)]
         public string PhoneNumber { get; set; } = null!;
 
         [Required]
-        [StringLength(AddressMaxLength, MinimumLength = AddressMinLength)]
+        [StringLength(LegalAdvisorAddressMaxLength, MinimumLength = LegalAdvisorAddressMinLength)]
         public string Address { get; set; } = null!;
     }
 }
