@@ -32,6 +32,7 @@
                     Name = h.Name,
                     DocumentType = h.DocumentType.Name,
                     Description = h.Description,
+                    TicketId = h.TicketId.ToString()
                    // FileUrl = h.Attachment
                     //UploaderId = h.UploaderId,
                     //Downloaders = h.Downloaders

@@ -19,5 +19,7 @@
 
         public Guid UploaderId { get; set; }
         public virtual ICollection<ApplicationUser> Downloaders { get; set; }
+
+        public string TicketId { get; set; } = null!;
     }
 }
