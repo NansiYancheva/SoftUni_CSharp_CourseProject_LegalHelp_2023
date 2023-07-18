@@ -40,18 +40,35 @@
                     <td>@ticket.TicketCategory</td>
                     <td>@ticket.RequestDescription</td>
                     <td>
-                        @(
-                            ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved"
-                            )
+                        @(ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved")
                     </td>
-                    @if (ticket.LegalAdviseId != null && this.User.Identity.IsAuthenticated)
-                    {
-                        <td> @ticket.Response </td>
-                    }
-                    else if (ticket.LegalAdviseId == null && this.User.Identity.IsAuthenticated)
-                    {
-                        <td> The ticket is not resolved! </td>
-                    }
+                    <td>
+                        @if (ticket.TicketCategory == "Request for advise")
+                        {
+                            @if (ticket.LegalAdviseId != null)
+                            {
+                                <span>@ticket.Response</span>
+                            }
+                            else if (ticket.LegalAdviseId == null)
+                            {
+                                <span> The ticket is not resolved!</span>
+                            }
+                        }
+                        else if (ticket.TicketCategory == "Request for document")
+                        {
+                            @if (ticket.DocumentId != null)
+                            {
+                                <form method="get" action="@Url.Action("Download", "Document")">
+                                    <button type="submit" class="action-button">Download document</button>
+                                    <input type="hidden" name="ticketId" value="@ticket.Id" />
+                                </form>
+                            }
+                            else if (ticket.DocumentId == null)
+                            {
+                                <span> The ticket is not resolved!</span>
+                            }
+                        }
+                    </td>
 
                     @if (this.User.Identity?.IsAuthenticated ?? false)
                     {

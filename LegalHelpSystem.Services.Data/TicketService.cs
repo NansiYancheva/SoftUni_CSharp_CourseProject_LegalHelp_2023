@@ -110,7 +110,8 @@
                     TicketCategory = h.TicketCategory.Name,
                     RequestDescription = h.RequestDescription,
                     Response = h.Response.AdviseResponse,
-                    LegalAdviseId = h.LegalAdviseId
+                    LegalAdviseId = h.LegalAdviseId,
+                    DocumentId = h.DocumentId
                 })
                 .ToArrayAsync(); 
 
