@@ -104,7 +104,7 @@
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
                                             }
 
-                                            @if (isLegalAdvisor)
+                                            else if (isLegalAdvisor)
                                             {
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
                                             }
