@@ -6,6 +6,7 @@
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using static Common.NotificationMessagesConstants;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
+    using LegalHelpSystem.Services.Data;
 
 
     public class LegalAdviseController : BaseController
@@ -117,6 +118,13 @@
 
             //return this.RedirectToAction("Mine", "LegalAdvise");
             return this.RedirectToAction("All", "Ticket");
+        }
+
+        //All - get
+        public async Task<IActionResult> All()
+        {
+            IEnumerable<LegalAdviseViewModel> model = await legalAdviseService.GetAllLegalAdvisesAsync();
+            return View(model);
         }
 
         //Mine - just listing

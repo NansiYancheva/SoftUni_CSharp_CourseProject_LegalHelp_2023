@@ -27,7 +27,6 @@
             this.documentTypeService = _documentTypeService;
         }
 
-        [AllowAnonymous]
         //All - get
         public async Task<IActionResult> All()
         {

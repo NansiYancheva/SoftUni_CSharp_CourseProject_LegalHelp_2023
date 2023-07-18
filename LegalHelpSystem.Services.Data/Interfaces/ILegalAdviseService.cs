@@ -16,6 +16,8 @@ namespace LegalHelpSystem.Services.Data.Interfaces
 
         //Mine(legal advisor) 
         Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId);
+        //All by everybody
+        Task<IEnumerable<LegalAdviseViewModel>> GetAllLegalAdvisesAsync();
 
     }
 }

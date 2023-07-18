@@ -65,6 +65,22 @@
 
             return allUserReceivedLegalAdvises;
         }
+        //All by everybody
+        public async Task<IEnumerable<LegalAdviseViewModel>> GetAllLegalAdvisesAsync()
+        {
+            return await this.dbContext
+                 .LegalAdvises
+                 .Include(x => x.Ticket)
+                 .Include(x => x.LegalAdvisor)
+                 .Where(x => x.Ticket.Subject != null)
+                 .Select(h => new LegalAdviseViewModel
+                 {
+                     TicketSubject = h.Ticket.Subject,
+                     TicketDescription = h.Ticket.RequestDescription,
+                     AdviseResponse = h.AdviseResponse
+                 })
+                 .ToListAsync();
+        }
 
         //Mine(legal advisor)
         public async Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId)

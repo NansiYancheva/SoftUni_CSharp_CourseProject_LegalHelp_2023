@@ -3,6 +3,7 @@
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
     using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
+    using System.Collections.Generic;
 
     public interface ILegalAdvisorService
     {
@@ -15,5 +16,6 @@
         //Common
         Task<string?> GetLegalAdvisorIdByUserIdAsync(string userId);
         Task<bool> LegalAdvisorExistsByUserIdAsync(string userId);
+
     }
 }
