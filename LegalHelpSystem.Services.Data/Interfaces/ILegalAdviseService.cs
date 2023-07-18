@@ -1,9 +1,8 @@
-﻿using LegalHelpSystem.Web.ViewModels.LegalAdvise;
-using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
-using LegalHelpSystem.Web.ViewModels.Ticket;
-
-namespace LegalHelpSystem.Services.Data.Interfaces
+﻿namespace LegalHelpSystem.Services.Data.Interfaces
 {
+    using LegalHelpSystem.Web.ViewModels.LegalAdvise;
+    using LegalHelpSystem.Web.ViewModels.Ticket;
+
     public interface ILegalAdviseService
     {
 

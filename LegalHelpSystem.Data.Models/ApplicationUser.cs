@@ -7,10 +7,8 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-            this.DownloadedDocuments = new HashSet<Document>();
-            this.Requests = new HashSet<Ticket>();
+            this.DownloadedDocuments = new List<Document>();
         }
         public virtual ICollection<Document> DownloadedDocuments { get; set; }
-        public virtual ICollection<Ticket> Requests { get; set; }
     }
 }

@@ -1,9 +1,6 @@
 ﻿namespace LegalHelpSystem.Services.Data.Interfaces
 {
-    using LegalHelpSystem.Data.Models;
-    using LegalHelpSystem.Web.ViewModels.LegalAdvise;
     using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
-    using System.Collections.Generic;
 
     public interface ILegalAdvisorService
     {

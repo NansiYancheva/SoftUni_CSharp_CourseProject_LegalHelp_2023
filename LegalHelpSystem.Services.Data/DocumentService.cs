@@ -26,6 +26,7 @@
                 .Documents
                 .Include(h => h.DocumentType)
                 .Include(h => h.Uploader)
+                .Where(x => x.Ticket.RequestDescription != null)
                 .Select(h => new DocumentAllViewModel
                 {
                     // Id = h.Id.ToString(),
@@ -33,7 +34,7 @@
                     DocumentType = h.DocumentType.Name,
                     Description = h.Description,
                     TicketId = h.TicketId.ToString()
-                   // FileUrl = h.Attachment
+                    // FileUrl = h.Attachment
                     //UploaderId = h.UploaderId,
                     //Downloaders = h.Downloaders
                     //ToDo: to add how many times the document was downloaded
@@ -64,29 +65,24 @@
         //Downloaded
         public async Task<IEnumerable<DocumentAllViewModel>> GetDownloadedByUserAsync(string userId)
         {
-            Guid userIdToGuid = Guid.Parse(userId);
-            List<Document> listOfDocuments =
-                 await dbContext.Documents
-                 .Join(dbContext.Users.Where(u => u.Id == userIdToGuid),
-                  document => document.Id,
-                  user => user.Id,
-                  (document, user) => document)
-                 .ToListAsync();
-            List<DocumentAllViewModel> listOfDownloadedDocuments =
-            listOfDocuments
-                 .Select(la => new DocumentAllViewModel
-                 {
-                     //Id = la.Id.ToString(),
-                     Name = la.Name,
-                     DocumentType = la.DocumentType.Name,
-                     Description = la.Description,
-                    // FileUrl = la.Attachment
-                     //UploaderId = la.UploaderId,
-                     //Downloaders = la.Downloaders
-                 })
-                 .ToList();
+            ApplicationUser user = await this.dbContext
+                .ApplicationUsers
+                .FirstAsync(x => x.Id.ToString() == userId);
 
-            return listOfDownloadedDocuments;
+            List<Document> userDocs = user.DownloadedDocuments.ToList();
+
+            List<DocumentAllViewModel> allDownloadedByUser = userDocs
+                .Select(x => new DocumentAllViewModel
+                {
+                    Name = x.Name,
+                    DocumentType = x.DocumentType.Name,
+                    Description = x.Description,
+                    DocumentFile = x.AttachedFile,
+                    TicketId = x.TicketId.ToString()
+                })
+                .ToList();
+
+            return allDownloadedByUser;
 
         }
 
@@ -118,9 +114,24 @@
 
             return new DocumentForDownloadViewModel
             {
-               DocumentName = document.Name,
-               DocumentFile = document.AttachedFile
+                DocumentName = document.Name,
+                DocumentFile = document.AttachedFile
             };
+        }
+
+        public async Task AddUserToDocDownloadersCollectionAsync(string userId, string ticketId)
+        {
+            Document foundDocument = await this.dbContext
+                 .Documents
+                 .FirstAsync(x => x.TicketId.ToString() == ticketId);
+
+            ApplicationUser user = await this.dbContext
+                 .ApplicationUsers
+                 .FirstAsync(x => x.Id.ToString() == userId);
+
+            foundDocument.Downloaders.Add(user);
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

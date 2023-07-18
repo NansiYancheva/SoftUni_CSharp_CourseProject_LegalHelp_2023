@@ -55,7 +55,7 @@
             IEnumerable<LegalAdviseViewModel> allUserReceivedLegalAdvises = await this.dbContext
                 .LegalAdvises
                 .Include(la => la.Ticket)
-                .Where(la => la.Ticket.UserId.ToString() == userId)
+                .Where(la => la.Ticket.UserId.ToString().ToLower() == userId)
                 .Select(la => new LegalAdviseViewModel
                 {
                     TicketSubject = la.Ticket.Subject,

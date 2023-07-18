@@ -17,14 +17,16 @@
         private readonly IUploaderService uploaderService;
         private readonly ITicketService ticketService;
         private readonly IDocumentTypeService documentTypeService;
+        private readonly IApplicationUserService applicationUserService;
 
 
-        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService)
+        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService, IApplicationUserService _applicationUserService)
         {
             this.documentService = _documentService;
             this.uploaderService = _uploaderService;
             this.ticketService = _ticketService;
             this.documentTypeService = _documentTypeService;
+            this.applicationUserService = _applicationUserService;
         }
 
         //All - get
@@ -52,8 +54,21 @@
         //Downloaded
         public async Task<IActionResult> Downloaded()
         {
-            IEnumerable<DocumentAllViewModel> model = await documentService.GetDownloadedByUserAsync(this.User.GetId()!);
-            return View(model);
+            List<DocumentAllViewModel> myDownloadedDocs =
+                 new List<DocumentAllViewModel>();
+
+            string userId = this.User.GetId()!;
+
+            try
+            {
+                myDownloadedDocs.AddRange(await this.documentService.GetDownloadedByUserAsync(userId!));
+
+                return this.View(myDownloadedDocs);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
         }
         //Upload
         [HttpGet]
@@ -199,23 +214,32 @@
 
             try
             {
-                DocumentForDownloadViewModel documentFrDownloadModel = await this.documentService
+                DocumentForDownloadViewModel documentForDownloadModel = await this.documentService
                    .GetDocumentForDownload(ticketId);
 
-                if (documentFrDownloadModel == null)
+                if (documentForDownloadModel == null)
                 {
                     this.TempData[ErrorMessage] = "There is no document for download!";
                     return this.RedirectToAction("All", "Ticket");
                 }
-                string contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; 
-                string fileName = "document_file.docx"; 
+                string contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                string fileName = "document_file.docx";
 
-                return File(documentFrDownloadModel.DocumentFile, contentType, fileName);
+                string userId = this.User.GetId()!;
+                //maybe if already added cannot be added again?
+
+                await this.applicationUserService.AddDocToUserCollectionOfDocsAsync(userId, ticketId);
+
+                await this.documentService.AddUserToDocDownloadersCollectionAsync(userId, ticketId);
+
+
+                return File(documentForDownloadModel.DocumentFile, contentType, fileName);
             }
             catch (Exception)
             {
                 return this.GeneralError();
             }
+
         }
 
     }

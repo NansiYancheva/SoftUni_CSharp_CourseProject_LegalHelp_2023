@@ -1,8 +1,7 @@
 ﻿namespace LegalHelpSystem.Services.Data.Interfaces
 {
     using LegalHelpSystem.Web.ViewModels.Document;
-    using LegalHelpSystem.Web.ViewModels.LegalAdvise;
-    using LegalHelpSystem.Web.ViewModels.Ticket;
+
     public interface IDocumentService
     {
         //All - get
@@ -20,5 +19,7 @@
 
         //download document
         Task<DocumentForDownloadViewModel> GetDocumentForDownload(string ticketId);
+
+        Task AddUserToDocDownloadersCollectionAsync(string userId, string ticketId);
     }
 }

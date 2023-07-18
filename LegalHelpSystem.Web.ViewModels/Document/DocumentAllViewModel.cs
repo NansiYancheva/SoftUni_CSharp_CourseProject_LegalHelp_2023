@@ -15,7 +15,7 @@
 
         public string? Description { get; set; }
 
-        public string FileUrl { get; set; } = null!;
+        public byte[] DocumentFile { get; set; } 
 
         public Guid UploaderId { get; set; }
         public virtual ICollection<ApplicationUser> Downloaders { get; set; }

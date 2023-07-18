@@ -143,6 +143,7 @@
             return View(model);
         }
 
+        //Mine - received
         public async Task<IActionResult> Received()
         {
             List<LegalAdviseViewModel> myReceivedLegalAdvises =
