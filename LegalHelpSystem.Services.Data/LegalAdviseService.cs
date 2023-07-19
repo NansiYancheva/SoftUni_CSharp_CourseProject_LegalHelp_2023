@@ -85,9 +85,9 @@
         //Mine(legal advisor)
         public async Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId)
         {
-            var listOfLegalAdvises = 
+            IEnumerable<LegalAdviseViewModel> listOfLegalAdvises = 
                  await dbContext.LegalAdvises
-                .Where(la => la.LegalAdvisorId.ToString() == legalAdvisorId)
+                .Where(la => la.LegalAdvisorId.ToString() == legalAdvisorId && la.Ticket.RequestDescription != null)
                 .Select(la => new LegalAdviseViewModel
                 {
                     TicketSubject = la.Ticket.Subject,

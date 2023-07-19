@@ -130,6 +130,9 @@
         //Mine - just listing
         public async Task<IActionResult> Mine()
         {
+            List<LegalAdviseViewModel> legalAdvisorGivenLegalAdvises =
+              new List<LegalAdviseViewModel>();
+
             bool isLegalAdvisor =
                    await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
             if (!isLegalAdvisor)
@@ -138,9 +141,17 @@
 
                 return this.RedirectToAction("Become", "LegalAdvisor");
             }
-            string? legalAdvisorId = await this.legalAdvisorService.GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
-            IEnumerable<LegalAdviseViewModel> model = await legalAdviseService.GetMyLegalAdvisesAsync(legalAdvisorId!);
-            return View(model);
+            try
+            {
+                string? legalAdvisorId = await this.legalAdvisorService.GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
+                legalAdvisorGivenLegalAdvises.AddRange(await legalAdviseService.GetMyLegalAdvisesAsync(legalAdvisorId!));
+                return this.View(legalAdvisorGivenLegalAdvises);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
         }
 
         //Mine - received

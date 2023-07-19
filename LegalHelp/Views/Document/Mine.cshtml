@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<DocumentAllViewModel>
 @{
-    ViewData["Title"] = "Mine Uploaded Documents";
+    ViewData["Title"] = "My Uploaded Documents";
 }
 
 <h2 class="text-center">@ViewData["Title"]</h2>
@@ -12,8 +12,9 @@
 }
 else
 {
+    <h6 class="text-center">Your Total Uploaded Documents are @Model.Count()</h6>
     <div class="row">
-        <partial name="_DocumentPartial" model="@Model" />
+        <partial name="_DocumentAllPartial" model="@Model" />
     </div>
 }
 

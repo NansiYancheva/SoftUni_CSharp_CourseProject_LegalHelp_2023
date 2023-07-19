@@ -37,6 +37,9 @@
         //Mine - just listing
         public async Task<IActionResult> Mine()
         {
+            List<DocumentAllViewModel> uploaderUploadedDocs =
+             new List<DocumentAllViewModel>();
+
             bool isUploader =
                    await this.uploaderService.UploaderExistsByUserIdAsync(this.User.GetId()!);
             if (!isUploader)
@@ -45,9 +48,17 @@
 
                 return this.RedirectToAction("Become", "Uploader");
             }
-            string? uploaderId = await this.uploaderService.GetUploaderIdByUserIdAsync(this.User.GetId()!);
-            IEnumerable<DocumentAllViewModel> model = await documentService.GetMyUploadedDocumentsAsync(uploaderId!);
-            return View(model);
+            try
+            {
+                string? uploaderId = await this.uploaderService.GetUploaderIdByUserIdAsync(this.User.GetId()!);
+                uploaderUploadedDocs.AddRange(await documentService.GetMyUploadedDocumentsAsync(uploaderId!));
+                return this.View(uploaderUploadedDocs);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+
         }
 
         //Downloaded
