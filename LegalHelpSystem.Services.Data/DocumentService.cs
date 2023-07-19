@@ -67,24 +67,25 @@
         {
 
 
-            ApplicationUser user = await this.dbContext
-                .ApplicationUsers
-                .FirstAsync(x => x.Id.ToString() == userId);
+            //ApplicationUser user = await this.dbContext
+            //    .ApplicationUsers
+            //    .FirstAsync(x => x.Id.ToString() == userId);
 
 
 
-            List<Document> userDocs = user.DownloadedDocs.ToList();
+            // List<Document> userDocs = user.DownloadedDocs.ToList();
 
-            List<DocumentAllViewModel> allDownloadedByUser = userDocs
-                .Select(x => new DocumentAllViewModel
-                {
-                    Name = x.Name,
-                    DocumentType = x.DocumentType.Name,
-                    Description = x.Description,
-                    DocumentFile = x.AttachedFile,
-                    TicketId = x.TicketId.ToString()
-                })
-                .ToList();
+            List<DocumentAllViewModel> allDownloadedByUser = new List<DocumentAllViewModel>(); 
+            //userDocs
+            //    .Select(x => new DocumentAllViewModel
+            //    {
+            //        Name = x.Name,
+            //        DocumentType = x.DocumentType.Name,
+            //        Description = x.Description,
+            //        DocumentFile = x.AttachedFile,
+            //        TicketId = x.TicketId.ToString()
+            //    })
+            //    .ToList();
 
             return allDownloadedByUser;
 
@@ -129,11 +130,11 @@
                  .Documents
                  .FirstAsync(x => x.TicketId.ToString() == ticketId);
 
-            ApplicationUser user = await this.dbContext
-                 .ApplicationUsers
-                 .FirstAsync(x => x.Id.ToString() == userId);
+            //ApplicationUser user = await this.dbContext
+            //     .ApplicationUsers
+            //     .FirstAsync(x => x.Id.ToString() == userId);
 
-            foundDocument.Downloaders.Add(user);
+           // foundDocument.Downloaders.Add(user);
 
             await this.dbContext.SaveChangesAsync();
         }

@@ -21,8 +21,6 @@
         public DbSet<TicketCategory> TicketCategories { get; set; } = null!;
         public DbSet<Uploader> Uploaders { get; set; } = null!;
 
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             Assembly configAssembly = Assembly.GetAssembly(typeof(LegalHelpDbContext)) ??

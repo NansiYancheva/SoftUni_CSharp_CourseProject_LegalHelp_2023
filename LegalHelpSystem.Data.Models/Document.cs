@@ -9,7 +9,6 @@
         public Document()
         {
             this.Id = Guid.NewGuid();
-            this.Downloaders = new HashSet<ApplicationUser>();
         }
 
 
@@ -43,6 +42,5 @@
         [Required]
         public virtual Ticket Ticket { get; set; } = null!;
 
-        public virtual ICollection<ApplicationUser> Downloaders { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using LegalHelpSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegalHelpSystem.Data.Migrations
 {
     [DbContext(typeof(LegalHelpDbContext))]
-    partial class LegalHelpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230719170929_test")]
+    partial class test
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace LegalHelpSystem.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("ApplicationUserDocument", b =>
+                {
+                    b.Property<Guid>("DownloadedDocsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DownloadersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("DownloadedDocsId", "DownloadersId");
+
+                    b.HasIndex("DownloadersId");
+
+                    b.ToTable("UserDocumentDownloads", (string)null);
+                });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.ApplicationUser", b =>
                 {
@@ -471,6 +488,21 @@ namespace LegalHelpSystem.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ApplicationUserDocument", b =>
+                {
+                    b.HasOne("LegalHelpSystem.Data.Models.Document", null)
+                        .WithMany()
+                        .HasForeignKey("DownloadedDocsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LegalHelpSystem.Data.Models.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("DownloadersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.Document", b =>

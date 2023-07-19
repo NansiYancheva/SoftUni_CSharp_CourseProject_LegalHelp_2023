@@ -22,9 +22,6 @@
                 .HasForeignKey(d => d.UploaderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            //builder
-            //   .HasMany(d => d.Downloaders)
-            //   .WithMany(d => d.DownloadedDocuments);
         }
 
         //private Document[] GenerateDocuments()
