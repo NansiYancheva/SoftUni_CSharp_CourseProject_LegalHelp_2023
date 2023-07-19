@@ -7,8 +7,11 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-            this.DownloadedDocuments = new List<Document>();
+          //  this.DownloadedDocuments = new List<Document>();
+            this.DownloadedDocs = new List<Document>();
         }
-        public virtual ICollection<Document> DownloadedDocuments { get; set; }
+       //public virtual List<Document> DownloadedDocuments { get; set; }
+
+        public virtual List<Document> DownloadedDocs { get; set; }
     }
 }

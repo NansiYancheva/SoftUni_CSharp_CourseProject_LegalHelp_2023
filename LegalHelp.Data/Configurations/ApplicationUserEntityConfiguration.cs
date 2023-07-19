@@ -9,9 +9,15 @@
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
+    //        builder
+    //.Property(x => x.DownloadedDocs)
+    //.HasColumnType("nvarchar(MAX)");
+
             builder
-            .HasMany(d => d.DownloadedDocuments)
+            .HasMany(d => d.DownloadedDocs)
             .WithMany(d => d.Downloaders);
+
+
         }
     }
 }

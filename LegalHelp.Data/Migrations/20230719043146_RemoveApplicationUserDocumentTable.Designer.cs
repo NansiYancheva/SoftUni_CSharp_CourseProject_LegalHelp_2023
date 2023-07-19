@@ -4,6 +4,7 @@ using LegalHelpSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegalHelpSystem.Data.Migrations
 {
     [DbContext(typeof(LegalHelpDbContext))]
-    partial class LegalHelpDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230719043146_RemoveApplicationUserDocumentTable")]
+    partial class RemoveApplicationUserDocumentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +23,6 @@ namespace LegalHelpSystem.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ApplicationUserDocument", b =>
-                {
-                    b.Property<Guid>("DownloadedDocsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DownloadersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DownloadedDocsId", "DownloadersId");
-
-                    b.HasIndex("DownloadersId");
-
-                    b.ToTable("ApplicationUserDocument");
-                });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.ApplicationUser", b =>
                 {
@@ -49,6 +36,9 @@ namespace LegalHelpSystem.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("DocumentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -91,6 +81,8 @@ namespace LegalHelpSystem.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DocumentId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -488,19 +480,11 @@ namespace LegalHelpSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ApplicationUserDocument", b =>
+            modelBuilder.Entity("LegalHelpSystem.Data.Models.ApplicationUser", b =>
                 {
                     b.HasOne("LegalHelpSystem.Data.Models.Document", null)
-                        .WithMany()
-                        .HasForeignKey("DownloadedDocsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LegalHelpSystem.Data.Models.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("DownloadersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Downloaders")
+                        .HasForeignKey("DocumentId");
                 });
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.Document", b =>
@@ -641,6 +625,8 @@ namespace LegalHelpSystem.Data.Migrations
 
             modelBuilder.Entity("LegalHelpSystem.Data.Models.Document", b =>
                 {
+                    b.Navigation("Downloaders");
+
                     b.Navigation("Ticket")
                         .IsRequired();
                 });

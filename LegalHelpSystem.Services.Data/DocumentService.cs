@@ -65,11 +65,15 @@
         //Downloaded
         public async Task<IEnumerable<DocumentAllViewModel>> GetDownloadedByUserAsync(string userId)
         {
+
+
             ApplicationUser user = await this.dbContext
                 .ApplicationUsers
                 .FirstAsync(x => x.Id.ToString() == userId);
 
-            List<Document> userDocs = user.DownloadedDocuments.ToList();
+
+
+            List<Document> userDocs = user.DownloadedDocs.ToList();
 
             List<DocumentAllViewModel> allDownloadedByUser = userDocs
                 .Select(x => new DocumentAllViewModel

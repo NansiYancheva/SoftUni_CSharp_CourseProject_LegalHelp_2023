@@ -25,7 +25,7 @@
                 .FirstAsync(x => x.Id.ToString() == userId);
 
 
-           userToBeUpdated.DownloadedDocuments.Add(documentToBeAdded);
+           userToBeUpdated.DownloadedDocs.Add(documentToBeAdded);
 
             await this.dbContext.SaveChangesAsync();
         }
