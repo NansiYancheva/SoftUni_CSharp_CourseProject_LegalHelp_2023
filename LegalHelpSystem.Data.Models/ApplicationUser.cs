@@ -7,7 +7,10 @@
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
+            this.Reviews = new List<Review>();
         }
+
+        public virtual ICollection<Review> Reviews { get; set; }
 
     }
 }

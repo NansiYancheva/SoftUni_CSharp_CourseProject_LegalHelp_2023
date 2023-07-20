@@ -62,6 +62,15 @@
             public const int TicketCategoryNameMaxLength = 50;
         }
 
+        public static class ReviewConstants
+        {
+            public const int TextReviewMinLength = 8;
+            public const int TextReviewMaxLength = 50;
+
+            public const int ReviewStarsMinLength = 0;
+            public const int ReviewStarsMaxLength = 10;
+        }
+
 
     }
 }

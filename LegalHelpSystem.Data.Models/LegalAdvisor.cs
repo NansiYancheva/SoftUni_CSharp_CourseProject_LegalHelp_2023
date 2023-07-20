@@ -10,6 +10,7 @@
         {
             this.Id = Guid.NewGuid();
             this.LegalAdvises = new HashSet<LegalAdvise>();
+            this.Reviews = new List<Review>();
         }
 
         [Key]
@@ -31,13 +32,13 @@
         [MaxLength(LegalAdvisorAddressMaxLength)]
         public string Address { get; set; } = null!;
 
-        public decimal? Rating { get; set; }
-
         [Required]
         public Guid UserId { get; set; }
         [Required]
         public virtual ApplicationUser User { get; set; } = null!;
 
         public virtual ICollection<LegalAdvise> LegalAdvises { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

@@ -10,6 +10,7 @@
         {
             this.Id = Guid.NewGuid();
             this.UploadedDocuments = new HashSet<Document>();
+            this.Reviews = new List<Review>();
         }
 
         [Key]
@@ -26,6 +27,8 @@
         public virtual ApplicationUser User { get; set; } = null!;
 
         public virtual ICollection<Document> UploadedDocuments { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
 
     }
 }

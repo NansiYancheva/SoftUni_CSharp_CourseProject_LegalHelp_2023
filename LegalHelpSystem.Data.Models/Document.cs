@@ -9,6 +9,7 @@
         public Document()
         {
             this.Id = Guid.NewGuid();
+            this.Reviews = new List<Review>();
         }
 
 
@@ -41,6 +42,8 @@
         public Guid TicketId { get; set; }
         [Required]
         public virtual Ticket Ticket { get; set; } = null!;
+
+        public virtual ICollection<Review> Reviews { get; set; }
 
     }
 }

@@ -20,6 +20,7 @@
         public DbSet<Ticket> Tickets { get; set; } = null!;
         public DbSet<TicketCategory> TicketCategories { get; set; } = null!;
         public DbSet<Uploader> Uploaders { get; set; } = null!;
+        public DbSet<Review> Reviews { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

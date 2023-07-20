@@ -9,6 +9,7 @@
         public LegalAdvise()
         {
             this.Id = Guid.NewGuid();
+            this.Reviews = new List<Review>();
         }
 
         [Key]
@@ -27,5 +28,7 @@
         public Guid LegalAdvisorId { get; set; }
         [Required]
         public virtual LegalAdvisor LegalAdvisor { get; set; } = null!;
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }
