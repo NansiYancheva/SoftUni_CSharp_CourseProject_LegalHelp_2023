@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-
-namespace LegalHelpSystem.Web.ViewModels.LegalAdvise
+﻿namespace LegalHelpSystem.Web.ViewModels.LegalAdvise
 {
+    using System.ComponentModel.DataAnnotations;
     public class LegalAdviseFormModel
     {
         [Display(Name = "Legal Advise")]

@@ -21,5 +21,7 @@
         Task<DocumentForDownloadViewModel> GetDocumentForDownload(string ticketId);
 
         Task AddUserToDocDownloadersCollectionAsync(string userId, string ticketId);
+        Task<bool> DocumentExistsByIdAsync(string objectId);
+        Task<string> GetDocumentNameAsync(string objectId);
     }
 }

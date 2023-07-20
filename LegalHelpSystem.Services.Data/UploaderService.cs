@@ -66,6 +66,13 @@
             return uploader.Id.ToString();
         }
 
+        public async Task<string> GetUploaderNameAsync(string objectId)
+        {
+            Uploader uploader = await this.dbContext
+               .Uploaders
+               .FirstOrDefaultAsync(a => a.UserId.ToString() == objectId);
 
+            return uploader.User.UserName;
+        }
     }
 }

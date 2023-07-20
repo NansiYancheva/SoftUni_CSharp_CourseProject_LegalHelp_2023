@@ -6,7 +6,6 @@
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
-    using LegalHelpSystem.Web.ViewModels.LegalAdvise;
 
     public class LegalAdvisorService : ILegalAdvisorService
     {
@@ -70,6 +69,13 @@
             return legalAdvisor.Id.ToString();
         }
 
+        public async Task<string> GetLegalAdvisorNameAsync(string objectId)
+        {
+            LegalAdvisor legalAdvisor = await this.dbContext
+             .LegalAdvisors
+             .FirstOrDefaultAsync(a => a.UserId.ToString() == objectId);
 
+            return legalAdvisor.User.UserName;
+        }
     }
 }

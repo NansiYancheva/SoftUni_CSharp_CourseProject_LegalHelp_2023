@@ -12,6 +12,6 @@
         Task<bool> UploaderExistsByUserIdAsync(string userId);
 
         Task<string?> GetUploaderIdByUserIdAsync(string userId);
-
+        Task<string> GetUploaderNameAsync(string objectId);
     }
 }

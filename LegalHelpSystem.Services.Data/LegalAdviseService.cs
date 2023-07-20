@@ -82,10 +82,12 @@
                  .ToListAsync();
         }
 
+
+
         //Mine(legal advisor)
         public async Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId)
         {
-            IEnumerable<LegalAdviseViewModel> listOfLegalAdvises = 
+            IEnumerable<LegalAdviseViewModel> listOfLegalAdvises =
                  await dbContext.LegalAdvises
                 .Where(la => la.LegalAdvisorId.ToString() == legalAdvisorId && la.Ticket.RequestDescription != null)
                 .Select(la => new LegalAdviseViewModel
@@ -98,6 +100,23 @@
             return listOfLegalAdvises;
         }
 
+        //Common
+        public async Task<bool> LegalAdviseExistsByIdAsync(string objectId)
+        {
+            bool result = await this.dbContext
+               .LegalAdvises
+               .AnyAsync(a => a.Id.ToString() == objectId);
 
+            return result;
+        }
+
+        public async Task<string> GetLegalAdviseResponseAsync(string objectId)
+        {
+            LegalAdvise legalAdvise = await this.dbContext
+                .LegalAdvises
+                .FirstOrDefaultAsync(x => x.Id.ToString() == objectId);
+
+            return legalAdvise.AdviseResponse;
+        }
     }
 }

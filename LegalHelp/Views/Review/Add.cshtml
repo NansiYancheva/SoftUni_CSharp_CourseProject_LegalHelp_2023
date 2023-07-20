@@ -1,0 +1,40 @@
+﻿@model ReviewFormModel
+
+@{
+    ViewData["Title"] = "Add Review";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr></hr>
+
+<h8>Review object: @Model.Object</h8>
+<p></p>
+
+<div class="row">
+
+    <form method="post" asp-controller="Review" asp-action="Add" asp-route-objectId="@Model.ObjectId">
+        <input type="hidden" asp-for="ObjectId" value="@Model.ObjectId" />
+        <input type="hidden" asp-for="Object" value="@Model.Object" />
+
+        <div class="form-group">
+            <label asp-for="TextReview"></label>
+            <input asp-for="TextReview" class="form-control" placeholder="Enter your review comment">
+            <span asp-validation-for="TextReview" class="small text-danger"></span>
+        </div>
+        <p></p>
+
+        <div class="form-group">
+            <label asp-for="Stars"></label>
+            <input asp-for="Stars" class="form-control" placeholder="Enter your review comment">
+            <span asp-validation-for="Stars" class="small text-danger"></span>
+        </div>
+        <p></p>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

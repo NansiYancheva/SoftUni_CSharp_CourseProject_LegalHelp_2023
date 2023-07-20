@@ -95,23 +95,26 @@
                                 <li class="nav-item">
                                     <div class="dropdown">
                                         <button class="nav-link text-dark dropdown-toggle" type="button" id="teamDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Become part of the team
+                                            Team
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="teamDropdown">
 
                                             @if (isUploader)
                                             {
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Review" asp-action="TeamForReview">Review team members</a></li>
                                             }
 
                                             else if (isLegalAdvisor)
                                             {
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="Review" asp-action="TeamForReview">Review team members</a></li>
                                             }
                                             else
                                             {
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="Review" asp-action="TeamForReview">Review team members</a></li>
                                             }
                                         </ul>
                                     </div>

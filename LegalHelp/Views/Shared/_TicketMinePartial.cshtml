@@ -26,7 +26,9 @@
                 <th scope="col">Request Description</th>
                 <th scope="col">Ticket Status</th>
                 <th scope="col">Response</th>
+                <th scope="col">Add Review</th>
                 <th scope="col">More Options</th>
+
 
             </tr>
         </thead>
@@ -48,24 +50,34 @@
                             @if (ticket.LegalAdviseId != null)
                             {
                                 <span>@ticket.Response</span>
+                            <td>
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectId="@ticket.LegalAdviseId"
+                       class="btn btn-warning">Add Review</a>
+                            </td>
                             }
                             else if (ticket.LegalAdviseId == null)
                             {
-                                <span> The ticket is not resolved!</span>
+                            <span> The ticket is not resolved!</span>
+                            <td> You can't review an unresolved ticket!</td>
                             }
                         }
                         else if (ticket.TicketCategory == "Request for document")
                         {
                             @if (ticket.DocumentId != null)
                             {
-                                <form method="get" action="@Url.Action("Download", "Document")">
-                                    <button type="submit" class="action-button">Download document</button>
-                                    <input type="hidden" name="ticketId" value="@ticket.Id" />
-                                </form>
+                            <form method="get" action="@Url.Action("Download", "Document")">
+                                <button type="submit" class="action-button">Download document</button>
+                                <input type="hidden" name="ticketId" value="@ticket.Id" />
+                            </form>
+                            <td>
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectId="@ticket.DocumentId"
+                                 class="btn btn-warning">Add Review</a>
+                            </td>
                             }
                             else if (ticket.DocumentId == null)
                             {
-                                <span> The ticket is not resolved!</span>
+                            <span> The ticket is not resolved!</span>
+                            <td> You can't review an unresolved ticket!</td>
                             }
                         }
                     </td>
@@ -78,6 +90,16 @@
                             <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id"
                        class="btn btn-danger">Delete</a>
                         </td>
+
+
+
+
+
+
+
+
+
+
                     }
 
                 </tr>

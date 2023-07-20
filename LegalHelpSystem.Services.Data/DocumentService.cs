@@ -75,7 +75,7 @@
 
             // List<Document> userDocs = user.DownloadedDocs.ToList();
 
-            List<DocumentAllViewModel> allDownloadedByUser = new List<DocumentAllViewModel>(); 
+            List<DocumentAllViewModel> allDownloadedByUser = new List<DocumentAllViewModel>();
             //userDocs
             //    .Select(x => new DocumentAllViewModel
             //    {
@@ -134,9 +134,27 @@
             //     .ApplicationUsers
             //     .FirstAsync(x => x.Id.ToString() == userId);
 
-           // foundDocument.Downloaders.Add(user);
+            // foundDocument.Downloaders.Add(user);
 
             await this.dbContext.SaveChangesAsync();
+        }
+        //Common
+        public async Task<bool> DocumentExistsByIdAsync(string objectId)
+        {
+            bool result = await this.dbContext
+                .Documents
+                .AnyAsync(a => a.Id.ToString() == objectId);
+
+            return result;
+        }
+
+        public async Task<string> GetDocumentNameAsync(string objectId)
+        {
+            Document document = await this.dbContext
+                .Documents
+                .FirstOrDefaultAsync(x => x.Id.ToString() == objectId);
+
+            return document.Name;
         }
     }
 }

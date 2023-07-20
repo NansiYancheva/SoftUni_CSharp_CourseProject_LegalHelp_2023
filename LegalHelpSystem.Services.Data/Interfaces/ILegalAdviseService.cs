@@ -17,6 +17,7 @@
         Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId);
         //All by everybody
         Task<IEnumerable<LegalAdviseViewModel>> GetAllLegalAdvisesAsync();
-
+        Task<bool> LegalAdviseExistsByIdAsync(string objectId);
+        Task<string> GetLegalAdviseResponseAsync(string objectId);
     }
 }

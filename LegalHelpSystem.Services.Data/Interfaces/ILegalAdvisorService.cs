@@ -13,6 +13,6 @@
         //Common
         Task<string?> GetLegalAdvisorIdByUserIdAsync(string userId);
         Task<bool> LegalAdvisorExistsByUserIdAsync(string userId);
-
+        Task<string> GetLegalAdvisorNameAsync(string objectId);
     }
 }
