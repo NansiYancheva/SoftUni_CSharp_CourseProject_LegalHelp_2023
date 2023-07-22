@@ -9,7 +9,7 @@
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Document;
     using LegalHelpSystem.Data.Models;
-
+    using LegalHelpSystem.Web.ViewModels.Review;
 
     public class DocumentService : IDocumentService
     {
@@ -155,6 +155,39 @@
                 .FirstOrDefaultAsync(x => x.Id.ToString() == objectId);
 
             return document.Name;
+        }
+
+        public async Task<ReviewsViewModel> GetDocumentReviews(string id)
+        {
+            Document document = await this.dbContext
+           .Documents
+           .Include(x => x.Reviews)
+            .FirstOrDefaultAsync(x => x.Id.ToString() == id);
+
+            List<string> listOfTextReviews = document.Reviews
+                .Select(x => x.TextReview)
+                .ToList();
+
+            int totalStars = document.Reviews
+                .Select(x => x.Stars)
+                .Sum();
+
+            int aggTotalStars;
+            if (totalStars == 0)
+            {
+                aggTotalStars = 0;
+            }
+            else
+            {
+                aggTotalStars = totalStars / document.Reviews.Count;
+            }
+
+            return new ReviewsViewModel
+            {
+                Object = document.Name,
+                TextReviews = listOfTextReviews,
+                TotalStars = aggTotalStars
+            };
         }
     }
 }

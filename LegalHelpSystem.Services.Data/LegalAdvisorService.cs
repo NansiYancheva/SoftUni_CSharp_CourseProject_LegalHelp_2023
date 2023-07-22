@@ -6,6 +6,7 @@
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
+    using LegalHelpSystem.Web.ViewModels.Review;
 
     public class LegalAdvisorService : ILegalAdvisorService
     {
@@ -76,6 +77,39 @@
              .FirstOrDefaultAsync(a => a.UserId.ToString() == objectId);
 
             return legalAdvisor.User.UserName;
+        }
+
+        public async Task<ReviewsViewModel> GetLegalAdvisorReviews(string id)
+        {
+            LegalAdvisor legalAdvisor = await this.dbContext
+          .LegalAdvisors
+          .Include(x => x.Reviews)
+           .FirstOrDefaultAsync(a => a.UserId.ToString() == id);
+
+            List<string> listOfTextReviews = legalAdvisor.Reviews
+                .Select(x => x.TextReview)
+                .ToList();
+
+            int totalStars = legalAdvisor.Reviews
+                .Select(x => x.Stars)
+                .Sum();
+
+            int aggTotalStars;
+            if (totalStars == 0)
+            {
+                aggTotalStars = 0;
+            }
+            else
+            {
+                aggTotalStars = totalStars / legalAdvisor.Reviews.Count;
+            }
+
+            return new ReviewsViewModel
+            {
+                Object = legalAdvisor.User.UserName,
+                TextReviews = listOfTextReviews,
+                TotalStars = aggTotalStars
+            };
         }
     }
 }

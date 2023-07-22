@@ -1,5 +1,6 @@
 ﻿namespace LegalHelpSystem.Services.Data.Interfaces
 {
+    using LegalHelpSystem.Web.ViewModels.Review;
     using LegalHelpSystem.Web.ViewModels.Uploader;
     public interface IUploaderService
     {
@@ -12,6 +13,9 @@
         Task<bool> UploaderExistsByUserIdAsync(string userId);
 
         Task<string?> GetUploaderIdByUserIdAsync(string userId);
+
         Task<string> GetUploaderNameAsync(string objectId);
+
+        Task<ReviewsViewModel> GetUploaderReviews(string id);
     }
 }

@@ -138,5 +138,58 @@
 
 
         ////////TeamForReview///////
+        
+        //ViewReview
+        [HttpGet]
+        public async Task<IActionResult> View(string id)
+        {
+            //check type of object
+            bool isUploader =
+                   await this.uploaderService.UploaderExistsByUserIdAsync(id);
+            bool isLegalAdvisor =
+               await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(id);
+            bool legalAdviseExists =
+               await this.legalAdviseService.LegalAdviseExistsByIdAsync(id);
+            bool documentExists =
+               await this.documentService.DocumentExistsByIdAsync(id);
+
+            if (!isLegalAdvisor && !isUploader && !documentExists && !legalAdviseExists)
+            {
+                this.TempData[ErrorMessage] = "There is no object to view review of!";
+
+                return this.RedirectToAction("All", "Ticket");
+            }
+
+            try
+            {
+
+                ReviewsViewModel reviewViewModel = new ReviewsViewModel();
+               //? reviewViewModel.ObjectId = id;
+
+                if (isUploader)
+                {
+                    reviewViewModel = await this.uploaderService.GetUploaderReviews(id);
+
+                }
+                else if (isLegalAdvisor)
+                {
+                    reviewViewModel = await this.legalAdvisorService.GetLegalAdvisorReviews(id);
+                }
+                else if (documentExists)
+                {
+                    reviewViewModel = await this.documentService.GetDocumentReviews(id);
+                }
+                else if (legalAdviseExists)
+                {
+                    reviewViewModel = await this.legalAdviseService.GetLegalAdviseReviews(id);
+                }
+
+                return View(reviewViewModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
     }
 }

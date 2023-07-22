@@ -1,6 +1,7 @@
 ﻿namespace LegalHelpSystem.Services.Data.Interfaces
 {
     using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
+    using LegalHelpSystem.Web.ViewModels.Review;
 
     public interface ILegalAdvisorService
     {
@@ -14,5 +15,6 @@
         Task<string?> GetLegalAdvisorIdByUserIdAsync(string userId);
         Task<bool> LegalAdvisorExistsByUserIdAsync(string userId);
         Task<string> GetLegalAdvisorNameAsync(string objectId);
+        Task<ReviewsViewModel> GetLegalAdvisorReviews(string id);
     }
 }

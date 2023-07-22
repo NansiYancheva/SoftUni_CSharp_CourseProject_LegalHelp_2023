@@ -1,6 +1,7 @@
 ﻿namespace LegalHelpSystem.Services.Data.Interfaces
 {
     using LegalHelpSystem.Web.ViewModels.Document;
+    using LegalHelpSystem.Web.ViewModels.Review;
 
     public interface IDocumentService
     {
@@ -23,5 +24,6 @@
         Task AddUserToDocDownloadersCollectionAsync(string userId, string ticketId);
         Task<bool> DocumentExistsByIdAsync(string objectId);
         Task<string> GetDocumentNameAsync(string objectId);
+        Task<ReviewsViewModel> GetDocumentReviews(string id);
     }
 }

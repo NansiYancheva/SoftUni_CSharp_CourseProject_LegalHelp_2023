@@ -34,6 +34,7 @@
                 <th scope="col">Request Description</th>
                 <th scope="col">Ticket Status</th>
                 <th scope="col">Result</th>
+                <th scope="col">Reviews</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -48,52 +49,89 @@
                     <td>
                         @(ticket.ResolvedTicketStatus ? "Resolved" : "Not Resolved")
                     </td>
-                    <td>
-                        @if (SignInManager.IsSignedIn(User))
-                        {
 
-                            @if (ticket.TicketCategory == "Request for advise")
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+
+                        @if (ticket.TicketCategory == "Request for advise")
+                        {
+                            @if (ticket.LegalAdviseId != null)
                             {
-                                @if (ticket.LegalAdviseId != null)
-                                {
-                                    //span?
-                                    <span>@ticket.Response</span>
-                                }
-                                else if (ticket.LegalAdviseId == null)
-                                {
+                            //span?
+                                <td>
+                                    @ticket.Response
+                                </td>
+                                <td>
+                                    @*get or post*@
+                                    <form method="get" action="@Url.Action("View", "Review")">
+                                        <button type="submit" class="action-button">View Reviews</button>
+                                        <input type="hidden" name="id" value="@ticket.LegalAdviseId" />
+                                    </form>
+                                </td>
+
+                            }
+                            else if (ticket.LegalAdviseId == null)
+                            {
+                                <td>
                                     <form method="get" action="@Url.Action("Add", "LegalAdvise")">
                                         <button type="submit" class="action-button">Add a legal advise</button>
                                         <input type="hidden" name="ticketId" value="@ticket.Id" />
                                     </form>
-                                    //<a href="@Url.Action("Add", "LegalAdvise", new { ticketId = ticket.Id })">Add a legal advise</a>
-                                }
+                                </td>
+                                <td>
+                                    <span>The ticket is not resolved and there are no reviews yet</span>
+                                </td>
+                                //<a href="@Url.Action("Add", "LegalAdvise", new { ticketId = ticket.Id })">Add a legal advise</a>
                             }
+                        }
 
-                            else if (ticket.TicketCategory == "Request for document")
+                        else if (ticket.TicketCategory == "Request for document")
+                        {
+                            @if (ticket.DocumentId != null)
                             {
-                                @if (ticket.DocumentId != null)
-                                {
+                                <td>
                                     <form method="get" action="@Url.Action("Download", "Document")">
                                         <button type="submit" class="action-button">Download document</button>
                                         <input type="hidden" name="ticketId" value="@ticket.Id" />
                                     </form>
-                                }
-                                else if (ticket.DocumentId == null)
-                                {
+                                </td>
+                                <td>
+                                    @*get or post*@
+                                    <form method="get" action="@Url.Action("View", "Review")">
+                                        <button type="submit" class="action-button">View Reviews</button>
+                                        <input type="hidden" name="id" value="@ticket.DocumentId" />
+                                    </form>
+                                </td>
+                            }
+                            else if (ticket.DocumentId == null)
+                            {
+                                <td>
                                     <form method="get" action="@Url.Action("Upload", "Document")">
                                         <button type="submit" class="action-button">Upload a document</button>
                                         <input type="hidden" name="ticketId" value="@ticket.Id" />
                                     </form>
-                                    //<a href="@Url.Action("Upload", "Document", new { ticketId = ticket.Id })">Upload a document</a>
-                                }
+                                </td>
+                                //<a href="@Url.Action("Upload", "Document", new { ticketId = ticket.Id })">Upload a document</a>
+                                 <td>
+                                    <span>The ticket is not resolved and there are no reviews yet</span>
+                                </td>
                             }
                         }
-                        else
-                        {
+                    }
+                    else
+                    {
+                        <td>
                             <span>Please login/register to view the result</span>
-                        }
-                    </td>
-                </tr>
+                        </td>
+                                                <td>
+                            <span>Please login/register to view the reviews</span>
+                        </td>
+
+                    }
+
+                @*<a asp-controller="House" asp-action="Details" asp-route-id="@Model.Id"
+                class="btn btn-success">Details</a>*@
+            </tr>
             }
 
         </tbody>

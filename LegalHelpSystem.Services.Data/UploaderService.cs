@@ -6,6 +6,9 @@
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Web.ViewModels.Uploader;
+    using LegalHelpSystem.Web.ViewModels.Review;
+    using System;
+
 
     public class UploaderService : IUploaderService
     {
@@ -73,6 +76,39 @@
                .FirstOrDefaultAsync(a => a.UserId.ToString() == objectId);
 
             return uploader.User.UserName;
+        }
+
+        public async Task<ReviewsViewModel> GetUploaderReviews(string id)
+        {
+            Uploader uploader = await this.dbContext
+            .Uploaders
+            .Include(x => x.Reviews)
+             .FirstOrDefaultAsync(a => a.UserId.ToString() == id);
+
+            List<string> listOfTextReviews = uploader.Reviews
+                .Select(x => x.TextReview)
+                .ToList();
+
+            int totalStars = uploader.Reviews
+                .Select(x => x.Stars)
+                .Sum();
+
+            int aggTotalStars;
+            if (totalStars == 0)
+            {
+                aggTotalStars = 0;
+            }
+            else
+            {
+                aggTotalStars = totalStars / uploader.Reviews.Count;
+            }
+
+            return new ReviewsViewModel
+            {
+                Object = uploader.User.UserName,
+                TextReviews = listOfTextReviews,
+                TotalStars = aggTotalStars
+            };
         }
     }
 }

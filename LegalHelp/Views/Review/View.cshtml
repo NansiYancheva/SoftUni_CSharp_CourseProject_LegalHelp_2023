@@ -1,0 +1,36 @@
+﻿@model ReviewsViewModel
+@{
+    ViewBag.Title = "All Reviews for";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="text-center">@Model.Object</h2>
+<hr />
+
+@if (!Model.TextReviews.Any())
+{
+    <h4 class="text-center">There are no reviews yet!</h4>
+}
+else
+{
+   
+ <body>
+    <div style="text-align: center;">
+        <h4>Total Stars: @Model.TotalStars</h4>
+            <hr />
+                <div style="text-align: left;">
+        <h6>Comments:</h6>
+        <ul>
+            @foreach (var review in Model.TextReviews)
+            {
+                <li>@review</li>
+            }
+        </ul>
+    </div>
+        </div>
+</body>
+}
+
+@*@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}*@
