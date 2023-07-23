@@ -22,8 +22,7 @@
             this.legalAdviseService = _legalAdviseService;
             this.uploaderService = _uploaderService;
             this.documentService = _documentService;
-            this.reviewService = _reviewService;
-           
+            this.reviewService = _reviewService;          
         }
         //Add
         [HttpGet]

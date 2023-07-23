@@ -22,17 +22,17 @@
         public int Stars { get; set; }
 
         ////////////////////////////////////////////////////////////////
-        public Guid? UploaderId { get; set; }
-        public virtual Uploader? Uploader { get; set; }
+        //public Guid? UploaderId { get; set; }
+        //public virtual Uploader? Uploader { get; set; }
 
-        public Guid? DocumentId { get; set; }
-        public virtual Document? Document { get; set; }
+        //public Guid? DocumentId { get; set; }
+        //public virtual Document? Document { get; set; }
 
-        public Guid? LegalAdvisorId { get; set; }
-        public virtual LegalAdvisor? LegalAdvisor { get; set; }
+        //public Guid? LegalAdvisorId { get; set; }
+        //public virtual LegalAdvisor? LegalAdvisor { get; set; }
 
-        public Guid? LegalAdviseId { get; set; }
-        public virtual LegalAdvise? LegalAdvise { get; set; }
+        //public Guid? LegalAdviseId { get; set; }
+        //public virtual LegalAdvise? LegalAdvise { get; set; }
 
 
     }

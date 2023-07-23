@@ -25,8 +25,8 @@
             {
                 TextReview = model.TextReview,
                 Stars = model.Stars,
-                LegalAdviseId = model.LegalAdviseId,
-                LegalAdvise = model.LegalAdvise,
+                //LegalAdviseId = model.LegalAdviseId,
+                //LegalAdvise = model.LegalAdvise,
                 UserId = Guid.Parse(userId)
 
             };
@@ -59,8 +59,8 @@
             {
                 TextReview = model.TextReview,
                 Stars = model.Stars,
-                UploaderId = model.UploaderId,
-                Uploader = model.Uploader,
+                //UploaderId = model.UploaderId,
+                //Uploader = model.Uploader,
                 UserId = Guid.Parse(userId)
             };
 
@@ -70,7 +70,7 @@
             Uploader existingUploader = await this.dbContext
                  .Uploaders
                  .Include(x => x.Reviews)
-                 .FirstOrDefaultAsync(x => x.Id == Guid.Parse(model.ObjectId));
+                 .FirstOrDefaultAsync(x => x.UserId == Guid.Parse(model.ObjectId));
 
             existingUploader.Reviews.Add(newReview);
 
@@ -91,8 +91,8 @@
             {
                 TextReview = model.TextReview,
                 Stars = model.Stars,
-                LegalAdvisorId = model.LegalAdvisorId,
-                LegalAdvisor = model.LegalAdvisor,
+                //LegalAdvisorId = model.LegalAdvisorId,
+                //LegalAdvisor = model.LegalAdvisor,
                 UserId = Guid.Parse(userId)
             };
 
@@ -102,7 +102,7 @@
             LegalAdvisor existingLegalAdvisor = await this.dbContext
                  .LegalAdvisors
                  .Include(x => x.Reviews)
-                 .FirstOrDefaultAsync(x => x.Id == Guid.Parse(model.ObjectId));
+                 .FirstOrDefaultAsync(x => x.UserId == Guid.Parse(model.ObjectId));
 
             existingLegalAdvisor.Reviews.Add(newReview);
 
@@ -124,8 +124,8 @@
             {
                 TextReview = model.TextReview,
                 Stars = model.Stars,
-                DocumentId = model.DocumentId,
-                Document = model.Document,
+                //DocumentId = model.DocumentId,
+                //Document = model.Document,
                 UserId = Guid.Parse(userId)
             };
 

@@ -1,10 +1,22 @@
-﻿@using LegalHelpSystem.Data.Models;
+﻿@using Microsoft.AspNetCore.Identity;
+
+@using LegalHelpSystem.Data.Models;
+@using LegalHelpSystem.Services.Data.Interfaces;
 @using LegalHelpSystem.Web.Infrastructure.Extensions;
-@using Microsoft.AspNetCore.Identity;
+
 
 @model IEnumerable<TicketAllViewModel>
 
 @inject SignInManager<ApplicationUser> SignInManager
+
+@inject ILegalAdvisorService LegalAdvisorService
+@inject IUploaderService UploaderService
+
+@{
+    bool isUserLegalAdvisor = await LegalAdvisorService.LegalAdvisorExistsByUserIdAsync(User.GetId()!);
+    bool isUserUploader = await UploaderService.UploaderExistsByUserIdAsync(User.GetId()!);
+}
+
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -78,12 +90,12 @@
                             }
                             else if (ticket.LegalAdviseId == null)
                             {
-                                if (ticket.LegalAdvisorUserId == this.User.GetId())
+                                if (isUserLegalAdvisor)
                                 {
                                     <td>
-                                        <a asp-controller="LegalAdvise" asp-action="Add" asp-route-id="@ticket.Id"
+                                        <a asp-controller="LegalAdvise" asp-action="Add" asp-route-ticketId="@ticket.Id"
                        class="btn btn-info">Add a legal advise</a>
-                                        
+
                                     </td>
                                 }
                                 else
@@ -119,14 +131,11 @@
                             }
                             else if (ticket.DocumentId == null)
                             {
-                                if (ticket.UploaderUserId == this.User.GetId())
+                                if (isUserUploader)
                                 {
                                     <td>
                                         <a asp-controller="Upload" asp-action="Document" asp-route-id="@ticket.Id"
                        class="btn btn-info">Upload a document</a>
-                                        }
-
-
                                     </td>
                                 }
                                 else
@@ -186,13 +195,13 @@
                             <td>
                                 <span>Name: @($"{ticket.Uploader.User.FirstName} {ticket.Uploader.User.LastName}")</span>
                             </td>
-                                <td>
-                        <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.Uploader.UserId"
+                            <td>
+                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.Uploader.UserId"
                        class="btn btn-primary">View Reviews</a>
                                 <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.Uploader.UserId"
                        class="btn btn-success">Add Review</a>
 
-                    </td>
+                            </td>
                         }
                         else
                         {
@@ -206,7 +215,7 @@
 
                     }
 
-                
+
 
 
                     @if (this.User.IsAdmin())
