@@ -72,14 +72,7 @@
                                     <a asp-controller="Review" asp-action="Add" asp-route-id="@ticket.LegalAdviseId"
                        class="btn btn-success">Add Review</a>
 
-                                    @*<form method="get" action="@Url.Action("View", "Review")">
-                    <button type="submit" class="action-button">View Reviews</button>
-                    <input type="hidden" name="id" value="@ticket.LegalAdviseId" />
-                    </form>
-                    <form method="get" action="@Url.Action("Add", "Review")">
-                    <button type="submit" class="action-button">Add Review</button>
-                    <input type="hidden" name="id" value="@ticket.LegalAdviseId" />
-                    </form>*@
+
                                 </td>
 
                             }
@@ -91,10 +84,6 @@
                                         <a asp-controller="LegalAdvise" asp-action="Add" asp-route-id="@ticket.Id"
                        class="btn btn-info">Add a legal advise</a>
                                         
-                       @*<form method="get" action="@Url.Action("Add", "LegalAdvise")">
-                    <button type="submit" class="action-button">Add a legal advise</button>
-                    <input type="hidden" name="ticketId" value="@ticket.Id" />
-                    </form>*@
                                     </td>
                                 }
                                 else
@@ -118,10 +107,7 @@
                                     <a asp-controller="Download" asp-action="Document" asp-route-id="@ticket.Id"
                        class="btn btn-primary">Download document</a>
 
-                                    @*<form method="get" action="@Url.Action("Download", "Document")">
-                    <button type="submit" class="action-button">Download document</button>
-                    <input type="hidden" name="ticketId" value="@ticket.Id" />
-                    </form>*@
+
                                 </td>
                                 <td>
                                     <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.DocumentId"
@@ -129,11 +115,6 @@
                                     <a asp-controller="Review" asp-action="Add" asp-route-id="@ticket.DocumentId"
                        class="btn btn-success">Add Review</a>
 
-
-                                    @*<form method="get" action="@Url.Action("View", "Review")">
-                    <button type="submit" class="action-button">View Reviews</button>
-                    <input type="hidden" name="id" value="@ticket.DocumentId" />
-                    </form>*@
                                 </td>
                             }
                             else if (ticket.DocumentId == null)
@@ -145,10 +126,7 @@
                        class="btn btn-info">Upload a document</a>
                                         }
 
-                                        @*<form method="get" action="@Url.Action("Upload", "Document")">
-                    <button type="submit" class="action-button">Upload a document</button>
-                    <input type="hidden" name="ticketId" value="@ticket.Id" />
-                    </form>*@
+
                                     </td>
                                 }
                                 else
