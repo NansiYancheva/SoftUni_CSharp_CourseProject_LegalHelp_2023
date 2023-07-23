@@ -17,11 +17,13 @@
         public string? Response { get; set; }
 
         public LegalAdvisor? LegalAdvisor { get; set; }
+        public string? LegalAdvisorUserId { get; set; }
 
         public Guid? DocumentId { get; set; }
         public string? Document { get; set; }
 
         public Uploader? Uploader { get; set; }
+        public string? UploaderUserId { get; set; }
 
 
     }

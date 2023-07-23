@@ -8,7 +8,6 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    //or to give them option to sort the tickets by status?
     <div class="text-center row">
         <div class="row">
             @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
@@ -37,7 +36,8 @@
                 <th scope="col">Result</th>
                 <th scope="col">Reviews of service</th>
                 <th scope="col">Team Member</th>
-                @if(this.User.IsAdmin())
+                <th scope="col">Reviews of team member</th>
+                @if (this.User.IsAdmin())
                 {
                     <th scope="col">More Options</th>
                 }
@@ -63,31 +63,49 @@
                         {
                             @if (ticket.LegalAdviseId != null)
                             {
-                            //span?
                                 <td>
                                     @ticket.Response
                                 </td>
                                 <td>
-                                    @*get or post*@
-                                    <form method="get" action="@Url.Action("View", "Review")">
-                                        <button type="submit" class="action-button">View Reviews</button>
-                                        <input type="hidden" name="id" value="@ticket.LegalAdviseId" />
-                                    </form>
+                                    <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.LegalAdviseId"
+                       class="btn btn-primary">View Reviews</a>
+                                    <a asp-controller="Review" asp-action="Add" asp-route-id="@ticket.LegalAdviseId"
+                       class="btn btn-success">Add Review</a>
+
+                                    @*<form method="get" action="@Url.Action("View", "Review")">
+                    <button type="submit" class="action-button">View Reviews</button>
+                    <input type="hidden" name="id" value="@ticket.LegalAdviseId" />
+                    </form>
+                    <form method="get" action="@Url.Action("Add", "Review")">
+                    <button type="submit" class="action-button">Add Review</button>
+                    <input type="hidden" name="id" value="@ticket.LegalAdviseId" />
+                    </form>*@
                                 </td>
 
                             }
                             else if (ticket.LegalAdviseId == null)
                             {
-                                <td>
-                                    <form method="get" action="@Url.Action("Add", "LegalAdvise")">
-                                        <button type="submit" class="action-button">Add a legal advise</button>
-                                        <input type="hidden" name="ticketId" value="@ticket.Id" />
-                                    </form>
-                                </td>
+                                if (ticket.LegalAdvisorUserId == this.User.GetId())
+                                {
+                                    <td>
+                                        <a asp-controller="LegalAdvise" asp-action="Add" asp-route-id="@ticket.Id"
+                       class="btn btn-info">Add a legal advise</a>
+                                        
+                       @*<form method="get" action="@Url.Action("Add", "LegalAdvise")">
+                    <button type="submit" class="action-button">Add a legal advise</button>
+                    <input type="hidden" name="ticketId" value="@ticket.Id" />
+                    </form>*@
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <span>Only legal advisors can submit an answer</span>
+                                    </td>
+                                }
                                 <td>
                                     <span>The ticket is not resolved and there are no reviews yet</span>
                                 </td>
-                                //<a href="@Url.Action("Add", "LegalAdvise", new { ticketId = ticket.Id })">Add a legal advise</a>
                             }
                         }
 
@@ -96,28 +114,50 @@
                             @if (ticket.DocumentId != null)
                             {
                                 <td>
-                                    <form method="get" action="@Url.Action("Download", "Document")">
-                                        <button type="submit" class="action-button">Download document</button>
-                                        <input type="hidden" name="ticketId" value="@ticket.Id" />
-                                    </form>
+
+                                    <a asp-controller="Download" asp-action="Document" asp-route-id="@ticket.Id"
+                       class="btn btn-primary">Download document</a>
+
+                                    @*<form method="get" action="@Url.Action("Download", "Document")">
+                    <button type="submit" class="action-button">Download document</button>
+                    <input type="hidden" name="ticketId" value="@ticket.Id" />
+                    </form>*@
                                 </td>
                                 <td>
-                                    @*get or post*@
-                                    <form method="get" action="@Url.Action("View", "Review")">
-                                        <button type="submit" class="action-button">View Reviews</button>
-                                        <input type="hidden" name="id" value="@ticket.DocumentId" />
-                                    </form>
+                                    <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.DocumentId"
+                       class="btn btn-primary">View Reviews</a>
+                                    <a asp-controller="Review" asp-action="Add" asp-route-id="@ticket.DocumentId"
+                       class="btn btn-success">Add Review</a>
+
+
+                                    @*<form method="get" action="@Url.Action("View", "Review")">
+                    <button type="submit" class="action-button">View Reviews</button>
+                    <input type="hidden" name="id" value="@ticket.DocumentId" />
+                    </form>*@
                                 </td>
                             }
                             else if (ticket.DocumentId == null)
                             {
-                                <td>
-                                    <form method="get" action="@Url.Action("Upload", "Document")">
-                                        <button type="submit" class="action-button">Upload a document</button>
-                                        <input type="hidden" name="ticketId" value="@ticket.Id" />
-                                    </form>
-                                </td>
-                                //<a href="@Url.Action("Upload", "Document", new { ticketId = ticket.Id })">Upload a document</a>
+                                if (ticket.UploaderUserId == this.User.GetId())
+                                {
+                                    <td>
+                                        <a asp-controller="Upload" asp-action="Document" asp-route-id="@ticket.Id"
+                       class="btn btn-info">Upload a document</a>
+                                        }
+
+                                        @*<form method="get" action="@Url.Action("Upload", "Document")">
+                    <button type="submit" class="action-button">Upload a document</button>
+                    <input type="hidden" name="ticketId" value="@ticket.Id" />
+                    </form>*@
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <span>Only uploaders can upload a document</span>
+                                    </td>
+                                }
+
                                 <td>
                                     <span>The ticket is not resolved and there are no reviews yet</span>
                                 </td>
@@ -169,7 +209,7 @@
                     }
 
 
-                    @if(this.User.IsAdmin())
+                    @if (this.User.IsAdmin())
                     {
                         <td>
                             <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id"
@@ -178,10 +218,8 @@
                        class="btn btn-danger">Delete</a>
                         </td>
                     }
-
                 </tr>
             }
-
         </tbody>
     </table>
 </div>

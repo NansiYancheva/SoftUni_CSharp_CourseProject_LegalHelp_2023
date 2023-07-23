@@ -136,11 +136,11 @@
                     ResolvedTicketStatus = h.ResolvedTicketStatus,
                     LegalAdviseId = h.LegalAdviseId,
                     LegalAdvisor = h.Response.LegalAdvisor,
+                    LegalAdvisorUserId = h.Response.LegalAdvisor.User.Id.ToString(),
                     Response = h.Response.AdviseResponse,
                     DocumentId = h.DocumentId,
-                    Uploader = h.Document.Uploader
-
-                   // Document = h.Document.Attachment
+                    Uploader = h.Document.Uploader,
+                    UploaderUserId = h.Document.Uploader.User.Id.ToString()
                 })
                 .ToListAsync();
 
