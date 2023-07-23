@@ -120,10 +120,13 @@
         //All
         public async Task<IEnumerable<TicketAllViewModel>> GetAllTicketsAsync()
         {
-            return await this.dbContext
+            List <TicketAllViewModel> tickets =  await this.dbContext
                 .Tickets
                 .Include(h => h.TicketCategory)
                 .Include(h => h.Response)
+                .Include(h => h.Document.Uploader)      
+                .Include(h => h.Response.LegalAdvisor)
+                .ThenInclude(h => h.User)
                 .Select(h => new TicketAllViewModel
                 {
                     Id = h.Id.ToString(),
@@ -132,11 +135,16 @@
                     RequestDescription = h.RequestDescription,
                     ResolvedTicketStatus = h.ResolvedTicketStatus,
                     LegalAdviseId = h.LegalAdviseId,
+                    LegalAdvisor = h.Response.LegalAdvisor,
                     Response = h.Response.AdviseResponse,
                     DocumentId = h.DocumentId,
+                    Uploader = h.Document.Uploader
+
                    // Document = h.Document.Attachment
                 })
                 .ToListAsync();
+
+            return tickets;
         }
 
         //Add Legal Advise to Ticket

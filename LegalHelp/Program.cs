@@ -1,12 +1,15 @@
 namespace LegalHelp
 {
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
 
+    using LegalHelpSystem.Web.Infrastructure.Extensions;
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
-    using LegalHelpSystem.Web.Infrastructure.Extensions;
     using LegalHelpSystem.Services.Data.Interfaces;
-    using Microsoft.AspNetCore.Mvc;
+
+    using static LegalHelpSystem.Common.GeneralApplicationConstants;
 
     public class Program
     {
@@ -38,6 +41,7 @@ namespace LegalHelp
                 options.Password.RequiredLength =
                     builder.Configuration.GetValue<int>("Identity:Password:RequiredLength");
             })
+                .AddRoles<IdentityRole<Guid>>()
                 .AddEntityFrameworkStores<LegalHelpDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IDocumentService));
@@ -75,6 +79,11 @@ namespace LegalHelp
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.SeedAdministrator(DevelopmentAdminEmail);
+            }
 
             app.UseEndpoints(config =>
             {

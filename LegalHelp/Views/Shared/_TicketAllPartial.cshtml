@@ -34,7 +34,8 @@
                 <th scope="col">Request Description</th>
                 <th scope="col">Ticket Status</th>
                 <th scope="col">Result</th>
-                <th scope="col">Reviews</th>
+                <th scope="col">Reviews of service</th>
+                <th scope="col">Team Member</th>
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -112,7 +113,7 @@
                                     </form>
                                 </td>
                                 //<a href="@Url.Action("Upload", "Document", new { ticketId = ticket.Id })">Upload a document</a>
-                                 <td>
+                                <td>
                                     <span>The ticket is not resolved and there are no reviews yet</span>
                                 </td>
                             }
@@ -123,15 +124,48 @@
                         <td>
                             <span>Please login/register to view the result</span>
                         </td>
-                                                <td>
+                        <td>
                             <span>Please login/register to view the reviews</span>
                         </td>
 
+
+                    }
+                    @if (ticket.TicketCategory == "Request for advise")
+                    {
+                        if (ticket.LegalAdviseId != null)
+                        {
+                            <td>
+                                <span>Name: @($"{ticket.LegalAdvisor.User.FirstName} {ticket.LegalAdvisor.User.LastName}")</span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span>The ticket is not resolved by any team member</span>
+                            </td>
+                        }
+
+                    }
+                    else if (ticket.TicketCategory == "Request for document")
+                    {
+                        if (ticket.DocumentId != null)
+                        {
+                            <td>
+                                <span>Name: @($"{ticket.Uploader.User.FirstName} {ticket.Uploader.User.LastName}")</span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <span>The ticket is not resolved by any team member</span>
+                            </td>
+                        }
+
                     }
 
-                @*<a asp-controller="House" asp-action="Details" asp-route-id="@Model.Id"
+                    @*<a asp-controller="House" asp-action="Details" asp-route-id="@Model.Id"
                 class="btn btn-success">Details</a>*@
-            </tr>
+                </tr>
             }
 
         </tbody>
