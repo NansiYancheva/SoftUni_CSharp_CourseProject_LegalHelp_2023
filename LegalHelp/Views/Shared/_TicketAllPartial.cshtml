@@ -116,8 +116,10 @@
                             {
                                 <td>
 
-                                    <a asp-controller="Download" asp-action="Document" asp-route-id="@ticket.Id"
-                       class="btn btn-primary">Download document</a>
+                                    <form method="get" action="@Url.Action("Download", "Document")">
+                    <button type="submit" class="action-button">Download document</button>
+                    <input type="hidden" name="ticketId" value="@ticket.Id" />
+                    </form>
 
 
                                 </td>
@@ -134,8 +136,10 @@
                                 if (isUserUploader)
                                 {
                                     <td>
-                                        <a asp-controller="Upload" asp-action="Document" asp-route-id="@ticket.Id"
-                       class="btn btn-info">Upload a document</a>
+                                        <form method="get" action="@Url.Action("Upload", "Document")">
+                    <button type="submit" class="action-button">Upload a document</button>
+                    <input type="hidden" name="ticketId" value="@ticket.Id" />
+                    </form>
                                     </td>
                                 }
                                 else

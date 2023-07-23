@@ -124,7 +124,8 @@
                 .Tickets
                 .Include(h => h.TicketCategory)
                 .Include(h => h.Response)
-                .Include(h => h.Document.Uploader)      
+                .Include(h => h.Document.Uploader) 
+                .ThenInclude(h=> h.User)
                 .Include(h => h.Response.LegalAdvisor)
                 .ThenInclude(h => h.User)
                 .Select(h => new TicketAllViewModel

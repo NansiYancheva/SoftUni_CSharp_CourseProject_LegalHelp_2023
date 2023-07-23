@@ -178,10 +178,11 @@
                         documentFile.CopyTo(memoryStream);
                         byte[] fileBytes = memoryStream.ToArray();
 
+                        //
                         string? uploaderId = await this.uploaderService.GetUploaderIdByUserIdAsync(this.User.GetId()!);
-
+                        //
                         string documentId = await this.documentService.UploadDocumentAsync(model, uploaderId!, fileBytes);
-
+                        //
                         await this.ticketService.AddDocumentToTicketByIdAsync(model.TicketId, documentId);
 
                         await this.uploaderService.AddDocumentToUploaderByIdAsync(uploaderId!, documentId);

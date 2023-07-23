@@ -95,10 +95,11 @@
             }
             try
             {
+                //
                 string? legalAdvisorId = await this.legalAdvisorService.GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
-
+                //
                 string legalAdviseId = await legalAdviseService.AddLegalAdviseAsync(model, legalAdvisorId!);
-
+                //
                 await this.ticketService.AddLegalAdviseToTicketByIdAsync(model.TicketId, legalAdviseId);
 
                 await this.legalAdvisorService.AddLegalAdviseToLegalAdvisorByIdAsync(legalAdvisorId!, legalAdviseId);
