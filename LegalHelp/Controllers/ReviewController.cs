@@ -10,16 +10,14 @@
 
     public class ReviewController : BaseController
     {
-        private readonly ITicketService ticketService;
         private readonly ILegalAdvisorService legalAdvisorService;
         private readonly ILegalAdviseService legalAdviseService;
         private readonly IUploaderService uploaderService;
         private readonly IDocumentService documentService;
         private readonly IReviewService reviewService;
 
-        public ReviewController(ITicketService _ticketService, ILegalAdvisorService _legalAdvisorService, ITicketCategoryService _ticketCategoryService, ILegalAdviseService _legalAdviseService, IUploaderService _uploaderService, IDocumentService _documentService, IReviewService _reviewService)
+        public ReviewController(ILegalAdvisorService _legalAdvisorService, ITicketCategoryService _ticketCategoryService, ILegalAdviseService _legalAdviseService, IUploaderService _uploaderService, IDocumentService _documentService, IReviewService _reviewService)
         {
-            this.ticketService = _ticketService;
             this.legalAdvisorService = _legalAdvisorService;
             this.legalAdviseService = _legalAdviseService;
             this.uploaderService = _uploaderService;
@@ -31,6 +29,12 @@
         [HttpGet]
         public async Task<IActionResult> Add(string objectId)
         {
+            if (objectId == null)
+            {
+                this.TempData[ErrorMessage] = "Object with such id does not exists!";
+
+                return this.RedirectToAction("All", "Tickets");
+            }
             //check type of object
             bool isUploader =
                    await this.uploaderService.UploaderExistsByUserIdAsync(objectId);
@@ -45,7 +49,7 @@
             {
                 this.TempData[ErrorMessage] = "There is no object for review!";
 
-                return this.RedirectToAction("Mine", "Ticket");
+                return this.RedirectToAction("All", "Ticket");
             }
 
             try
@@ -86,8 +90,14 @@
             {
                 return this.View(model);
             }
+            if (model.ObjectId == null)
+            {
+                this.TempData[ErrorMessage] = "Object with such id does not exists!";
+
+                return this.RedirectToAction("All", "Tickets");
+            }
             bool isUploader =
-        await this.uploaderService.UploaderExistsByUserIdAsync(model.ObjectId);
+               await this.uploaderService.UploaderExistsByUserIdAsync(model.ObjectId);
             bool isLegalAdvisor =
                await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(model.ObjectId);
             bool legalAdviseExists =
@@ -99,27 +109,30 @@
             {
                 this.TempData[ErrorMessage] = "There is no object for review!";
 
-                return this.RedirectToAction("Mine", "Ticket");
+                return this.RedirectToAction("All", "Ticket");
             }
             try
             {
                 string userId = this.User.GetId()!;
                 //to create the review itself in the database
                 //to add review to the object
+                //to add review to User list of reviews
                 if (legalAdviseExists)
                 {
                     await this.reviewService.AddLegalAdviseReview(model, userId);
                 }
-                //string? legalAdvisorId = await this.legalAdvisorService.GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
-
-                //string legalAdviseId = await legalAdviseService.AddLegalAdviseAsync(model, legalAdvisorId!);
-
-                //await this.ticketService.AddLegalAdviseToTicketByIdAsync(model.TicketId, legalAdviseId);
-
-                //await this.legalAdvisorService.AddLegalAdviseToLegalAdvisorByIdAsync(legalAdvisorId!, legalAdviseId);
-
-
-
+                if (isUploader)
+                {
+                    await this.reviewService.AddUploaderReview(model, userId);
+                }
+                if (isLegalAdvisor)
+                {
+                    await this.reviewService.AddLegalAdvisorReview(model, userId);
+                }
+                if (documentExists)
+                {
+                    await this.reviewService.AddDocumentReview(model, userId);
+                }
             }
             catch (Exception)
             {
@@ -131,12 +144,8 @@
 
             this.TempData[SuccessMessage] = "Review was added successfully!";
 
-            return this.RedirectToAction("Mine", "Ticket");
+            return this.RedirectToAction("All", "Ticket");
         }
-
-
-
-        ////////TeamForReview///////
         
         //ViewReview
         [HttpGet]
@@ -161,14 +170,11 @@
 
             try
             {
-
                 ReviewsViewModel reviewViewModel = new ReviewsViewModel();
-               //? reviewViewModel.ObjectId = id;
 
                 if (isUploader)
                 {
                     reviewViewModel = await this.uploaderService.GetUploaderReviews(id);
-
                 }
                 else if (isLegalAdvisor)
                 {
@@ -182,7 +188,6 @@
                 {
                     reviewViewModel = await this.legalAdviseService.GetLegalAdviseReviews(id);
                 }
-
                 return View(reviewViewModel);
             }
             catch (Exception)
