@@ -21,6 +21,10 @@
         [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
 
+        [Required]
+        [MaxLength(LastNameMaxLength)]
+        public string Email { get; set; } = null!;
+
         public virtual ICollection<Document> DownloadedByUserDocs { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
 

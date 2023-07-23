@@ -2,8 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.EntitiesValidationConstants.UploaderConstants;
-
     public class Uploader
     {
         public Uploader()
@@ -15,10 +13,6 @@
 
         [Key]
         public Guid Id { get; set; }
-
-        [Required]
-        [MaxLength(UploaderAuthorRightsDescriptionMaxLength)]
-        public string AuthorRightsDescription { get; set; } = null!;
 
         [Required]
         public Guid UserId { get; set; }

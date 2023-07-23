@@ -15,32 +15,7 @@
             public const int DocumentTypeNameMinLength = 2;
             public const int DocumentTypeNameMaxLength = 40;
         }
-
-        public static class UploaderConstants
-        {
-            public const int UploaderAuthorRightsDescriptionMinLength = 5;
-            public const int UploaderAuthorRightsDescriptionMaxLength = int.MaxValue;
-        }
-
-        public static class LegalAdvisorConstants
-        {
-            public const int LegalAdvisorNameMinLength = 5;
-            public const int LegalAdvisorNameMaxLength = 30;
-
-            public const int LegalAdvisorEmailMinLength = 8;
-            public const int LegalAdvisorEmailMaxLength = 40;
-
-            public const int LegalAdvisorPhoneNumberMinLength = 10;
-            public const int LegalAdvisorPhoneNumberMaxLength = 13;
-            public const string LegalAdvisorPhoneNumberRegulation = @"^((\+359)|^0{1})(\-|\s)*[0-9]{3}(\-|\s)*[0-9]{2}(\-|\s)*[0-9]{2}(\-|\s)*[0-9]{2}$";
-
-            public const int LegalAdvisorAddressMinLength = 5;
-            public const int LegalAdvisorAddressMaxLength = 30;
-
-            public const string LegalAdvisorRatingMinLength = "0";
-            public const string LegalAdvisorRatingMaxLength = "10";
-        }
-
+   
         public static class LegalAdviseConstants
         {
             public const int AdviseResponseMinLength = 10;
@@ -81,6 +56,9 @@
 
             public const int LastNameMinLength = 1;
             public const int LastNameMaxLength = 15;
+
+            public const int EmailMinLength = 8;
+            public const int EmailMaxLength = 40;
         }
 
 

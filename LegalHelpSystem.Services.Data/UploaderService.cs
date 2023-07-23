@@ -24,7 +24,6 @@
         {
             Uploader newUploader = new Uploader()
             {
-                AuthorRightsDescription = model.AuthorRightsDescription,
                 UserId = Guid.Parse(userId)
             };
 

@@ -2,8 +2,6 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static Common.EntitiesValidationConstants.LegalAdvisorConstants;
-
     public class LegalAdvisor
     {
         public LegalAdvisor()
@@ -15,22 +13,6 @@
 
         [Key]
         public Guid Id { get; set; }
-
-        [Required]
-        [MaxLength(LegalAdvisorNameMaxLength)]
-        public string FullName { get; set; } = null!;
-
-        [Required]
-        [MaxLength(LegalAdvisorEmailMaxLength)]
-        public string Email { get; set; } = null!;
-
-        [Required]
-        [MaxLength(LegalAdvisorPhoneNumberMaxLength)]
-        public string PhoneNumber { get; set; } = null!;
-
-        [Required]
-        [MaxLength(LegalAdvisorAddressMaxLength)]
-        public string Address { get; set; } = null!;
 
         [Required]
         public Guid UserId { get; set; }

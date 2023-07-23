@@ -22,10 +22,6 @@
         {
             LegalAdvisor newLegalAdvisor = new LegalAdvisor()
             {
-                FullName = model.FullName,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
-                Address = model.Address,
                 UserId = Guid.Parse(userId)
             };
 

@@ -2,13 +2,11 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static LegalHelpSystem.Common.EntitiesValidationConstants.UploaderConstants;
     public class BecomeUploaderFormModel
     {
         [Required]
-        [StringLength(UploaderAuthorRightsDescriptionMaxLength, MinimumLength = UploaderAuthorRightsDescriptionMinLength)]
-        [Display(Name = "Description of authors rights")]
-        public string AuthorRightsDescription { get; set; } = null!;
+        [EmailAddress]
+        public string Email { get; set; } = null!;
 
     }
 }
