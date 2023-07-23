@@ -71,6 +71,18 @@
             public const int ReviewStarsMax = 10;
         }
 
+        public static class UserConstants
+        {
+            public const int PasswordMinLength = 6;
+            public const int PasswordMaxLength = 100;
+
+            public const int FirstNameMinLength = 1;
+            public const int FirstNameMaxLength = 15;
+
+            public const int LastNameMinLength = 1;
+            public const int LastNameMaxLength = 15;
+        }
+
 
     }
 }

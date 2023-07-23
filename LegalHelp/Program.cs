@@ -42,17 +42,17 @@ namespace LegalHelp
 
             builder.Services.AddApplicationServices(typeof(IDocumentService));
 
+            //builder.Services.ConfigureApplicationCookie(cfg =>
+            //    {
+            //        cfg.LoginPath = "/User/Login";
+            //    });
+
             builder.Services
                .AddControllersWithViews()
                .AddMvcOptions(options =>
                {
                    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
                });
-            //cookies to remember the id
-            //builder.Services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.LoginPath = "/Account/Login";
-            //});
 
             WebApplication app = builder.Build();
 
@@ -64,7 +64,7 @@ namespace LegalHelp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-
+                app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
                 app.UseHsts();
             }
 
@@ -76,13 +76,27 @@ namespace LegalHelp
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            //app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.UseEndpoints(config =>
+            {
+                config.MapControllerRoute(
+                    name: "ProtectingUrlRoute",
+                    pattern: "/{controller}/{action}/{id}/{information}",
+                    defaults: new
+                    {
+                        Controller = "Ticket",
+                        Action = "Delete"
+                    });
+                config.MapDefaultControllerRoute();
+                config.MapRazorPages();
+            });
 
-            app.Run();
-        }
+                //app.MapControllerRoute(
+                //    name: "default",
+                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //app.MapDefaultControllerRoute();
+                //app.MapRazorPages();
+
+                app.Run();
+            }
     }
-}
+    }

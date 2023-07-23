@@ -105,7 +105,7 @@
 
             return new ReviewsViewModel
             {
-                Object = uploader.User.UserName,
+                Object = $"{uploader.User.FirstName} {uploader.User.LastName}",
                 TextReviews = listOfTextReviews,
                 TotalStars = aggTotalStars
             };
