@@ -4,9 +4,9 @@
 
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
-    using static Common.NotificationMessagesConstants;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
-    using LegalHelpSystem.Services.Data;
+
+    using static Common.NotificationMessagesConstants;
 
 
     public class LegalAdviseController : BaseController

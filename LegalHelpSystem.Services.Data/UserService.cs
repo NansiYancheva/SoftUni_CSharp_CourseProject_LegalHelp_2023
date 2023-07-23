@@ -5,7 +5,6 @@
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
     using Interfaces;
-    using LegalHelpSystem.Data.Models;
 
     public class UserService : IUserService
     {

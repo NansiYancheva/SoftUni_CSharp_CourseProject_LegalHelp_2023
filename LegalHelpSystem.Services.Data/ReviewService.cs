@@ -1,11 +1,13 @@
 ﻿namespace LegalHelpSystem.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using System.Threading.Tasks;
+
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Review;
-    using Microsoft.EntityFrameworkCore;
-    using System.Threading.Tasks;
+
 
     public class ReviewService : IReviewService
     {

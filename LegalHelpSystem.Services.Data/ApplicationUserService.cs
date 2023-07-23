@@ -1,11 +1,12 @@
 ﻿namespace LegalHelpSystem.Services.Data
 {
+    using Microsoft.EntityFrameworkCore;
     using System.Threading.Tasks;
 
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Data;
-    using Microsoft.EntityFrameworkCore;
+
 
     public class ApplicationUserService : IApplicationUserService
     {

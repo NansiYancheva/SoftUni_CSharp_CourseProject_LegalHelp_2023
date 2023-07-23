@@ -69,7 +69,7 @@
                                 <td>
                                     <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.LegalAdviseId"
                        class="btn btn-primary">View Reviews</a>
-                                    <a asp-controller="Review" asp-action="Add" asp-route-id="@ticket.LegalAdviseId"
+                                    <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.LegalAdviseId"
                        class="btn btn-success">Add Review</a>
 
 
@@ -112,7 +112,7 @@
                                 <td>
                                     <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.DocumentId"
                        class="btn btn-primary">View Reviews</a>
-                                    <a asp-controller="Review" asp-action="Add" asp-route-id="@ticket.DocumentId"
+                                    <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.DocumentId"
                        class="btn btn-success">Add Review</a>
 
                                 </td>
@@ -160,11 +160,21 @@
                             <td>
                                 <span>Name: @($"{ticket.LegalAdvisor.User.FirstName} {ticket.LegalAdvisor.User.LastName}")</span>
                             </td>
+                            <td>
+                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.LegalAdvisor.UserId"
+                       class="btn btn-primary">View Reviews</a>
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.LegalAdvisor.UserId"
+                       class="btn btn-success">Add Review</a>
+
+                            </td>
                         }
                         else
                         {
                             <td>
                                 <span>The ticket is not resolved by any team member</span>
+                            </td>
+                            <td>
+                                <span>The ticket is not resolved by any team member and you can'd find reviews</span>
                             </td>
                         }
 
@@ -176,15 +186,27 @@
                             <td>
                                 <span>Name: @($"{ticket.Uploader.User.FirstName} {ticket.Uploader.User.LastName}")</span>
                             </td>
+                                <td>
+                        <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.Uploader.UserId"
+                       class="btn btn-primary">View Reviews</a>
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.Uploader.UserId"
+                       class="btn btn-success">Add Review</a>
+
+                    </td>
                         }
                         else
                         {
                             <td>
                                 <span>The ticket is not resolved by any team member</span>
                             </td>
+                            <td>
+                                <span>The ticket is not resolved by any team member and you can'd find reviews</span>
+                            </td>
                         }
 
                     }
+
+                
 
 
                     @if (this.User.IsAdmin())

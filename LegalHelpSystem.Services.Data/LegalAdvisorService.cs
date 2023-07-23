@@ -70,9 +70,12 @@
         {
             LegalAdvisor legalAdvisor = await this.dbContext
              .LegalAdvisors
+             .Include(x => x.User)
              .FirstOrDefaultAsync(a => a.UserId.ToString() == objectId);
 
-            return legalAdvisor.User.UserName;
+            string legalAdvisorName = $"{legalAdvisor.User.FirstName} {legalAdvisor.User.LastName}";
+
+            return legalAdvisorName;
         }
 
         public async Task<ReviewsViewModel> GetLegalAdvisorReviews(string id)
@@ -80,6 +83,7 @@
             LegalAdvisor legalAdvisor = await this.dbContext
           .LegalAdvisors
           .Include(x => x.Reviews)
+          .Include(x => x.User)
            .FirstOrDefaultAsync(a => a.UserId.ToString() == id);
 
             List<string> listOfTextReviews = legalAdvisor.Reviews

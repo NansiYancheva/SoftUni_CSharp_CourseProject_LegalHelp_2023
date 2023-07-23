@@ -1,11 +1,10 @@
 ﻿namespace LegalHelpSystem.Web.Controllers
 {
-    using LegalHelpSystem.Services.Data.Interfaces;
-    using LegalHelpSystem.Web.Infrastructure.Extensions;
-    using LegalHelpSystem.Web.ViewModels.LegalAdvise;
-    using LegalHelpSystem.Web.ViewModels.Review;
     using Microsoft.AspNetCore.Mvc;
 
+    using LegalHelpSystem.Services.Data.Interfaces;
+    using LegalHelpSystem.Web.Infrastructure.Extensions;
+    using LegalHelpSystem.Web.ViewModels.Review;
 
     using static Common.NotificationMessagesConstants;
 

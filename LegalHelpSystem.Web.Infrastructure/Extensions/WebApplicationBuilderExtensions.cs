@@ -3,9 +3,9 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Reflection;
 
     using LegalHelpSystem.Data.Models;
-    using System.Reflection;
 
     using static Common.GeneralApplicationConstants;
 

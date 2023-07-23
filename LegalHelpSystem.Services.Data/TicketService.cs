@@ -137,10 +137,12 @@
                     LegalAdviseId = h.LegalAdviseId,
                     LegalAdvisor = h.Response.LegalAdvisor,
                     LegalAdvisorUserId = h.Response.LegalAdvisor.User.Id.ToString(),
+                    LegalAdvisorId = h.Response.LegalAdvisor.Id.ToString(),
                     Response = h.Response.AdviseResponse,
                     DocumentId = h.DocumentId,
                     Uploader = h.Document.Uploader,
-                    UploaderUserId = h.Document.Uploader.User.Id.ToString()
+                    UploaderUserId = h.Document.Uploader.User.Id.ToString(),
+                    UploaderId = h.Document.Uploader.Id.ToString()
                 })
                 .ToListAsync();
 

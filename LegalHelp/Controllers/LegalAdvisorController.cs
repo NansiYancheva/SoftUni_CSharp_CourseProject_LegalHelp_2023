@@ -3,10 +3,11 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    using static Common.NotificationMessagesConstants;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.LegalAdvisor;
+
+    using static Common.NotificationMessagesConstants;
 
     public class LegalAdvisorController : BaseController
     {
