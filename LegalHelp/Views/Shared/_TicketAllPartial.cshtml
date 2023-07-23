@@ -1,4 +1,5 @@
 ﻿@using LegalHelpSystem.Data.Models;
+@using LegalHelpSystem.Web.Infrastructure.Extensions;
 @using Microsoft.AspNetCore.Identity;
 
 @model IEnumerable<TicketAllViewModel>
@@ -36,6 +37,10 @@
                 <th scope="col">Result</th>
                 <th scope="col">Reviews of service</th>
                 <th scope="col">Team Member</th>
+                @if(this.User.IsAdmin())
+                {
+                    <th scope="col">More Options</th>
+                }
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -163,8 +168,17 @@
 
                     }
 
-                    @*<a asp-controller="House" asp-action="Details" asp-route-id="@Model.Id"
-                class="btn btn-success">Details</a>*@
+
+                    @if(this.User.IsAdmin())
+                    {
+                        <td>
+                            <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id"
+                       class="btn btn-warning">Edit</a>
+                            <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id"
+                       class="btn btn-danger">Delete</a>
+                        </td>
+                    }
+
                 </tr>
             }
 

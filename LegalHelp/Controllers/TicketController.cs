@@ -90,7 +90,7 @@
             string? userId = this.User.GetId();
             bool isReporter = await this.ticketService
                 .IsUserReporterOfTheTicket(id, userId!);
-            if (!isReporter)
+            if (!isReporter && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit!";
 
@@ -141,7 +141,7 @@
             string? userId = this.User.GetId();
             bool isReporter = await this.ticketService
                 .IsUserReporterOfTheTicket(id, userId!);
-            if (!isReporter)
+            if (!isReporter && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit!";
 
@@ -189,7 +189,7 @@
             string? userId = this.User.GetId();
             bool isReporter = await this.ticketService
                 .IsUserReporterOfTheTicket(id, userId!);
-            if (!isReporter)
+            if (!isReporter && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to delete!";
 
@@ -226,7 +226,7 @@
             string? userId = this.User.GetId();
             bool isReporter = await this.ticketService
                 .IsUserReporterOfTheTicket(id, userId!);
-            if (!isReporter)
+            if (!isReporter && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to delete!";
 
@@ -259,7 +259,14 @@
 
             try
             {
-                myTickets.AddRange(await this.ticketService.AllByUserIdAsync(userId!));
+                if (User.IsAdmin())
+                {
+                    return RedirectToAction("All", "Ticket");
+                }
+                else
+                {
+                    myTickets.AddRange(await this.ticketService.AllByUserIdAsync(userId!));
+                }
               
                 return this.View(myTickets);
             }

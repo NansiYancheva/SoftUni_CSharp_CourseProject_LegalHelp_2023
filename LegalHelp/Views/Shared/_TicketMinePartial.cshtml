@@ -1,4 +1,6 @@
-﻿@model IEnumerable<TicketAllViewModel>
+﻿@using LegalHelpSystem.Web.Infrastructure.Extensions;
+
+@model IEnumerable<TicketAllViewModel>
 
 <div class="text-center row">
     <div class="row">
@@ -82,7 +84,7 @@
                         }
                     </td>
 
-                    @if (this.User.Identity?.IsAuthenticated ?? false)
+                    @if (this.User.Identity?.IsAuthenticated ?? false || this.User.IsAdmin())
                     {
                         <td>
                             <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id"

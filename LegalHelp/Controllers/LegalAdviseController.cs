@@ -164,7 +164,14 @@
 
             try
             {
-                myReceivedLegalAdvises.AddRange(await this.legalAdviseService.AllByUserIdAsync(userId!));
+                if (User.IsAdmin())
+                {
+                    return RedirectToAction("All", "LegalAdvise");
+                }
+                else
+                {
+                    myReceivedLegalAdvises.AddRange(await this.legalAdviseService.AllByUserIdAsync(userId!));
+                }
 
                 return this.View(myReceivedLegalAdvises);
             }

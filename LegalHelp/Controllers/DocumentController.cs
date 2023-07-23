@@ -71,7 +71,14 @@
 
             try
             {
-                myDownloadedDocs.AddRange(await this.documentService.GetDownloadedByUserAsync(userId!));
+                if (User.IsAdmin())
+                {
+                    return RedirectToAction("All", "Document");
+                }
+                else
+                {
+                    myDownloadedDocs.AddRange(await this.documentService.GetDownloadedByUserAsync(userId!));
+                }
 
                 return this.View(myDownloadedDocs);
             }
