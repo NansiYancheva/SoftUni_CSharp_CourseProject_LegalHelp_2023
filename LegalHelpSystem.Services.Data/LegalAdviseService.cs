@@ -55,12 +55,16 @@
             IEnumerable<LegalAdviseViewModel> allUserReceivedLegalAdvises = await this.dbContext
                 .LegalAdvises
                 .Include(la => la.Ticket)
+                .Include(la => la.LegalAdvisor)
+                .ThenInclude(la => la.User)
                 .Where(la => la.Ticket.UserId.ToString().ToLower() == userId)
                 .Select(la => new LegalAdviseViewModel
                 {
+                    Id = la.Id.ToString(),
                     TicketSubject = la.Ticket.Subject,
                     TicketDescription = la.Ticket.RequestDescription,
                     AdviseResponse = la.AdviseResponse,
+                    LegalAdvisor = la.LegalAdvisor
                 }).ToListAsync();
 
             return allUserReceivedLegalAdvises;
