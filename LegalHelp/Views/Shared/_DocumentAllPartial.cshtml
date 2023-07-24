@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DocumentAllViewModel>
+﻿@using LegalHelpSystem.Web.Infrastructure.Extensions;
+
+@model IEnumerable<DocumentAllViewModel>
 
 <div class="text-center row">
     <table class="table">
@@ -9,6 +11,13 @@
                 <th scope="col">Document Type</th>
                 <th scope="col">Description</th>
                 <th scope="col">File</th>
+                <th scope="col">Reviews of document</th>
+                <th scope="col">Team Member</th>
+                <th scope="col">Reviews of team member</th>
+                @if (this.User.IsAdmin())
+                {
+                    <th scope="col">More Options</th>
+                }
             </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -26,6 +35,32 @@
                             <input type="hidden" name="ticketId" value="@document.TicketId" />
                         </form>
                     </td>
+                    <td>
+                        <a asp-controller="Review" asp-action="View" asp-route-id="@document.Id"
+                       class="btn btn-primary">View Reviews</a>
+                        <a asp-controller="Review" asp-action="Add" asp-route-objectid="@document.Id"
+                       class="btn btn-success">Add Review</a>
+                    </td>
+                    <td>
+                        <span>Name: @($"{document.Uploader.User.FirstName} {document.Uploader.User.LastName}")</span>
+                    </td>
+                    <td>
+                        <a asp-controller="Review" asp-action="View" asp-route-id="@document.Uploader.UserId"
+                       class="btn btn-primary">View Reviews</a>
+                        <a asp-controller="Review" asp-action="Add" asp-route-objectid="@document.Uploader.UserId"
+                       class="btn btn-success">Add Review</a>
+                    </td>
+
+@*                    @if (this.User.IsAdmin())
+                    {
+                        <td>
+                            <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id"
+                       class="btn btn-warning">Edit</a>
+                            <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id"
+                       class="btn btn-danger">Delete</a>
+                        </td>
+                    }*@
+
                     </tr>
                 }        
         </tbody>

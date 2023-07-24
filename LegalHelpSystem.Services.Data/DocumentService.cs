@@ -22,24 +22,28 @@
         //All - get
         public async Task<IEnumerable<DocumentAllViewModel>> GetAllDocumentsAsync()
         {
-            return await this.dbContext
+            List<DocumentAllViewModel> listOfAllDocs = await this.dbContext
                 .Documents
                 .Include(h => h.DocumentType)
                 .Include(h => h.Uploader)
+                .ThenInclude(h => h.User)
                 .Where(x => x.Ticket.RequestDescription != null)
                 .Select(h => new DocumentAllViewModel
                 {
-                    // Id = h.Id.ToString(),
+                    Id = h.Id.ToString(),
                     Name = h.Name,
                     DocumentType = h.DocumentType.Name,
                     Description = h.Description,
-                    TicketId = h.TicketId.ToString()
+                    TicketId = h.TicketId.ToString(),
+                    Uploader = h.Uploader
                     // FileUrl = h.Attachment
                     //UploaderId = h.UploaderId,
                     //Downloaders = h.Downloaders
                     //ToDo: to add how many times the document was downloaded
                 })
                 .ToListAsync();
+
+            return listOfAllDocs;
         }
         //Mine - just listing
         public async Task<IEnumerable<DocumentAllViewModel>> GetMyUploadedDocumentsAsync(string uploaderId)
@@ -47,12 +51,15 @@
             List<DocumentAllViewModel> listOfUploadedDocuments =
                  await dbContext.Documents
                 .Where(la => la.UploaderId.ToString() == uploaderId)
+                .Include(la => la.Uploader)
+                .ThenInclude(la => la.User)
                 .Select(la => new DocumentAllViewModel
                 {
-                    //Id = la.Id.ToString(),
+                    Id = la.Id.ToString(),
                     Name = la.Name,
                     DocumentType = la.DocumentType.Name,
                     Description = la.Description,
+                    Uploader = la.Uploader
                     //FileUrl = la.Attachment
                     //UploaderId = la.UploaderId,
                     //Downloaders = la.Downloaders

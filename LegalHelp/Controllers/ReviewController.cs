@@ -7,6 +7,7 @@
     using LegalHelpSystem.Web.ViewModels.Review;
 
     using static Common.NotificationMessagesConstants;
+    using System;
 
     public class ReviewController : BaseController
     {
@@ -150,6 +151,12 @@
         [HttpGet]
         public async Task<IActionResult> View(string id)
         {
+            if (id == null)
+            {
+                this.TempData[ErrorMessage] = "Object with such id does not exists!";
+
+                return this.RedirectToAction("All", "Tickets");
+            }
             //check type of object
             bool isUploader =
                    await this.uploaderService.UploaderExistsByUserIdAsync(id);

@@ -14,22 +14,22 @@
         }
 
         [Required]
-        public string TicketId { get; set; }
+        public string TicketId { get; set; } = null!;
 
         [Required]
         [StringLength(TicketSubjectMaxLength, MinimumLength = TicketSubjectMinLength)]
-        public string TicketSubject { get; set; }
+        public string TicketSubject { get; set; } = null!;
 
         [Required]
         [StringLength(TicketDescriptionMaxLength, MinimumLength = TicketDescriptionMinLength)]
-        public string TicketDescription { get; set; }
+        public string TicketDescription { get; set; } = null!;
 
         [Required]
         [StringLength(DocumentNameMaxLength, MinimumLength = DocumentNameMinLength)]
         public string DocumentName { get; set; } = null!;
 
         [StringLength(DocumentDescriptionMaxLength)]
-        public string? DocumentDescription { get; set; }
+        public string DocumentDescription { get; set; } = null!;
 
         [Display(Name = "Document File")]
         public byte[]? DocumentFile { get; set; }

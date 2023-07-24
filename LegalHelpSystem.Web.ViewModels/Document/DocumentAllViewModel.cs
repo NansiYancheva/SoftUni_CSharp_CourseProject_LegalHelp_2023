@@ -13,11 +13,12 @@
 
         public string DocumentType { get; set; } = null!;
 
-        public string? Description { get; set; }
+        public string Description { get; set; } = null!;
 
         public byte[] DocumentFile { get; set; } 
 
         public Guid UploaderId { get; set; }
+        public Uploader Uploader { get; set; }
         public virtual ICollection<ApplicationUser> Downloaders { get; set; }
 
         public string TicketId { get; set; } = null!;
