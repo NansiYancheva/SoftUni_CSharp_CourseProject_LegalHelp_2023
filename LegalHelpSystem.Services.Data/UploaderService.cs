@@ -73,9 +73,12 @@
         {
             Uploader uploader = await this.dbContext
                .Uploaders
+               .Include(x => x.User)
                .FirstOrDefaultAsync(a => a.UserId.ToString() == objectId);
 
-            return uploader.User.UserName;
+            string uploaderName = $"{uploader.User.FirstName} {uploader.User.LastName}";
+
+            return uploaderName;
         }
 
         public async Task<ReviewsViewModel> GetUploaderReviews(string id)
@@ -83,6 +86,7 @@
             Uploader uploader = await this.dbContext
             .Uploaders
             .Include(x => x.Reviews)
+            .Include(x => x.User)
              .FirstOrDefaultAsync(a => a.UserId.ToString() == id);
 
             List<string> listOfTextReviews = uploader.Reviews
