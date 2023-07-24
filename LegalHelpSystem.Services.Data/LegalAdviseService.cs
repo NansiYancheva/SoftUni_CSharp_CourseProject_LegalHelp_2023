@@ -68,18 +68,23 @@
         //All by everybody
         public async Task<IEnumerable<LegalAdviseViewModel>> GetAllLegalAdvisesAsync()
         {
-            return await this.dbContext
+            List<LegalAdviseViewModel> listOfLegalAdvises =  await this.dbContext
                  .LegalAdvises
                  .Include(x => x.Ticket)
                  .Include(x => x.LegalAdvisor)
+                 .ThenInclude(x => x.User)
                  .Where(x => x.Ticket.Subject != null)
                  .Select(h => new LegalAdviseViewModel
                  {
+                     Id = h.Id.ToString(),
                      TicketSubject = h.Ticket.Subject,
                      TicketDescription = h.Ticket.RequestDescription,
-                     AdviseResponse = h.AdviseResponse
+                     AdviseResponse = h.AdviseResponse,
+                     LegalAdvisor = h.LegalAdvisor
                  })
                  .ToListAsync();
+
+            return listOfLegalAdvises;
         }
 
 
