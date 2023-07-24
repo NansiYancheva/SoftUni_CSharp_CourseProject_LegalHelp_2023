@@ -248,8 +248,6 @@
 
                 await this.applicationUserService.AddDocToUserCollectionOfDocsAsync(userId, ticketId);
 
-                await this.documentService.AddUserToDocDownloadersCollectionAsync(userId, ticketId);
-
 
                 return File(documentForDownloadModel.DocumentFile, contentType, fileName);
             }

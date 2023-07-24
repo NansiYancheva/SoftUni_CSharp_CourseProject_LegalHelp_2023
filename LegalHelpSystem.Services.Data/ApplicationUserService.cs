@@ -21,13 +21,13 @@
                 .Documents
                 .FirstAsync(x => x.TicketId.ToString() == ticketId);
 
-            //ApplicationUser userToBeUpdated = await this.dbContext
-            //    .ApplicationUsers
-            //    .FirstAsync(x => x.Id.ToString() == userId);
+            ApplicationUser userToBeUpdated = await this.dbContext
+                .Users
+                .FirstAsync(x => x.Id.ToString() == userId);
 
 
-           //userToBeUpdated.DownloadedDocs.Add(documentToBeAdded);
-           // documentToBeAdded.Downloaders.Add(userToBeUpdated);
+            userToBeUpdated.DownloadedByUserDocs.Add(documentToBeAdded);
+
 
             await this.dbContext.SaveChangesAsync();
         }

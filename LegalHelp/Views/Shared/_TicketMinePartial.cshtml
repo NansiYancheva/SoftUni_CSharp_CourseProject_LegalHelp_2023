@@ -27,8 +27,14 @@
                 <th scope="col">Ticket Category</th>
                 <th scope="col">Request Description</th>
                 <th scope="col">Ticket Status</th>
-                <th scope="col">Response</th>
-                <th scope="col">Add Review</th>
+                <th scope="col">Result</th>
+                <th scope="col">Reviews of ticket</th>
+                <th scope="col">Team Member</th>
+                <th scope="col">Reviews of team member</th>
+                @if (this.User.IsAdmin())
+                {
+                    <th scope="col">More Options</th>
+                }
                 <th scope="col">More Options</th>
 
 

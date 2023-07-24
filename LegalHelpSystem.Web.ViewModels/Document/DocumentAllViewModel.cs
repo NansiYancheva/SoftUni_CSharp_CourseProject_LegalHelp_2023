@@ -6,6 +6,7 @@
         public DocumentAllViewModel()
         {
             this.Downloaders = new HashSet<ApplicationUser>();
+            this.Reviews = new List<Review>();
         }
         public string Id { get; set; } = null!;
 
@@ -20,6 +21,8 @@
         public Guid UploaderId { get; set; }
         public Uploader Uploader { get; set; }
         public virtual ICollection<ApplicationUser> Downloaders { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
 
         public string TicketId { get; set; } = null!;
     }

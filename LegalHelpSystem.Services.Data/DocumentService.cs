@@ -72,27 +72,37 @@
         //Downloaded
         public async Task<IEnumerable<DocumentAllViewModel>> GetDownloadedByUserAsync(string userId)
         {
-
-
-            //ApplicationUser user = await this.dbContext
-            //    .ApplicationUsers
-            //    .FirstAsync(x => x.Id.ToString() == userId);
-
-
-
-            // List<Document> userDocs = user.DownloadedDocs.ToList();
+            ApplicationUser user = await this.dbContext
+                .Users
+                .Include(x => x.DownloadedByUserDocs)
+                .ThenInclude(x => x.DocumentType)
+                .Include(x=> x.DownloadedByUserDocs)
+                .ThenInclude(x => x.Reviews)
+                .Include(x => x.DownloadedByUserDocs)
+                .ThenInclude(x => x.Uploader)
+                .ThenInclude(x => x.User)
+                .FirstAsync(x => x.Id.ToString() == userId);
+            List<Document> userDocs = user.DownloadedByUserDocs.ToList();
 
             List<DocumentAllViewModel> allDownloadedByUser = new List<DocumentAllViewModel>();
-            //userDocs
-            //    .Select(x => new DocumentAllViewModel
-            //    {
-            //        Name = x.Name,
-            //        DocumentType = x.DocumentType.Name,
-            //        Description = x.Description,
-            //        DocumentFile = x.AttachedFile,
-            //        TicketId = x.TicketId.ToString()
-            //    })
-            //    .ToList();
+                
+            foreach (Document doc in userDocs)
+            {
+                DocumentAllViewModel currDoc = new DocumentAllViewModel
+                {
+                    Id = doc.Id.ToString(),
+                    Name = doc.Name,
+                    DocumentType = doc.DocumentType.Name,
+                    Description = doc.Description,
+                    DocumentFile = doc.AttachedFile,
+                    UploaderId = doc.UploaderId,
+                    TicketId = doc.TicketId.ToString(),
+                    Reviews = doc.Reviews,
+                    Uploader = doc.Uploader
+                };
+                allDownloadedByUser.Add(currDoc);
+            }
+
 
             return allDownloadedByUser;
 
@@ -131,20 +141,6 @@
             };
         }
 
-        public async Task AddUserToDocDownloadersCollectionAsync(string userId, string ticketId)
-        {
-            Document foundDocument = await this.dbContext
-                 .Documents
-                 .FirstAsync(x => x.TicketId.ToString() == ticketId);
-
-            //ApplicationUser user = await this.dbContext
-            //     .ApplicationUsers
-            //     .FirstAsync(x => x.Id.ToString() == userId);
-
-            // foundDocument.Downloaders.Add(user);
-
-            await this.dbContext.SaveChangesAsync();
-        }
         //Common
         public async Task<bool> DocumentExistsByIdAsync(string objectId)
         {

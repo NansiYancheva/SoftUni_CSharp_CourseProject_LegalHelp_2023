@@ -46,10 +46,10 @@ namespace LegalHelp
 
             builder.Services.AddApplicationServices(typeof(IDocumentService));
 
-            //builder.Services.ConfigureApplicationCookie(cfg =>
-            //    {
-            //        cfg.LoginPath = "/User/Login";
-            //    });
+            builder.Services.ConfigureApplicationCookie(cfg =>
+                {
+                    cfg.LoginPath = "/User/Login";
+                });
 
             builder.Services
                .AddControllersWithViews()
