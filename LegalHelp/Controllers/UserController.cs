@@ -10,6 +10,7 @@
     using ViewModels.User;
 
     using static Common.NotificationMessagesConstants;
+    using LegalHelpSystem.Services.Data;
 
 
     public class UserController : BaseController
@@ -104,6 +105,13 @@
             }
 
             return Redirect(model.ReturnUrl ?? "/Home/Index");
+        }
+
+        //AllTeamMembers
+        public async Task<IActionResult> AllTeamMembers()
+        {
+            IEnumerable<TicketAllViewModel> modelByUser = await ticketService.GetAllTicketsAsync();
+            return View(modelByUser);
         }
     }
 }

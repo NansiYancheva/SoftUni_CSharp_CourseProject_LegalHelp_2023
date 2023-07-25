@@ -27,5 +27,22 @@
 
             return $"{user.FirstName} {user.LastName}";
         }
+
+        public async Task AddDocToUserCollectionOfDocsAsync(string userId, string ticketId)
+        {
+            Document documentToBeAdded = await dbContext
+                 .Documents
+                 .FirstAsync(x => x.TicketId.ToString() == ticketId);
+
+            ApplicationUser userToBeUpdated = await this.dbContext
+                .Users
+                .FirstAsync(x => x.Id.ToString() == userId);
+
+
+            userToBeUpdated.DownloadedByUserDocs.Add(documentToBeAdded);
+
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

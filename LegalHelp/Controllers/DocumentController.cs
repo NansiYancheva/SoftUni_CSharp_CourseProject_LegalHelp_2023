@@ -16,16 +16,16 @@
         private readonly IUploaderService uploaderService;
         private readonly ITicketService ticketService;
         private readonly IDocumentTypeService documentTypeService;
-        private readonly IApplicationUserService applicationUserService;
+        private readonly IUserService userService;
 
 
-        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService, IApplicationUserService _applicationUserService)
+        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService, IUserService _userService)
         {
             this.documentService = _documentService;
             this.uploaderService = _uploaderService;
             this.ticketService = _ticketService;
             this.documentTypeService = _documentTypeService;
-            this.applicationUserService = _applicationUserService;
+            this.userService = _userService;
         }
 
         //All - get
@@ -246,7 +246,7 @@
                 string userId = this.User.GetId()!;
                 //maybe if already added cannot be added again?
 
-                await this.applicationUserService.AddDocToUserCollectionOfDocsAsync(userId, ticketId);
+                await this.userService.AddDocToUserCollectionOfDocsAsync(userId, ticketId);
 
 
                 return File(documentForDownloadModel.DocumentFile, contentType, fileName);
