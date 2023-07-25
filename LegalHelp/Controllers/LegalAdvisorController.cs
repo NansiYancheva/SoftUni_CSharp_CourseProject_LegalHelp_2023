@@ -22,7 +22,8 @@
         public async Task<IActionResult> Become()
         {
             string? userId = this.User.GetId();
-            bool isLegalAdvisor = await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(userId);
+            bool isLegalAdvisor = await this.legalAdvisorService
+                .LegalAdvisorExistsByUserIdAsync(userId);
             if (isLegalAdvisor)
             {
                 this.TempData[ErrorMessage] = "You are already a legal advisor!";
@@ -37,7 +38,8 @@
         public async Task<IActionResult> Become(BecomeLegalAdvisorFormModel model)
         {
             string? userId = this.User.GetId();
-            bool isLegalAdvisor = await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(userId);
+            bool isLegalAdvisor = await this.legalAdvisorService
+                .LegalAdvisorExistsByUserIdAsync(userId);
             if (isLegalAdvisor)
             {
                 this.TempData[ErrorMessage] = "You are already a legal advisor!";
@@ -52,7 +54,8 @@
 
             try
             {
-                await this.legalAdvisorService.Create(userId, model);
+                await this.legalAdvisorService
+                    .Create(userId, model);
                 this.TempData[SuccessMessage] = "You have successfully become a legal advisor!";
             }
             catch (Exception)

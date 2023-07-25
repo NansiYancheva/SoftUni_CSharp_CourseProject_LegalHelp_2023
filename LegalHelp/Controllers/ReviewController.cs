@@ -37,13 +37,17 @@
             }
             //check type of object
             bool isUploader =
-                   await this.uploaderService.UploaderExistsByUserIdAsync(objectId);
+                   await this.uploaderService
+                   .UploaderExistsByUserIdAsync(objectId);
             bool isLegalAdvisor =
-               await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(objectId);
+               await this.legalAdvisorService
+               .LegalAdvisorExistsByUserIdAsync(objectId);
             bool legalAdviseExists =
-               await this.legalAdviseService.LegalAdviseExistsByIdAsync(objectId);
+               await this.legalAdviseService
+               .LegalAdviseExistsByIdAsync(objectId);
             bool documentExists =
-               await this.documentService.DocumentExistsByIdAsync(objectId);
+               await this.documentService
+               .DocumentExistsByIdAsync(objectId);
 
             if (!isLegalAdvisor && !isUploader && !documentExists && !legalAdviseExists)
             {
@@ -59,20 +63,24 @@
 
                 if (isUploader)
                 {
-                    reviewFormModel.Object = await this.uploaderService.GetUploaderNameAsync(objectId);
+                    reviewFormModel.Object = await this.uploaderService
+                        .GetUploaderNameAsync(objectId);
                    
                 }
                 else if(isLegalAdvisor)
                 {
-                    reviewFormModel.Object = await this.legalAdvisorService.GetLegalAdvisorNameAsync(objectId);
+                    reviewFormModel.Object = await this.legalAdvisorService
+                        .GetLegalAdvisorNameAsync(objectId);
                 }
                 else if(documentExists)
                 {
-                    reviewFormModel.Object = await this.documentService.GetDocumentNameAsync(objectId);
+                    reviewFormModel.Object = await this.documentService
+                        .GetDocumentNameAsync(objectId);
                 }
                 else if(legalAdviseExists)
                 {
-                    reviewFormModel.Object = await this.legalAdviseService.GetLegalAdviseResponseAsync(objectId);
+                    reviewFormModel.Object = await this.legalAdviseService
+                        .GetLegalAdviseResponseAsync(objectId);
                 }
 
                 return View(reviewFormModel);

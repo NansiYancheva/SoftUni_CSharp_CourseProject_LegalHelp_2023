@@ -46,7 +46,6 @@
                 await this.ticketCategoryService.ExistsByIdAsync(model.TicketCategoryId);
             if (!categoryExists)
             {
-                // Adding model error to ModelState automatically makes ModelState Invalid
                 this.ModelState.AddModelError(nameof(model.TicketCategoryId), "Selected category does not exist!");
             }
 
@@ -63,9 +62,7 @@
                 string ticketId = await ticketService.AddTicketAsync(model, userId!);
 
                 this.TempData[SuccessMessage] = "Ticket was added successfully!";
-                //to be changed = My/All, Tickets
-                //return this.RedirectToAction("Details", "House", new { id = houseId });
-                return this.RedirectToAction("Index", "Home");
+                return this.RedirectToAction("All", "Ticket");
             }
             catch (Exception)
             {
@@ -183,7 +180,7 @@
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
 
-                return this.RedirectToAction("All", "Ticket");
+                return this.RedirectToAction("Mine", "Ticket");
             }
 
             string? userId = this.User.GetId();
@@ -195,8 +192,6 @@
 
                 return this.RedirectToAction("Mine", "Ticket");
             }
-            //if the category is request for document - there should not be a possibility to delete?
-            //taking into consideration - if according to GDPR you could delete all your tickets, or only the one which are with status != resolved.
 
             try
             {
@@ -232,9 +227,6 @@
 
                 return this.RedirectToAction("Mine", "Ticket");
             }
-
-            //if the category is request for document - there should not be a possibility to delete?
-            //taking into consideration - if according to GDPR you could delete all your tickets, or only the one which are with status != resolved.
             try
             {
                 await this.ticketService.DeleteTicketByIdAsync(id);

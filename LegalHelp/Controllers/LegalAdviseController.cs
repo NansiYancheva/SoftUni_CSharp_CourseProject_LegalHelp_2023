@@ -41,7 +41,8 @@
                 return this.RedirectToAction("All", "Ticket");
             }
             bool isLegalAdvisor =
-                await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
+                await this.legalAdvisorService
+                .LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
             if (!isLegalAdvisor)
             {
                 this.TempData[ErrorMessage] = "You must become a legal advisor in order to answer legal question!";
@@ -52,8 +53,10 @@
             try
             {
                 LegalAdviseFormModel legalAdviseFormModel = new LegalAdviseFormModel();
-                legalAdviseFormModel.TicketSubject = await this.ticketService.GetTicketSubjectAsync(ticketId);
-                legalAdviseFormModel.TicketDescription = await this.ticketService.GetTicketDescription(ticketId);
+                legalAdviseFormModel.TicketSubject = await this.ticketService
+                    .GetTicketSubjectAsync(ticketId);
+                legalAdviseFormModel.TicketDescription = await this.ticketService
+                    .GetTicketDescription(ticketId);
                 legalAdviseFormModel.TicketId = ticketId;
 
                 return View(legalAdviseFormModel);
@@ -86,7 +89,8 @@
                 return this.RedirectToAction("All", "Ticket");
             }
             bool isLegalAdvisor =
-                await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
+                await this.legalAdvisorService
+                .LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
             if (!isLegalAdvisor)
             {
                 this.TempData[ErrorMessage] = "You must become a legal advisor in order to answer legal question!";
@@ -96,13 +100,17 @@
             try
             {
                 //
-                string? legalAdvisorId = await this.legalAdvisorService.GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
+                string? legalAdvisorId = await this.legalAdvisorService
+                    .GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
                 //
-                string legalAdviseId = await legalAdviseService.AddLegalAdviseAsync(model, legalAdvisorId!);
+                string legalAdviseId = await legalAdviseService
+                    .AddLegalAdviseAsync(model, legalAdvisorId!);
                 //
-                await this.ticketService.AddLegalAdviseToTicketByIdAsync(model.TicketId, legalAdviseId);
+                await this.ticketService
+                    .AddLegalAdviseToTicketByIdAsync(model.TicketId, legalAdviseId);
 
-                await this.legalAdvisorService.AddLegalAdviseToLegalAdvisorByIdAsync(legalAdvisorId!, legalAdviseId);
+                await this.legalAdvisorService
+                    .AddLegalAdviseToLegalAdvisorByIdAsync(legalAdvisorId!, legalAdviseId);
 
 
 
@@ -124,7 +132,8 @@
         //All - get
         public async Task<IActionResult> All()
         {
-            IEnumerable<LegalAdviseViewModel> model = await legalAdviseService.GetAllLegalAdvisesAsync();
+            IEnumerable<LegalAdviseViewModel> model = await legalAdviseService
+                .GetAllLegalAdvisesAsync();
             return View(model);
         }
 
@@ -135,7 +144,8 @@
               new List<LegalAdviseViewModel>();
 
             bool isLegalAdvisor =
-                   await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
+                   await this.legalAdvisorService
+                   .LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
             if (!isLegalAdvisor)
             {
                 this.TempData[ErrorMessage] = "You must be a legal advisor or login as such in order to view yours legal advises!";
@@ -144,8 +154,10 @@
             }
             try
             {
-                string? legalAdvisorId = await this.legalAdvisorService.GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
-                legalAdvisorGivenLegalAdvises.AddRange(await legalAdviseService.GetMyLegalAdvisesAsync(legalAdvisorId!));
+                string? legalAdvisorId = await this.legalAdvisorService
+                    .GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
+                legalAdvisorGivenLegalAdvises.AddRange(await legalAdviseService
+                    .GetMyLegalAdvisesAsync(legalAdvisorId!));
                 return this.View(legalAdvisorGivenLegalAdvises);
             }
             catch (Exception)
