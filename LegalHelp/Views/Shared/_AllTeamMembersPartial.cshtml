@@ -1,0 +1,81 @@
+﻿@using LegalHelpSystem.Services.Data.Interfaces;
+@using LegalHelpSystem.Web.Infrastructure.Extensions;
+
+@model IEnumerable<AllTeamMembersViewModel>
+
+
+@*<div class="text-center row">
+    <div class="row">
+        @using (Html.BeginForm("SortAllTickets", "Ticket", FormMethod.Post))
+        {
+            <div>
+                <select id="sortOrder" name="sortOrder">
+                    <option value="asc">FirstResolved</option>
+                    <option value="desc">FirstNotResolved</option>
+                </select>
+                <button type="submit">Sort</button>
+            </div>
+        }
+    </div>
+</div>*@
+
+<div class="text-center row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Team Member Position</th>
+                <th scope="col">Name</th>
+                <th scope="col">Reviews</th>
+                @if (this.User.IsAdmin())
+                {
+                    <th scope="col">More Options</th>
+                }
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <th scope="row"></th>
+
+                    @if (member.LegalAdvisor != null)
+                    {
+                        <td><span>Legal Advisor</span></td>
+                        <td>@member.LegalAdvisor.User.FirstName @member.LegalAdvisor.User.LastName</td>
+                        <td>
+                            <a asp-controller="Review" asp-action="View" asp-route-id="@member.LegalAdvisor.UserId"
+                       class="btn btn-primary">View Reviews</a>
+                            <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisor.UserId"
+                       class="btn btn-success">Add Review</a>
+                        </td>
+                    }
+                    else if (member.Uploader != null)
+                    {
+                        <td><span>Uploader of documents</span></td>
+                        <td>@member.Uploader.User.FirstName @member.Uploader.User.LastName</td>
+                        <td>
+                            <a asp-controller="Review" asp-action="View" asp-route-id="@member.Uploader.UserId"
+                       class="btn btn-primary">View Reviews</a>
+                            <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.Uploader.UserId"
+                       class="btn btn-success">Add Review</a>
+                        </td>
+                    }
+
+@*                    @if (this.User.IsAdmin())
+                    {
+                        <td>
+                            <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id"
+                       class="btn btn-warning">Edit</a>
+                            <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id"
+                       class="btn btn-danger">Delete</a>
+                        </td>
+                    }*@
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

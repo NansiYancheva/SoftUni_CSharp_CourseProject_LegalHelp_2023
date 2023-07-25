@@ -1,0 +1,22 @@
+﻿@model IEnumerable<AllTeamMembersViewModel>
+@{
+    ViewBag.Title = "All TeamMembers";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h4 class="text-center">There are no team members yet!</h4>
+}
+else
+{
+    <div class="row">
+        <partial name="_AllTeamMembersPartial" model="@Model" />
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

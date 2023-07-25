@@ -8,21 +8,24 @@
 
     using Data.Models;
     using ViewModels.User;
+    using LegalHelpSystem.Services.Data.Interfaces;
 
     using static Common.NotificationMessagesConstants;
-    using LegalHelpSystem.Services.Data;
 
 
     public class UserController : BaseController
     {
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IUserService userService;
 
         public UserController(SignInManager<ApplicationUser> signInManager,
-                              UserManager<ApplicationUser> userManager)
+                              UserManager<ApplicationUser> userManager,
+                              IUserService userService)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.userService = userService;
         }
         [AllowAnonymous]
         [HttpGet]
@@ -110,8 +113,8 @@
         //AllTeamMembers
         public async Task<IActionResult> AllTeamMembers()
         {
-            IEnumerable<TicketAllViewModel> modelByUser = await ticketService.GetAllTicketsAsync();
-            return View(modelByUser);
+            IEnumerable<AllTeamMembersViewModel> model = await userService.GetAllTeamMembers();
+            return View(model);
         }
     }
 }
