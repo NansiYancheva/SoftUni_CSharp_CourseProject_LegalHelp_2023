@@ -60,9 +60,6 @@
                     DocumentType = la.DocumentType.Name,
                     Description = la.Description,
                     Uploader = la.Uploader
-                    //FileUrl = la.Attachment
-                    //UploaderId = la.UploaderId,
-                    //Downloaders = la.Downloaders
                 })
                 .ToListAsync();
 

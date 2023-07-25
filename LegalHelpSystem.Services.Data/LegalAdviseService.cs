@@ -96,17 +96,33 @@
         //Mine(legal advisor)
         public async Task<IEnumerable<LegalAdviseViewModel>> GetMyLegalAdvisesAsync(string legalAdvisorId)
         {
-            IEnumerable<LegalAdviseViewModel> listOfLegalAdvises =
-                 await dbContext.LegalAdvises
-                .Where(la => la.LegalAdvisorId.ToString() == legalAdvisorId && la.Ticket.RequestDescription != null)
-                .Select(la => new LegalAdviseViewModel
-                {
-                    TicketSubject = la.Ticket.Subject,
-                    TicketDescription = la.Ticket.RequestDescription,
-                    AdviseResponse = la.AdviseResponse,
-                }).ToListAsync();
+            LegalAdvisor legalAdvisor = await this.dbContext
+               .LegalAdvisors
+               .Include(x => x.User)
+               .Include(x => x.LegalAdvises)
+               .ThenInclude(x => x.Ticket)
+               .FirstAsync(x => x.Id.ToString() == legalAdvisorId);
+            List<LegalAdvise> legalAdvisorLegalAdvises = legalAdvisor
+                .LegalAdvises
+                .Where(x => x.Ticket != null)
+                .ToList();
 
-            return listOfLegalAdvises;
+            List<LegalAdviseViewModel> allGivenLAByLegalAdvisor = new List<LegalAdviseViewModel>();
+
+            foreach (LegalAdvise legalAdvice in legalAdvisorLegalAdvises)
+            {
+                LegalAdviseViewModel currLA = new LegalAdviseViewModel
+                {
+                    Id = legalAdvice.Id.ToString(),
+                    AdviseResponse = legalAdvice.AdviseResponse,
+                    TicketSubject = legalAdvice.Ticket.Subject,
+                    TicketDescription = legalAdvice.Ticket.RequestDescription,
+                    LegalAdvisor = legalAdvice.LegalAdvisor
+                };
+                allGivenLAByLegalAdvisor.Add(currLA);
+            }
+
+            return allGivenLAByLegalAdvisor;
         }
 
         //Common

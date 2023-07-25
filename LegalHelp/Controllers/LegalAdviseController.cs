@@ -137,8 +137,8 @@
             return View(model);
         }
 
-        //Mine - just listing
-        public async Task<IActionResult> Mine()
+        //All given by legal advisor
+        public async Task<IActionResult> Given()
         {
             List<LegalAdviseViewModel> legalAdvisorGivenLegalAdvises =
               new List<LegalAdviseViewModel>();
