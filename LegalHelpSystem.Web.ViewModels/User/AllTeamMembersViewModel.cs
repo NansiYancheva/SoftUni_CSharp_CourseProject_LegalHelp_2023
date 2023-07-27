@@ -1,8 +1,8 @@
 ﻿namespace LegalHelpSystem.Web.ViewModels.User
 {
-    using LegalHelpSystem.Web.ViewModels.Review;
     using System.ComponentModel.DataAnnotations;
 
+    using LegalHelpSystem.Web.ViewModels.Review;
 
     public class AllTeamMembersViewModel
     {

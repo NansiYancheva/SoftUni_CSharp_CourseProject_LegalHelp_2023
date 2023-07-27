@@ -2,7 +2,6 @@
 {
     using LegalHelpSystem.Data.Models;
     using System.ComponentModel.DataAnnotations;
-    using System.Xml.Linq;
 
     public class TicketAllViewModel
     {
@@ -20,7 +19,8 @@
 
         public Guid? LegalAdviseId { get; set; }
         public string? Response { get; set; }
-        public LegalAdvisor? LegalAdvisor { get; set; }
+        public string LegalAdvisorName { get; set; }
+
         public string? LegalAdvisorUserId { get; set; }
         public string? LegalAdvisorId { get; set; }
 

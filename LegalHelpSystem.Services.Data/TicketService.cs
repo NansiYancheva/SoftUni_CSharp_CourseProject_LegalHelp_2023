@@ -135,9 +135,8 @@
             List <TicketAllViewModel> tickets =  await this.dbContext
                 .Tickets
                 .Include(h => h.TicketCategory)
-                .Include(h => h.Response)
-                .Include(h => h.Document.Uploader) 
-                .ThenInclude(h=> h.User)
+                .Include(h => h.Document.Uploader)
+                .ThenInclude(h => h.User)
                 .Include(h => h.Response.LegalAdvisor)
                 .ThenInclude(h => h.User)
                 .Select(h => new TicketAllViewModel
@@ -148,7 +147,7 @@
                     RequestDescription = h.RequestDescription,
                     ResolvedTicketStatus = h.ResolvedTicketStatus,
                     LegalAdviseId = h.LegalAdviseId,
-                    LegalAdvisor = h.Response.LegalAdvisor,
+                    LegalAdvisorName = $"{h.Response.LegalAdvisor.User.FirstName} {h.Response.LegalAdvisor.User.LastName}",
                     LegalAdvisorUserId = h.Response.LegalAdvisor.User.Id.ToString(),
                     LegalAdvisorId = h.Response.LegalAdvisor.Id.ToString(),
                     Response = h.Response.AdviseResponse,

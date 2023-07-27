@@ -171,12 +171,12 @@
                         if (ticket.LegalAdviseId != null)
                         {
                             <td>
-                                <span>Name: @($"{ticket.LegalAdvisor.User.FirstName} {ticket.LegalAdvisor.User.LastName}")</span>
+                                <span>Name: @ticket.LegalAdvisorName</span>
                             </td>
                             <td>
-                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.LegalAdvisor.UserId"
+                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.LegalAdvisorUserId"
                        class="btn btn-primary">View Reviews</a>
-                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.LegalAdvisor.UserId"
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.LegalAdvisorUserId"
                        class="btn btn-success">Add Review</a>
 
                             </td>
