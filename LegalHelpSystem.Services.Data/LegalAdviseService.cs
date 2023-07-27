@@ -64,7 +64,8 @@
                     TicketSubject = la.Ticket.Subject,
                     TicketDescription = la.Ticket.RequestDescription,
                     AdviseResponse = la.AdviseResponse,
-                    LegalAdvisor = la.LegalAdvisor
+                    LegalAdvisorName = $"{la.LegalAdvisor.User.FirstName}  {la.LegalAdvisor.User.LastName}",
+                    LegalAdvisorUserId = la.LegalAdvisor.UserId.ToString()
                 }).ToListAsync();
 
             return allUserReceivedLegalAdvises;
@@ -84,7 +85,8 @@
                      TicketSubject = h.Ticket.Subject,
                      TicketDescription = h.Ticket.RequestDescription,
                      AdviseResponse = h.AdviseResponse,
-                     LegalAdvisor = h.LegalAdvisor
+                     LegalAdvisorName = $"{h.LegalAdvisor.User.FirstName}  {h.LegalAdvisor.User.LastName}",
+                     LegalAdvisorUserId = h.LegalAdvisor.UserId.ToString()
                  })
                  .ToListAsync();
 
@@ -102,6 +104,7 @@
                .Include(x => x.LegalAdvises)
                .ThenInclude(x => x.Ticket)
                .FirstAsync(x => x.Id.ToString() == legalAdvisorId);
+
             List<LegalAdvise> legalAdvisorLegalAdvises = legalAdvisor
                 .LegalAdvises
                 .Where(x => x.Ticket != null)
@@ -117,7 +120,8 @@
                     AdviseResponse = legalAdvice.AdviseResponse,
                     TicketSubject = legalAdvice.Ticket.Subject,
                     TicketDescription = legalAdvice.Ticket.RequestDescription,
-                    LegalAdvisor = legalAdvice.LegalAdvisor
+                    LegalAdvisorName = $"{legalAdvice.LegalAdvisor.User.FirstName}  {legalAdvice.LegalAdvisor.User.LastName}",
+                    LegalAdvisorUserId = legalAdvice.LegalAdvisor.UserId.ToString()
                 };
                 allGivenLAByLegalAdvisor.Add(currLA);
             }

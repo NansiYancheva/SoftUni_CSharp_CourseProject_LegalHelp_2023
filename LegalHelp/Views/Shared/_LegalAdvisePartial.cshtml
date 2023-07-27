@@ -35,12 +35,12 @@
                        class="btn btn-success">Add Review</a>
                     </td>
                     <td>
-                        <span>Name: @($"{legalAdvise.LegalAdvisor.User.FirstName} {legalAdvise.LegalAdvisor.User.LastName}")</span>
+                        <span>Name: @legalAdvise.LegalAdvisorName</span>
                     </td>
                     <td>
-                        <a asp-controller="Review" asp-action="View" asp-route-id="@legalAdvise.LegalAdvisor.UserId"
+                        <a asp-controller="Review" asp-action="View" asp-route-id="@legalAdvise.LegalAdvisorUserId"
                        class="btn btn-primary">View Reviews</a>
-                        <a asp-controller="Review" asp-action="Add" asp-route-objectid="@legalAdvise.LegalAdvisor.UserId"
+                        <a asp-controller="Review" asp-action="Add" asp-route-objectid="@legalAdvise.LegalAdvisorUserId"
                        class="btn btn-success">Add Review</a>
                     </td>
 

@@ -18,7 +18,9 @@
 
         //public Guid LegalAdvisorId { get; set; }
 
-        public virtual LegalAdvisor LegalAdvisor { get; set; } = null!;
+        public string LegalAdvisorName { get; set; } = null!;
+
+        public string LegalAdvisorUserId { get; set; } = null!;
 
     }
 }
