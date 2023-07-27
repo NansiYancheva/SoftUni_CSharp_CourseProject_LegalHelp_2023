@@ -65,7 +65,7 @@
             {
                 AllTeamMembersViewModel currUploader = new AllTeamMembersViewModel
                 {
-                    Uploader = uploader,
+                    UploaderName = $"{uploader.User.FirstName} {uploader.User.LastName}",
                     UploaderUserId = uploader.UserId.ToString(),
                     UploaderReviews = await uploaderService.GetUploaderReviews(uploader.UserId.ToString())
                 };

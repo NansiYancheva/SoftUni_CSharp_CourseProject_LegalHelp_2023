@@ -51,14 +51,14 @@
                        class="btn btn-success">Add Review</a>
                         </td>
                     }
-                    else if (member.Uploader != null)
+                    else if (member.UploaderName != null)
                     {
                         <td><span>Uploader of documents</span></td>
-                        <td>@member.Uploader.User.FirstName @member.Uploader.User.LastName</td>
+                        <td>@member.UploaderName</td>
                         <td>
-                            <a asp-controller="Review" asp-action="View" asp-route-id="@member.Uploader.UserId"
+                            <a asp-controller="Review" asp-action="View" asp-route-id="@member.UploaderUserId"
                        class="btn btn-primary">View Reviews</a>
-                            <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.Uploader.UserId"
+                            <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.UploaderUserId"
                        class="btn btn-success">Add Review</a>
                         </td>
                     }

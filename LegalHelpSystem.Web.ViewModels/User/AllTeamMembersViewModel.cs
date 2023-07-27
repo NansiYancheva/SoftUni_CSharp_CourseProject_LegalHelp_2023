@@ -12,13 +12,13 @@
         public string? LegalAdvisorUserId { get; set; }
 
         [Display(Name = "Legal Advisor Reviews")]
-        public virtual ReviewsViewModel LegalAdvisorReviews { get; set; }
+        public ReviewsViewModel LegalAdvisorReviews { get; set; }
 
         [Display(Name = "Uploader Name")]
-        public Uploader? Uploader { get; set; }
+        public string? UploaderName { get; set; }
         public string? UploaderUserId { get; set; }
 
         [Display(Name = "Uploader Reviews")]
-        public virtual ReviewsViewModel UploaderReviews { get; set; }
+        public ReviewsViewModel UploaderReviews { get; set; }
     }
 }
