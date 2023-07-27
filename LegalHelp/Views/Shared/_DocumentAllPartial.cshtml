@@ -42,12 +42,12 @@
                        class="btn btn-success">Add Review</a>
                     </td>
                     <td>
-                        <span>Name: @($"{document.Uploader.User.FirstName} {document.Uploader.User.LastName}")</span>
+                        <span>Name: @document.UploaderName</span>
                     </td>
                     <td>
-                        <a asp-controller="Review" asp-action="View" asp-route-id="@document.Uploader.UserId"
+                        <a asp-controller="Review" asp-action="View" asp-route-id="@document.UploaderUserId"
                        class="btn btn-primary">View Reviews</a>
-                        <a asp-controller="Review" asp-action="Add" asp-route-objectid="@document.Uploader.UserId"
+                        <a asp-controller="Review" asp-action="Add" asp-route-objectid="@document.UploaderUserId"
                        class="btn btn-success">Add Review</a>
                     </td>
 

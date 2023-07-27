@@ -13,10 +13,13 @@
 
     public class DocumentService : IDocumentService
     {
+
         private readonly LegalHelpDbContext dbContext;
-        public DocumentService(LegalHelpDbContext dbContext)
+        private readonly IReviewService reviewService;
+        public DocumentService(LegalHelpDbContext dbContext, IReviewService _reviewService)
         {
             this.dbContext = dbContext;
+            this.reviewService = _reviewService;
         }
 
         //All - get
@@ -35,7 +38,7 @@
                     DocumentType = h.DocumentType.Name,
                     Description = h.Description,
                     TicketId = h.TicketId.ToString(),
-                    Uploader = h.Uploader
+                    UploaderName = $"{h.Uploader.User.FirstName} {h.Uploader.User.LastName}"
                     // FileUrl = h.Attachment
                     //UploaderId = h.UploaderId,
                     //Downloaders = h.Downloaders
@@ -59,7 +62,7 @@
                     Name = la.Name,
                     DocumentType = la.DocumentType.Name,
                     Description = la.Description,
-                    Uploader = la.Uploader
+                    UploaderName = $"{la.Uploader.User.FirstName} {la.Uploader.User.LastName}"
                 })
                 .ToListAsync();
 
@@ -94,8 +97,8 @@
                     DocumentFile = doc.AttachedFile,
                     UploaderId = doc.UploaderId,
                     TicketId = doc.TicketId.ToString(),
-                    Reviews = doc.Reviews,
-                    Uploader = doc.Uploader
+                    Reviews = await GetDocumentReviews(doc.Id.ToString()),
+                    UploaderName = $"{doc.Uploader.User.FirstName} {doc.Uploader.User.LastName}"
                 };
                 allDownloadedByUser.Add(currDoc);
             }
