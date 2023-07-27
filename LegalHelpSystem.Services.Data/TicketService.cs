@@ -70,15 +70,27 @@
             Ticket ticket = await this.dbContext
                 .Tickets
                 .Include(h => h.Response)
+                .Include(h => h.Document)
                 .FirstAsync(h => h.Id.ToString() == ticketId);
 
-            return new TicketPerDeleteFormModel
+            TicketPerDeleteFormModel ticketViewModel = 
+             new TicketPerDeleteFormModel ()
             {
                 Subject = ticket.Subject,
                 RequestDescription = ticket.RequestDescription,
                 ResolvedTicketStatus = ticket.ResolvedTicketStatus,
-                LegalAdviseId = ticket.LegalAdviseId
             };
+
+            if(ticket.Document != null)
+            {
+                ticketViewModel.DocumentName = ticket.Document.Name;
+            }
+            if (ticket.Response != null)
+            {
+                ticketViewModel.Response = ticket.Response.AdviseResponse;
+            }
+
+            return ticketViewModel;
         }
         //Delte-post
         public async Task DeleteTicketByIdAsync(string ticketId)

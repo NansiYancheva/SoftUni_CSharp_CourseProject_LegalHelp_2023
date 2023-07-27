@@ -22,21 +22,24 @@
                 @if (Model.ResolvedTicketStatus == true)
                 {
                     <p>The ticket is resolved.</p>
-                    @*and it answer is....*@
                 }
-                else
+                else if (Model.ResolvedTicketStatus == false)
                 {
                     <p>The ticket is not resolved.</p>
                 }
             </div>
             <div class="form-group">
-                @if (!Model.LegalAdviseId.HasValue)
+                @if (Model.Response == null && Model.DocumentName == null)
                 {
                     <p>The ticket does not have an answer.</p>
                 }
-                else
+                else if (Model.Response != null)
                 {
-                    <p>@Model.Response</p>
+                    <p>You will delete the following legal advise: @Model.Response</p>
+                }
+                else if (Model.DocumentName != null)
+                {
+                    <p>You will delete the above mentioned document from the website, but not from your personal computer.</p>
                 }
             </div>
            @* <div class="form-group">

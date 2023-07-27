@@ -14,7 +14,11 @@
         [Display(Name = "Status")]
         public bool ResolvedTicketStatus { get; set; }
 
-        public Guid? LegalAdviseId { get; set; }
-        public virtual LegalAdvise? Response { get; set; }
+        [Display(Name = "Legal Advise")]
+        public string? Response { get; set; }
+
+
+        [Display(Name = "Document Name")]
+        public string? DocumentName { get; set; }
     }
 }

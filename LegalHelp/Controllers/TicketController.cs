@@ -174,9 +174,9 @@
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
-            bool houseExists = await this.ticketService
+            bool ticketExists = await this.ticketService
                 .ExistsByIdAsync(id);
-            if (!houseExists)
+            if (!ticketExists)
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id does not exist!";
 
