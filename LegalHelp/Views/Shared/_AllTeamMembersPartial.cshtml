@@ -40,14 +40,14 @@
                 <tr>
                     <th scope="row"></th>
 
-                    @if (member.LegalAdvisor != null)
+                    @if (member.LegalAdvisorName != null)
                     {
                         <td><span>Legal Advisor</span></td>
-                        <td>@member.LegalAdvisor.User.FirstName @member.LegalAdvisor.User.LastName</td>
+                        <td>@member.LegalAdvisorName</td>
                         <td>
-                            <a asp-controller="Review" asp-action="View" asp-route-id="@member.LegalAdvisor.UserId"
+                            <a asp-controller="Review" asp-action="View" asp-route-id="@member.LegalAdvisorUserId"
                        class="btn btn-primary">View Reviews</a>
-                            <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisor.UserId"
+                            <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisorUserId"
                        class="btn btn-success">Add Review</a>
                         </td>
                     }

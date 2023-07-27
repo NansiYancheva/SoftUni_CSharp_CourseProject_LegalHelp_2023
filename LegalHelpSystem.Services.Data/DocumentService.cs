@@ -15,11 +15,9 @@
     {
 
         private readonly LegalHelpDbContext dbContext;
-        private readonly IReviewService reviewService;
-        public DocumentService(LegalHelpDbContext dbContext, IReviewService _reviewService)
+        public DocumentService(LegalHelpDbContext dbContext)
         {
             this.dbContext = dbContext;
-            this.reviewService = _reviewService;
         }
 
         //All - get

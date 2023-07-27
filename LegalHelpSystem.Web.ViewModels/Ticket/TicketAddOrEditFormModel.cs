@@ -24,6 +24,7 @@
 
         [Required]
         [StringLength(TicketDescriptionMaxLength, MinimumLength = TicketDescriptionMinLength)]
+        [Display(Name = "Request")]
         public string RequestDescription { get; set; } = null!;
     }
 }

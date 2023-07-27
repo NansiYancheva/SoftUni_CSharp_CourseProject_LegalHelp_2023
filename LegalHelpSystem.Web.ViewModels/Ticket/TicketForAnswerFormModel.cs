@@ -7,6 +7,7 @@
         [Required]
         public string Subject { get; set; } = null!;
         [Required]
+        [Display(Name = "Request")]
         public string RequestDescription { get; set; } = null!;
     }
 }

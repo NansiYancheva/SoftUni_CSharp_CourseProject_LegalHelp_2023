@@ -42,7 +42,7 @@
             public const int TextReviewMinLength = 8;
             public const int TextReviewMaxLength = 50;
 
-            public const int ReviewStarsMin = 0;
+            public const int ReviewStarsMin = 1;
             public const int ReviewStarsMax = 10;
         }
 

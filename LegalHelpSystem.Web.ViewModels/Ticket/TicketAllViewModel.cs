@@ -1,12 +1,21 @@
 ﻿namespace LegalHelpSystem.Web.ViewModels.Ticket
 {
     using LegalHelpSystem.Data.Models;
+    using System.ComponentModel.DataAnnotations;
+    using System.Xml.Linq;
+
     public class TicketAllViewModel
     {
         public string Id { get; set; } = null!;
         public string Subject { get; set; } = null!;
+
+        [Display(Name = "Category")]
         public string TicketCategory { get; set; } = null!;
+
+        [Display(Name = "Request")]
         public string RequestDescription { get; set; } = null!;
+
+        [Display(Name = "Status")]
         public bool ResolvedTicketStatus { get; set; }
 
         public Guid? LegalAdviseId { get; set; }

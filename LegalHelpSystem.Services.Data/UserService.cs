@@ -12,10 +12,14 @@
     public class UserService : IUserService
     {
         private readonly LegalHelpDbContext dbContext;
+        private readonly IUploaderService uploaderService;
+        private readonly ILegalAdvisorService legalAdvisorService;
 
-        public UserService(LegalHelpDbContext dbContext)
+        public UserService(LegalHelpDbContext dbContext, IUploaderService uploaderService, ILegalAdvisorService legalAdvisorService)
         {
             this.dbContext = dbContext;
+            this.uploaderService = uploaderService;
+            this.legalAdvisorService = legalAdvisorService;
         }
 
         public async Task<string> GetFullNameByEmailAsync(string email)
@@ -63,7 +67,7 @@
                 {
                     Uploader = uploader,
                     UploaderUserId = uploader.UserId.ToString(),
-                    UploaderReviews = uploader.Reviews
+                    UploaderReviews = await uploaderService.GetUploaderReviews(uploader.UserId.ToString())
                 };
                 allMembers.Add(currUploader);
             }
@@ -77,9 +81,9 @@
             {
                 AllTeamMembersViewModel currLegalAdvisor = new AllTeamMembersViewModel
                 {
-                    LegalAdvisor = legalAdvisor,
+                    LegalAdvisorName = $"{legalAdvisor.User.FirstName} {legalAdvisor.User.LastName}",
                     LegalAdvisorUserId = legalAdvisor.UserId.ToString(),
-                    LegalAdvisorReviews = legalAdvisor.Reviews
+                    LegalAdvisorReviews = await legalAdvisorService.GetLegalAdvisorReviews(legalAdvisor.UserId.ToString())
                 };
                 allMembers.Add(currLegalAdvisor);
             }

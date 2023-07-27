@@ -15,6 +15,7 @@
 
         [Required]
         [StringLength(TextReviewMaxLength, MinimumLength = TextReviewMinLength)]
+        [Display(Name = "Text Reviews")]
         public string TextReview { get; set; } = null!;
 
         [Required]
