@@ -2,14 +2,16 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using LegalHelpSystem.Data.Models;
 
     using static Common.EntitiesValidationConstants.ReviewConstants;
     public class ReviewFormModel
     {
-        public string? Object { get; set; } 
 
-        public string? ObjectId { get; set; } 
+        [Required] 
+        public string Object { get; set; } = null!;
+
+        [Required] 
+        public string ObjectId { get; set; } = null!;  
 
         [Required]
         [StringLength(TextReviewMaxLength, MinimumLength = TextReviewMinLength)]

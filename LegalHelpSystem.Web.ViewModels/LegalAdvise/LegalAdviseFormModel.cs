@@ -8,15 +8,15 @@
 
         [Required]
         [StringLength(AdviseResponseMaxLength, MinimumLength = AdviseResponseMinLength)]
-        public string AdviseResponse { get; set; }
+        public string AdviseResponse { get; set; } = null!;
 
         [Required]
-        public string TicketId { get; set; }
+        public string TicketId { get; set; } = null!;
 
         [Required]
-        public  string TicketSubject { get; set; }
+        public  string TicketSubject { get; set; } = null!;
 
         [Required]
-        public  string TicketDescription { get; set; } 
+        public  string TicketDescription { get; set; } = null!;
     }
 }
