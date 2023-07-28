@@ -35,9 +35,6 @@
         [Display(Name = "Document Description")]
         public string DocumentDescription { get; set; } = null!;
 
-        [Display(Name = "Document File")]
-        public byte[]? DocumentFile { get; set; }
-
         [Display(Name = "Document Type")]
         public int DocumentTypeId { get; set; }
         public IEnumerable<DocumentSelectTypeFormModel> Types { get; set; }

@@ -12,8 +12,6 @@ namespace LegalHelpSystem.Web.ViewModels.Review
 
         public string? Object { get; set; }
 
-        public string? ObjectId { get; set; }
-
         [Display(Name = "Text Reviews")]
         public virtual ICollection<string> TextReviews { get; set; }
 
