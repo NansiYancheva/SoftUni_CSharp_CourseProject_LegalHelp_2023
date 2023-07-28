@@ -22,13 +22,10 @@
         public string LegalAdvisorName { get; set; }
 
         public string? LegalAdvisorUserId { get; set; }
-        public string? LegalAdvisorId { get; set; }
 
         public Guid? DocumentId { get; set; }
-        public string? Document { get; set; }
-        public Uploader? Uploader { get; set; }
+        public string? UploaderName { get; set; }
         public string? UploaderUserId { get; set; }
-        public string? UploaderId { get; set; }
 
 
     }

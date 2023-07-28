@@ -197,12 +197,12 @@
                         if (ticket.DocumentId != null)
                         {
                             <td>
-                                <span>Name: @($"{ticket.Uploader.User.FirstName} {ticket.Uploader.User.LastName}")</span>
+                                <span>Name: @ticket.UploaderName</span>
                             </td>
                             <td>
-                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.Uploader.UserId"
+                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.UploaderUserId"
                        class="btn btn-primary">View Reviews</a>
-                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.Uploader.UserId"
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.UploaderUserId"
                        class="btn btn-success">Add Review</a>
 
                             </td>

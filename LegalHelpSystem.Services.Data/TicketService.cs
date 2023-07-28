@@ -98,9 +98,7 @@
             Ticket ticketToDelete = await this.dbContext
                 .Tickets
                 .FirstAsync(h => h.Id.ToString() == ticketId);
-            
-            //is this because of delete restrictions?
-            //ticketToDelete.IsActive = false;
+           
 
             this.dbContext.Remove(ticketToDelete);
             await this.dbContext.SaveChangesAsync();
@@ -112,7 +110,10 @@
             IEnumerable<TicketAllViewModel> allUserTickets = await this.dbContext
                 .Tickets
                 .Include(h => h.TicketCategory)
-                .Include(h => h.Response)
+                .Include(h => h.Document.Uploader)
+                .ThenInclude(h => h.User)
+                .Include(h => h.Response.LegalAdvisor)
+                .ThenInclude(h => h.User)
                 .Where(h => h.UserId.ToString() == userId)
                 .Select(h => new TicketAllViewModel
                 {
@@ -121,9 +122,13 @@
                     ResolvedTicketStatus = h.ResolvedTicketStatus,
                     TicketCategory = h.TicketCategory.Name,
                     RequestDescription = h.RequestDescription,
-                    Response = h.Response.AdviseResponse,
                     LegalAdviseId = h.LegalAdviseId,
-                    DocumentId = h.DocumentId
+                    LegalAdvisorName = $"{h.Response.LegalAdvisor.User.FirstName} {h.Response.LegalAdvisor.User.LastName}",
+                    LegalAdvisorUserId = h.Response.LegalAdvisor.User.Id.ToString(),
+                    Response = h.Response.AdviseResponse,
+                   DocumentId = h.DocumentId,
+                    UploaderName = $"{h.Document.Uploader.User.FirstName} {h.Document.Uploader.User.LastName}",
+                    UploaderUserId = h.Document.Uploader.User.Id.ToString(),
                 })
                 .ToArrayAsync(); 
 
@@ -149,12 +154,11 @@
                     LegalAdviseId = h.LegalAdviseId,
                     LegalAdvisorName = $"{h.Response.LegalAdvisor.User.FirstName} {h.Response.LegalAdvisor.User.LastName}",
                     LegalAdvisorUserId = h.Response.LegalAdvisor.User.Id.ToString(),
-                    LegalAdvisorId = h.Response.LegalAdvisor.Id.ToString(),
                     Response = h.Response.AdviseResponse,
                     DocumentId = h.DocumentId,
-                    Uploader = h.Document.Uploader,
+                    UploaderName = $"{h.Document.Uploader.User.FirstName} {h.Document.Uploader.User.LastName}",
                     UploaderUserId = h.Document.Uploader.User.Id.ToString(),
-                    UploaderId = h.Document.Uploader.Id.ToString()
+
                 })
                 .ToListAsync();
 
