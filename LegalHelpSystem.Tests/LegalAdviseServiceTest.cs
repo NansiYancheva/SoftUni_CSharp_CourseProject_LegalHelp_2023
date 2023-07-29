@@ -36,6 +36,14 @@
                 },
             };
 
+            var testUser = new ApplicationUser
+            {
+                Id = Guid.NewGuid(),
+                FirstName = "John",
+                LastName = "Wick",
+                Email = "ilovedogs@abv.bg"
+            };
+
             var options = new DbContextOptionsBuilder<LegalHelpDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
@@ -43,13 +51,16 @@
             context = new LegalHelpDbContext(options);
 
             await context.LegalAdvises.AddRangeAsync(legalAdvisesList);
+
+            await context.Users.AddAsync(testUser);
+
             await context.SaveChangesAsync();
 
             legalAdviseService = new LegalAdviseService(context);
         }
 
         [Test]
-        public async Task AddLegalAdviseToTicketAsync_ShouldAddLAToTicketProperly()
+        public async Task AddLegalAdviseAsync_ShouldCreateLegalAdviseProperly()
         {
             // Arrange
             var legalAdvisorId = "701ea5db-eaf3-4ef2-8a4c-6c5b7f3c34f9";
@@ -73,5 +84,25 @@
 
             Assert.That(actualEntity, Is.Not.Null);
         }
+
+        [Test]
+        public async Task AllByUserIdAsync_ShouldReturnCorrectLAByUserId()
+        {
+            var testUser = await context.Users.FirstOrDefaultAsync();
+            string userId = testUser.Id.ToString();
+
+            IEnumerable<LegalAdviseViewModel> result = await legalAdviseService.AllByUserIdAsync(userId);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IEnumerable<LegalAdviseViewModel>>(result);
+
+            var legalAdvisesForUser = await context.LegalAdvises
+                .Where(la => la.Ticket.UserId.ToString() == userId)
+                .ToListAsync();
+
+            Assert.AreEqual(legalAdvisesForUser.Count, result.Count());
+            // Add more assertions if needed to verify the data retrieved from the database matches the ViewModel.
+        }
     }
 }
+
