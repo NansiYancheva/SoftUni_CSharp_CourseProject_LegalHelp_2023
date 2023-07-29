@@ -175,6 +175,68 @@
             int expectedAggTotalStars = legalAdvise.Reviews.Any() ? legalAdvise.Reviews.Sum(x => x.Stars) / legalAdvise.Reviews.Count : 0;
             Assert.AreEqual(expectedAggTotalStars, result.TotalStars);
         }
-    }    
+
+
+        [Test]
+        public async Task GetAllLegalAdvisesAsync_ReturnsCorrectViewModels()
+        {
+           var legalAdvisesList = new List<LegalAdvise>
+              {
+               new LegalAdvise
+                  {
+                   Id = Guid.NewGuid(),
+                   AdviseResponse = "Some legal advise which will help",
+                   TicketId = Guid.NewGuid()
+                  },
+               new LegalAdvise
+                  {
+                   Id = Guid.NewGuid(),
+                   AdviseResponse = "Some legal advise which will help",
+                   TicketId = Guid.NewGuid()
+                  }
+              };
+
+            await context.LegalAdvises.AddRangeAsync(legalAdvisesList);
+            await context.SaveChangesAsync();
+
+            IEnumerable<LegalAdviseViewModel> result = await legalAdviseService.GetAllLegalAdvisesAsync();
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IEnumerable<LegalAdviseViewModel>>(result);
+
+        }
+
+        [Test]
+        public async Task GetAllLegalAdvisesAsync_ReturnsEmptyListWhenNoSubjects()
+        {
+            var legalAdvisesList = new List<LegalAdvise>
+               {
+                new LegalAdvise
+                    {
+                      Id = Guid.NewGuid(),
+                      AdviseResponse = "Some legal advise which will help",
+                      TicketId = Guid.NewGuid()
+                    },
+                new LegalAdvise
+                    {
+                      Id = Guid.NewGuid(),
+                      AdviseResponse = "Some legal advise which will help",
+                      TicketId = Guid.NewGuid()
+                    }
+                };
+
+            await context.LegalAdvises.AddRangeAsync(legalAdvisesList);
+            await context.SaveChangesAsync();
+
+            IEnumerable<LegalAdviseViewModel> result = await legalAdviseService.GetAllLegalAdvisesAsync();
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOf<IEnumerable<LegalAdviseViewModel>>(result);
+            Assert.IsEmpty(result);
+        }
+
+
+    }
 }
+
 
