@@ -8,6 +8,9 @@
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
+    using System.ComponentModel.DataAnnotations;
+    using System.Xml.Linq;
+    using LegalHelpSystem.Web.ViewModels.Review;
 
     [TestFixture]
     public class LegalAdviseServiceTests
@@ -44,6 +47,7 @@
                 Email = "ilovedogs@abv.bg"
             };
 
+
             var options = new DbContextOptionsBuilder<LegalHelpDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDb")
                 .Options;
@@ -53,6 +57,7 @@
             await context.LegalAdvises.AddRangeAsync(legalAdvisesList);
 
             await context.Users.AddAsync(testUser);
+
 
             await context.SaveChangesAsync();
 
@@ -101,8 +106,75 @@
                 .ToListAsync();
 
             Assert.AreEqual(legalAdvisesForUser.Count, result.Count());
-            // Add more assertions if needed to verify the data retrieved from the database matches the ViewModel.
         }
-    }
+
+        [Test]
+        public async Task IfLegalAdviseExists_ReturnsTrue()
+        {
+            var existingLegalAdvise = new LegalAdvise
+            {
+                Id = Guid.NewGuid(),
+                AdviseResponse = "Some legal advise which will help",
+                TicketId = Guid.NewGuid()
+            };
+
+            await context.LegalAdvises.AddAsync(existingLegalAdvise);
+            await context.SaveChangesAsync();
+
+            bool result = await legalAdviseService.LegalAdviseExistsByIdAsync(existingLegalAdvise.Id.ToString());
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public async Task GetLegalAdviseResponseAsync_ReturnsCorrectResponseForExistingId()
+        {
+            var existingLegalAdvise = new LegalAdvise
+            {
+                Id = Guid.NewGuid(),
+                AdviseResponse = "Some legal advise which will help",
+                TicketId = Guid.NewGuid()
+            };
+
+            await context.LegalAdvises.AddAsync(existingLegalAdvise);
+            await context.SaveChangesAsync();
+
+            string result = await legalAdviseService.GetLegalAdviseResponseAsync(existingLegalAdvise.Id.ToString());
+
+            Assert.AreEqual(existingLegalAdvise.AdviseResponse, result);
+        }
+
+        [Test]
+        public async Task GetLegalAdviseReviews_ReturnsCorrectViewModelForExistingId()
+        {
+
+            var legalAdviseId = Guid.NewGuid();
+            var legalAdvise = new LegalAdvise
+            {
+                Id = legalAdviseId,
+                AdviseResponse = "Some legal advise response",
+                Reviews = new List<Review>
+            {
+                new Review { TextReview = "Review 1", Stars = 5 },
+                new Review { TextReview = "Review 2", Stars = 3 }
+            },
+                TicketId = Guid.NewGuid()
+            };
+
+            await context.LegalAdvises.AddAsync(legalAdvise);
+            await context.SaveChangesAsync();
+
+
+            ReviewsViewModel result = await legalAdviseService.GetLegalAdviseReviews(legalAdviseId.ToString());
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(legalAdvise.AdviseResponse, result.Object);
+
+            CollectionAssert.AreEquivalent(legalAdvise.Reviews.Select(x => x.TextReview), result.TextReviews);
+
+            int expectedAggTotalStars = legalAdvise.Reviews.Any() ? legalAdvise.Reviews.Sum(x => x.Stars) / legalAdvise.Reviews.Count : 0;
+            Assert.AreEqual(expectedAggTotalStars, result.TotalStars);
+        }
+    }    
 }
 
