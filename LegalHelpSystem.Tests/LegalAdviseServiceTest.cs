@@ -49,7 +49,7 @@
         }
 
         [Test]
-        public async Task AddLegalAdviseAsync_ShouldCreateLegalAdviseProperly()
+        public async Task AddLegalAdviseToTicketAsync_ShouldAddLAToTicketProperly()
         {
             // Arrange
             var legalAdvisorId = "701ea5db-eaf3-4ef2-8a4c-6c5b7f3c34f9";

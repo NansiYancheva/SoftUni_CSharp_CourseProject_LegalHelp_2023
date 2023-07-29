@@ -37,18 +37,6 @@
             return legalAdvise.Id.ToString();
         }
 
-        //Add LegalAdviseToTicket
-        public async Task AddLegalAdviseToTicketByIdAsync(string ticketId, TicketForAnswerFormModel model)
-        {
-            LegalAdvise legalAdvise = new LegalAdvise
-            {
-                //AdviseResponse = model.AdviseResponse,
-                TicketId = Guid.Parse(ticketId),
-            };
-
-            await dbContext.LegalAdvises.AddAsync(legalAdvise);
-            await dbContext.SaveChangesAsync();
-        }
         //List Received by User Legal Advises
         public async Task<IEnumerable<LegalAdviseViewModel>> AllByUserIdAsync(string userId)
         {
