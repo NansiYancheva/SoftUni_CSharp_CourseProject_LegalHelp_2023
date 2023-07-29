@@ -72,7 +72,6 @@
                 .FirstOrDefaultAsync();
 
             Assert.That(actualEntity, Is.Not.Null);
-
         }
     }
 }
