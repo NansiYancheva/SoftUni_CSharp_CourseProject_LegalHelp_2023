@@ -37,10 +37,6 @@
                     Description = h.Description,
                     TicketId = h.TicketId.ToString(),
                     UploaderName = $"{h.Uploader.User.FirstName} {h.Uploader.User.LastName}"
-                    // FileUrl = h.Attachment
-                    //UploaderId = h.UploaderId,
-                    //Downloaders = h.Downloaders
-                    //ToDo: to add how many times the document was downloaded
                 })
                 .ToListAsync();
 
