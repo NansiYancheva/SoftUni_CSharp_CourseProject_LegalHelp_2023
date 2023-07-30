@@ -8,8 +8,6 @@
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
-    using System.ComponentModel.DataAnnotations;
-    using System.Xml.Linq;
     using LegalHelpSystem.Web.ViewModels.Review;
 
     [TestFixture]
