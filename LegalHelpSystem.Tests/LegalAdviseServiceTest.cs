@@ -13,7 +13,7 @@
     using LegalHelpSystem.Web.ViewModels.Review;
 
     [TestFixture]
-    public class LegalAdviseServiceTests
+    public class LegalAdviseServiceTest
     {
         private LegalHelpDbContext context;
         private ILegalAdviseService legalAdviseService;
@@ -91,7 +91,7 @@
         }
 
         [Test]
-        public async Task AllByUserIdAsync_ShouldReturnCorrectLAByUserId()
+        public async Task AllByUserIdAsync_ShouldReturnCorrectLAByUserIdCount()
         {
             var testUser = await context.Users.FirstOrDefaultAsync();
             string userId = testUser.Id.ToString();
@@ -145,7 +145,7 @@
         }
 
         [Test]
-        public async Task GetLegalAdviseReviews_ReturnsCorrectViewModelForExistingId()
+        public async Task GetLegalAdviseReviews_ReturnsCorrectValues()
         {
 
             var legalAdviseId = Guid.NewGuid();
@@ -234,6 +234,7 @@
             Assert.IsInstanceOf<IEnumerable<LegalAdviseViewModel>>(result);
             Assert.IsEmpty(result);
         }
+
 
 
     }
