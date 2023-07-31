@@ -145,6 +145,14 @@
         }
 
         [Test]
+        public async Task GetUploaderNameAsync_ReturnsNullForNonExistingUploader()
+        {
+            string uploaderName = await uploaderService.GetUploaderNameAsync("some fake id");
+
+            Assert.IsNull(uploaderName);
+        }
+
+        [Test]
         public async Task GetUploadersReviews_ReturnsCorrectValues()
         {
 

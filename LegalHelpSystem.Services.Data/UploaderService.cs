@@ -71,10 +71,16 @@
 
         public async Task<string> GetUploaderNameAsync(string objectId)
         {
+
             Uploader uploader = await this.dbContext
                .Uploaders
                .Include(x => x.User)
                .FirstOrDefaultAsync(a => a.UserId.ToString() == objectId);
+
+            if (uploader == null)
+            {
+                return null;
+            }
 
             string uploaderName = $"{uploader.User.FirstName} {uploader.User.LastName}";
 
