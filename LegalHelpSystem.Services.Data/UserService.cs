@@ -35,6 +35,19 @@
             return $"{user.FirstName} {user.LastName}";
         }
 
+        public async Task<string> GetFullNameByIdAsync(string userId)
+        {
+            ApplicationUser? user = await dbContext
+               .Users
+               .FirstOrDefaultAsync(u => u.Id.ToString() == userId);
+            if (user == null)
+            {
+                return string.Empty;
+            }
+
+            return $"{user.FirstName} {user.LastName}";
+        }
+
         public async Task AddDocToUserCollectionOfDocsAsync(string userId, string ticketId)
         {
             Document documentToBeAdded = await dbContext
@@ -67,7 +80,8 @@
                 {
                     UploaderName = $"{uploader.User.FirstName} {uploader.User.LastName}",
                     UploaderUserId = uploader.UserId.ToString(),
-                    UploaderReviews = await uploaderService.GetUploaderReviews(uploader.UserId.ToString())
+                    UploaderReviews = await uploaderService.GetUploaderReviews(uploader.UserId.ToString()),
+                    Email = uploader.User.Email
                 };
                 allMembers.Add(currUploader);
             }
@@ -83,12 +97,36 @@
                 {
                     LegalAdvisorName = $"{legalAdvisor.User.FirstName} {legalAdvisor.User.LastName}",
                     LegalAdvisorUserId = legalAdvisor.UserId.ToString(),
-                    LegalAdvisorReviews = await legalAdvisorService.GetLegalAdvisorReviews(legalAdvisor.UserId.ToString())
+                    LegalAdvisorReviews = await legalAdvisorService.GetLegalAdvisorReviews(legalAdvisor.UserId.ToString()),
+                    Email = legalAdvisor.User.Email
                 };
                 allMembers.Add(currLegalAdvisor);
             }
 
             return allMembers;
+        }
+
+
+
+        public async Task<IEnumerable<AllTeamMembersViewModel>> GetAllUsers()
+        {
+            List<AllTeamMembersViewModel> allUsers = new List<AllTeamMembersViewModel>();
+            allUsers.AddRange(await GetAllTeamMembers());
+            List<ApplicationUser> allUsersInDb = await this.dbContext
+                   .Users
+                   .Include(x => x.Reviews)
+                   .ToListAsync();
+            foreach (ApplicationUser user in allUsersInDb)
+            {
+                AllTeamMembersViewModel currUser = new AllTeamMembersViewModel
+                {
+                    UserName = $"{user.FirstName} {user.LastName}",
+                    UserId = user.Id.ToString(),
+                    Email = user.Email
+                };
+                allUsers.Add(currUser);
+            }
+            return allUsers;
         }
     }
 }

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AllTeamMembersViewModel>
+@{
+    ViewBag.Title = "All Users";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+    <h4 class="text-center">There are no team members yet!</h4>
+}
+else
+{
+    <div class="text-center row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Team Member Position</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Reviews</th>
+                    <th scope="col">More Options</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+
+                @foreach (var member in Model)
+                {
+                    <tr>
+                        <th scope="row"></th>
+
+                        @if (member.LegalAdvisorName != null)
+                        {
+                            <td><span>Legal Advisor</span></td>
+                            <td>@member.LegalAdvisorName</td>
+                                          <td>@member.Email</td>
+                            <td>
+                                <a asp-controller="Review" asp-action="View" asp-route-id="@member.LegalAdvisorUserId"
+                       class="btn btn-primary">View Reviews</a>
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisorUserId"
+                       class="btn btn-success">Add Review</a>
+                            </td>
+                        }
+                        else if (member.UploaderName != null)
+                        {
+                            <td><span>Uploader of documents</span></td>
+                            <td>@member.UploaderName</td>
+                            <td>@member.Email</td>
+                            <td>
+                                <a asp-controller="Review" asp-action="View" asp-route-id="@member.UploaderUserId"
+                       class="btn btn-primary">View Reviews</a>
+                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.UploaderUserId"
+                       class="btn btn-success">Add Review</a>
+                            </td>
+                        }
+
+                    @if (member.UploaderName != null)
+                            {
+                                <td>
+                                    <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@member.UploaderUserId"
+                       class="btn btn-warning">Edit</a>
+                                    <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@member.UploaderUserId"
+                       class="btn btn-danger">Delete</a>
+                                </td>
+                            }
+                            else if (member.LegalAdvisorName != null)
+                            {
+                                <td>
+                                    <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@member.LegalAdvisorUserId"
+                       class="btn btn-warning">Edit</a>
+                                    <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@member.LegalAdvisorUserId"
+                       class="btn btn-danger">Delete</a>
+                                </td>
+                            }
+                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

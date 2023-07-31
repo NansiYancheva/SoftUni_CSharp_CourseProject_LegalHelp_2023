@@ -6,7 +6,12 @@ namespace LegalHelpSystem.Services.Data.Interfaces
     {
         Task<string> GetFullNameByEmailAsync(string email);
 
+        Task<string> GetFullNameByIdAsync(string userId);
         Task AddDocToUserCollectionOfDocsAsync(string userId, string ticketId);
         Task<IEnumerable<AllTeamMembersViewModel>> GetAllTeamMembers();
+
+        Task<IEnumerable<AllTeamMembersViewModel>> GetAllUsers();
+
+
     }
 }

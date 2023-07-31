@@ -7,6 +7,8 @@
     using LegalHelpSystem.Web.Controllers;
     using LegalHelpSystem.Web.ViewModels.Home;
 
+    using static LegalHelpSystem.Common.GeneralApplicationConstants;
+
     public class HomeController : BaseController
     {
         public HomeController()
@@ -17,6 +19,10 @@
         [AllowAnonymous]
         public IActionResult Index()
         {
+            if(this.User.IsInRole(AdminRoleName))
+            {
+               return this.RedirectToAction("Index", "Home", new { Area = AdminAreaName});
+            }
             return View();
         }
 

@@ -1,5 +1,7 @@
 namespace LegalHelp
 {
+    using System.Reflection;
+
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Identity;
@@ -8,6 +10,7 @@ namespace LegalHelp
     using LegalHelpSystem.Data;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Services.Data.Interfaces;
+    using LegalHelpSystem.Web.ViewModels.Home;
 
     using static LegalHelpSystem.Common.GeneralApplicationConstants;
 
@@ -88,6 +91,11 @@ namespace LegalHelp
             app.UseEndpoints(config =>
             {
                 config.MapControllerRoute(
+                name: "areas",
+                pattern: "/{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                 );
+
+                config.MapControllerRoute(
                     name: "ProtectingUrlRoute",
                     pattern: "/{controller}/{action}/{id}/{information}",
                     defaults: new
@@ -95,7 +103,9 @@ namespace LegalHelp
                         Controller = "Ticket",
                         Action = "Delete"
                     });
+
                 config.MapDefaultControllerRoute();
+
                 config.MapRazorPages();
             });
 
