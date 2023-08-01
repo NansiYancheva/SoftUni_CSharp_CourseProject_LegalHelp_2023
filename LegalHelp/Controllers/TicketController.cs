@@ -89,7 +89,7 @@
                 .IsUserReporterOfTheTicket(id, userId!);
             if (!isReporter && !this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit!";
+                this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit or an admin!";
 
                 return this.RedirectToAction("Mine", "Ticket");
             }
@@ -140,7 +140,7 @@
                 .IsUserReporterOfTheTicket(id, userId!);
             if (!isReporter && !this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit!";
+                this.TempData[ErrorMessage] = "You must be the reporter of the ticket you want to edit or an admin!";
 
                 return this.RedirectToAction("Mine", "Ticket");
             }

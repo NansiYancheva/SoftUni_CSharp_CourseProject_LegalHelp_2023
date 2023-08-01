@@ -17,32 +17,36 @@
     <hr></hr>
 
     <h1 class="display-6">Tickets</h1>
+        <a asp-area="" asp-controller="Ticket" asp-action="Add"
+       class="btn btn-primary btn-lg">Add Ticket</a>
+       <p></p>
     <a asp-area="" asp-controller="Ticket" asp-action="All"
        class="btn btn-primary btn-lg">All Tickets</a>
-    <a asp-area="" asp-controller="Ticket" asp-action="Add"
-       class="btn btn-primary btn-lg">Add Ticket</a>
+       <p></p>
     <a asp-area="" asp-controller="Ticket" asp-action="All"
        class="btn btn-primary btn-lg">Choose a ticket for edit or delete</a>
     <hr></hr>
 
     <h6 class="display-6">Legal Advises</h6>
-    <a asp-area="" asp-controller="LegalAdvise" asp-action="All"
-       class="btn btn-primary btn-lg">All Legal Advises</a>
     <a asp-area="" asp-controller="Ticket" asp-action="All"
        class="btn btn-primary btn-lg">Choose a request for legal advise to which to add legal advise</a>
-    <a asp-area="" asp-controller="LegalAdvise" asp-action="Edit"
-       class="btn btn-primary btn-lg">Edit Legal Advise</a>
-    <a asp-area="" asp-controller="LegalAdvise" asp-action="Delete"
-       class="btn btn-primary btn-lg">Delete Legal Advise</a>
+       <p></p>
+    <a asp-area="" asp-controller="LegalAdvise" asp-action="All"
+       class="btn btn-primary btn-lg">All Legal Advises</a>
+       <p></p>
+    <a asp-area="" asp-controller="LegalAdvise" asp-action="All"
+       class="btn btn-primary btn-lg">Choose a legal advise for edit or delete</a>
     <hr></hr>
 
         <h6 class="display-6">Documents</h6>
     <a asp-area="" asp-controller="Document" asp-action="All"
+       class="btn btn-primary btn-lg">Choose a request for document to which to add document</a>
+    <p></p>
+    <a asp-area="" asp-controller="Document" asp-action="All"
        class="btn btn-primary btn-lg">All Documents</a>
-    <a asp-area="" asp-controller="Document" asp-action="Add"
-       class="btn btn-primary btn-lg">Add Document</a>
-    <a asp-area="" asp-controller="Document" asp-action="Delete"
-       class="btn btn-primary btn-lg">Delete Document</a>
+    <p></p>
+    <a asp-area="" asp-controller="Document" asp-action="All"
+       class="btn btn-primary btn-lg">Choose a document for edit or delete</a>
     <hr></hr>
 
     <h6 class="display-6">Reviews</h6>
@@ -57,17 +61,13 @@
     <hr></hr>
 
     <h6 class="display-6">Users</h6>
-    <a asp-area="" asp-controller="User" asp-action="AllUsers"
-       class="btn btn-primary btn-lg">All Users</a>
     <a asp-area="" asp-controller="User" asp-action="Add"
        class="btn btn-primary btn-lg">Add User</a>
-    <a asp-area="" asp-controller="User" asp-action="Edit"
-       class="btn btn-primary btn-lg">Edit User</a>
-    <a asp-area="" asp-controller="User" asp-action="Delete"
-       class="btn btn-primary btn-lg">Delete User</a>
-    <a asp-area="" asp-controller="User" asp-action="MakeUploader"
-       class="btn btn-primary btn-lg">Make Uploader</a>
-           <a asp-area="" asp-controller="User" asp-action="MakeLegalAdvisor"
-       class="btn btn-primary btn-lg">Make Legal Advisor</a>
+       <p></p>
+    <a asp-area="" asp-controller="User" asp-action="AllUsers"
+       class="btn btn-primary btn-lg">All Users</a>
+    <p></p>
+    <a asp-area="" asp-controller="User" asp-action="AllUsers"
+       class="btn btn-primary btn-lg">Manage Users - choose an user to edit, delete, make legal advisor, make uploader</a>
     <hr></hr>
 </div>
