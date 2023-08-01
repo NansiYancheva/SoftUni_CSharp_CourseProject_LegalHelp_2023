@@ -5,7 +5,7 @@
     public interface IUploaderService
     {
         //Become Uploader
-        Task Create(string userId, BecomeUploaderFormModel model);
+        Task Create(string userId);
         ////Add Document To Uploader
         Task AddDocumentToUploaderByIdAsync(string uploaderId, string documentId);
 

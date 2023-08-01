@@ -17,7 +17,7 @@ else
             <thead>
                 <tr>
                     <th scope="col"></th>
-                    <th scope="col">Team Member Position</th>
+                    <th scope="col">Type of user</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Reviews</th>
@@ -56,25 +56,17 @@ else
                             </td>
                         }
 
-                    @if (member.UploaderName != null)
-                            {
-                                <td>
-                                    <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@member.UploaderUserId"
-                       class="btn btn-warning">Edit</a>
-                                    <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@member.UploaderUserId"
-                       class="btn btn-danger">Delete</a>
-                                </td>
-                            }
-                            else if (member.LegalAdvisorName != null)
-                            {
-                                <td>
-                                    <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@member.LegalAdvisorUserId"
-                       class="btn btn-warning">Edit</a>
-                                    <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@member.LegalAdvisorUserId"
-                       class="btn btn-danger">Delete</a>
-                                </td>
-                            }
-                        
+                   else
+                        {
+                            <td><span>User</span></td>
+                            <td>@member.UserName</td>
+                            <td>@member.Email</td>
+                            <td>Users do not have reviews</td>
+                            <td>
+                                <a asp-area="Admin" asp-controller="User" asp-action="MakeUploader" asp-route-uploaderUserId="@member.UserId"
+                       class="btn btn-primary">Make Uploader</a>
+                            </td>
+                        }                       
                     </tr>
                 }
             </tbody>

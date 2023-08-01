@@ -21,7 +21,7 @@
         }
 
         //Become
-        public async Task Create(string userId, BecomeUploaderFormModel model)
+        public async Task Create(string userId)
         {
             Uploader newUploader = new Uploader()
             {

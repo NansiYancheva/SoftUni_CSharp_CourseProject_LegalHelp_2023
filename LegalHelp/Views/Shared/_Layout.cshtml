@@ -99,7 +99,7 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="teamDropdown">
 
-                                            @if (isUploader)
+                                           @* @if (isUploader)
                                             {
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
                                             <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="AllTeamMembers">All team members</a></li>
@@ -113,9 +113,9 @@
                                             else
                                             {
                                                 <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                                <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>*@
                                             <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="AllTeamMembers">All team members</a></li>
-                                            }
+                                            @*}*@
                                         </ul>
                                     </div>
                                 </li>

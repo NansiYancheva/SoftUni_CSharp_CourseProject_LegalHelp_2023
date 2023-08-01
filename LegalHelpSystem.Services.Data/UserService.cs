@@ -116,14 +116,20 @@
                    .Users
                    .Include(x => x.Reviews)
                    .ToListAsync();
+
             foreach (ApplicationUser user in allUsersInDb)
             {
+
                 AllTeamMembersViewModel currUser = new AllTeamMembersViewModel
                 {
                     UserName = $"{user.FirstName} {user.LastName}",
                     UserId = user.Id.ToString(),
                     Email = user.Email
                 };
+                if (allUsers.Any(x => x.Email == currUser.Email))
+                {
+                    continue;
+                }
                 allUsers.Add(currUser);
             }
             return allUsers;
