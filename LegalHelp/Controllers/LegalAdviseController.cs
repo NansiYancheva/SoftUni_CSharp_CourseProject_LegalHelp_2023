@@ -5,21 +5,24 @@
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using LegalHelpSystem.Web.ViewModels.LegalAdvise;
+    using LegalHelpSystem.Web.Areas.Admin.Services.Interfaces;
 
     using static Common.NotificationMessagesConstants;
-
+    
 
     public class LegalAdviseController : BaseController
     {
         private readonly ITicketService ticketService;
         private readonly ILegalAdvisorService legalAdvisorService;
         private readonly ILegalAdviseService legalAdviseService;
+        private readonly ILegalAdvisorAdminService legalAdvisorAdminService;
 
-        public LegalAdviseController(ITicketService _ticketService, ILegalAdvisorService _legalAdvisorService, ITicketCategoryService _ticketCategoryService, ILegalAdviseService _legalAdviseService)
+        public LegalAdviseController(ITicketService _ticketService, ILegalAdvisorService _legalAdvisorService, ITicketCategoryService _ticketCategoryService, ILegalAdviseService _legalAdviseService, ILegalAdvisorAdminService _legalAdvisorAdminService)
         {
             this.ticketService = _ticketService;
             this.legalAdvisorService = _legalAdvisorService;
             this.legalAdviseService = _legalAdviseService;
+            this.legalAdvisorAdminService = _legalAdvisorAdminService;
         }
         //Add
         [HttpGet]
@@ -43,11 +46,11 @@
             bool isLegalAdvisor =
                 await this.legalAdvisorService
                 .LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
-            if (!isLegalAdvisor)
+            if (!isLegalAdvisor && !this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become a legal advisor in order to answer legal question!";
+                this.TempData[ErrorMessage] = "You must be a legal advisor in order to answer legal question!";
 
-                return this.RedirectToAction("Become", "LegalAdvisor");
+                return this.RedirectToAction("All", "Ticket");
             }
 
             try
@@ -91,17 +94,29 @@
             bool isLegalAdvisor =
                 await this.legalAdvisorService
                 .LegalAdvisorExistsByUserIdAsync(this.User.GetId()!);
-            if (!isLegalAdvisor)
+            if (!isLegalAdvisor && !this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become a legal advisor in order to answer legal question!";
+                this.TempData[ErrorMessage] = "You must be a legal advisor in order to answer legal question!";
 
-                return this.RedirectToAction("Become", "LegalAdvisor");
+                return this.RedirectToAction("All", "Ticket");
             }
             try
             {
                 //
-                string? legalAdvisorId = await this.legalAdvisorService
+                string legalAdvisorId;
+
+                if (isLegalAdvisor)
+                {
+                    legalAdvisorId = await this.legalAdvisorService
                     .GetLegalAdvisorIdByUserIdAsync(this.User.GetId()!);
+                }
+                //if an admin will add legal advisor there should be a legal advisor Id in order to add the legal advise
+                //this wont be a practise but just in case an admin should add a legal advise
+                else
+                {
+                    legalAdvisorId = await this.legalAdvisorAdminService
+                        .ChooseLegalAdvisorUserIdAsync();
+                }
                 //
                 string legalAdviseId = await legalAdviseService
                     .AddLegalAdviseAsync(model, legalAdvisorId!);

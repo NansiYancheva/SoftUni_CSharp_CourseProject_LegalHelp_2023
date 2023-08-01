@@ -90,7 +90,7 @@
                             }
                             else if (ticket.LegalAdviseId == null)
                             {
-                                if (isUserLegalAdvisor)
+                                if (isUserLegalAdvisor || this.User.IsAdmin())
                                 {
                                     <td>
                                         <a asp-controller="LegalAdvise" asp-action="Add" asp-route-ticketId="@ticket.Id"
@@ -133,7 +133,7 @@
                             }
                             else if (ticket.DocumentId == null)
                             {
-                                if (isUserUploader)
+                                if (isUserUploader || this.User.IsAdmin())
                                 {
                                     <td>
                                         <form method="get" action="@Url.Action("Upload", "Document")">

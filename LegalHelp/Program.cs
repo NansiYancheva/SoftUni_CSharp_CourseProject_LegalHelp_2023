@@ -13,6 +13,7 @@ namespace LegalHelp
     using LegalHelpSystem.Web.ViewModels.Home;
 
     using static LegalHelpSystem.Common.GeneralApplicationConstants;
+    using LegalHelpSystem.Web.Areas.Admin.Services.Interfaces;
 
     public class Program
     {
@@ -48,6 +49,7 @@ namespace LegalHelp
                 .AddEntityFrameworkStores<LegalHelpDbContext>();
 
             builder.Services.AddApplicationServices(typeof(IDocumentService));
+            builder.Services.AddApplicationServices(typeof(ILegalAdvisorAdminService));
 
             builder.Services.ConfigureApplicationCookie(cfg =>
                 {
