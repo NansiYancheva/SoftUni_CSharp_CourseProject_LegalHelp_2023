@@ -20,17 +20,7 @@
             this.dbContext = dbContext;
         }
 
-        //Become
-        public async Task Create(string userId)
-        {
-            Uploader newUploader = new Uploader()
-            {
-                UserId = Guid.Parse(userId)
-            };
 
-            await this.dbContext.Uploaders.AddAsync(newUploader);
-            await this.dbContext.SaveChangesAsync();
-        }
 
         //Add Document To Uploader
         public async Task AddDocumentToUploaderByIdAsync(string uploaderId, string documentId)

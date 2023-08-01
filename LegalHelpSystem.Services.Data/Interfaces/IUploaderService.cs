@@ -4,8 +4,6 @@
     using LegalHelpSystem.Web.ViewModels.Uploader;
     public interface IUploaderService
     {
-        //Become Uploader
-        Task Create(string userId);
         ////Add Document To Uploader
         Task AddDocumentToUploaderByIdAsync(string uploaderId, string documentId);
 

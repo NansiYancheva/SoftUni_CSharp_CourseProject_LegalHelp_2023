@@ -35,13 +35,22 @@ else
                         {
                             <td><span>Legal Advisor</span></td>
                             <td>@member.LegalAdvisorName</td>
-                                          <td>@member.Email</td>
+                            <td>@member.Email</td>
                             <td>
                                 <a asp-controller="Review" asp-action="View" asp-route-id="@member.LegalAdvisorUserId"
                        class="btn btn-primary">View Reviews</a>
                                 <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisorUserId"
                        class="btn btn-success">Add Review</a>
                             </td>
+                            <td>
+                                <a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@member.LegalAdvisorUserId"
+                       class="btn btn-primary">Edit User</a>
+                                <a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@member.LegalAdvisorUserId"
+                       class="btn btn-danger">Delete User</a>
+                            </td>
+
+
+
                         }
                         else if (member.UploaderName != null)
                         {
@@ -54,9 +63,15 @@ else
                                 <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.UploaderUserId"
                        class="btn btn-success">Add Review</a>
                             </td>
+                            <td>
+                                <a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@member.UploaderUserId"
+                       class="btn btn-primary">Edit User</a>
+                                <a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@member.UploaderUserId"
+                       class="btn btn-danger">Delete User</a>
+                            </td>
                         }
 
-                   else
+                        else
                         {
                             <td><span>User</span></td>
                             <td>@member.UserName</td>
@@ -65,8 +80,15 @@ else
                             <td>
                                 <a asp-area="Admin" asp-controller="User" asp-action="MakeUploader" asp-route-uploaderUserId="@member.UserId"
                        class="btn btn-primary">Make Uploader</a>
+                                <a asp-area="Admin" asp-controller="User" asp-action="MakeLegalAdvisor" asp-route-legalAdvisorUserId="@member.UserId"
+                       class="btn btn-primary">Make Legal Advisor</a>
+                       <p></p>
+                                <a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@member.UserId"
+                       class="btn btn-primary">Edit User</a>
+                                <a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@member.UserId"
+                       class="btn btn-danger">Delete User</a>
                             </td>
-                        }                       
+                        }
                     </tr>
                 }
             </tbody>
