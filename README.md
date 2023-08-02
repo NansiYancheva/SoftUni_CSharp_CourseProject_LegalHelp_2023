@@ -1,5 +1,6 @@
 LegalHelp
 
+
 A web application for receiving legal help ⚖️ - legal advice and template of documents 📜 through requests (tickets)
 
 🎯 My project for the ASP.NET course at SoftUni. (June - August 2023)
@@ -35,8 +36,8 @@ Can be added by the admin. Meaning an user should be register first and after th
 
 Uploader:
 Can be added by the admin. Meaning an user should be register first and after that the admin can make them an uploader.
-- can do/see everything what the user do plus can add legal advices to tickets with category request for legal advice
-- can see all the legal advices which they gave
+- can do/see everything what the user do plus can add documents to tickets with category request for document
+- can see all the documents which they uploaded
 
 💭 The reason for having a legal advisor and an uploader is that in order to give legal advices the person need to have enought experience but it is not neccessary to have such to upload a template of a document if you know what kind of the document does the user need and you know where to find the document
 
@@ -55,6 +56,7 @@ TO be updated:
 
 
 ⚒️ Built With
+
 ASP.NET 6.0
 Microsoft SQL Server
 ASP.NET Identity 
@@ -71,19 +73,20 @@ Data Validation in the Models and Input View Models
     In appsettings.json you should include your connection string and its name should be "DefaultConnection"
 
 2. Database Migrations
-would be applied when you run the application, since the ENVIRONMENT is set to Development. If you change it, you should apply the migrations yourself.
+    would be applied when you run the application, since the ENVIRONMENT is set to Development. If you change it, you should apply the migrations yourself.
 
 3. Configuring sample data
-Once you run the application, you should create Test Accounts.
-The admin must be admin@legalhelp.bg because it is set as DevelopmentAdminEmail
-After that you should create two users - one for legal advisor and one for uploader and through the admin profile to make them in these roles.
-At the end you should test the application with a user.
+    Once you run the application, you should create Test Accounts.
+    The admin must be admin@legalhelp.bg because it is set as DevelopmentAdminEmail.
+    After that you should create two users - one for legal advisor and one for uploader and through the admin profile to make them in these roles.
+    At the end you should test the application with a user.
 
 TO be updated:
 To be seeded admin, legal advisor, uploader and one user
 
 
 🔝 Acknowledgments
+
 Using ASP.NET-MVC-Template developed by:
 Kristiyan Ivanov
 And features by:
@@ -91,4 +94,5 @@ Stamo Petkov
 
 
 🔎 Resources
+
 https://blog.ipleaders.in/legal-world-trends/ - home page picture
