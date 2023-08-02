@@ -15,7 +15,7 @@
                 <th scope="col">Reviews of team member</th>
                 @if (this.User.IsAdmin())
                 {
-                    <th scope="col">More Options</th>
+                    <th scope="col">Edit or Delete legal advise</th>
                 }
             </tr>
         </thead>
@@ -44,15 +44,17 @@
                        class="btn btn-success">Add Review</a>
                     </td>
 
-                    @*@if (this.User.IsAdmin())
-                {
-                <td>
-                <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id"
-                class="btn btn-warning">Edit</a>
-                <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id"
-                class="btn btn-danger">Delete</a>
-                </td>
-                }*@
+
+                    @if (this.User.IsAdmin())
+                    {
+                        <td>
+                            <a asp-controller="LegalAdvise" asp-action="Edit" asp-route-id="@legalAdvise.Id"
+                       class="btn btn-warning">Edit given legal advise</a>
+                            <a asp-controller="LegalAdvise" asp-action="Delete" asp-route-id="@legalAdvise.Id"
+                       class="btn btn-danger">Delete given legal advise</a>
+                        </td>
+                    }
+
                 </tr>
             }
         </tbody>

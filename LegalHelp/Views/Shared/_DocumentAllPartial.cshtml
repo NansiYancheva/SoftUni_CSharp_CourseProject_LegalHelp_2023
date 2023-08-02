@@ -16,7 +16,7 @@
                 <th scope="col">Reviews of team member</th>
                 @if (this.User.IsAdmin())
                 {
-                    <th scope="col">More Options</th>
+                    <th scope="col">Change or Delete Document</th>
                 }
             </tr>
         </thead>
@@ -51,15 +51,15 @@
                        class="btn btn-success">Add Review</a>
                     </td>
 
-@*                    @if (this.User.IsAdmin())
+                    @if (this.User.IsAdmin())
                     {
                         <td>
-                            <a asp-controller="Ticket" asp-action="Edit" asp-route-id="@ticket.Id"
-                       class="btn btn-warning">Edit</a>
-                            <a asp-controller="Ticket" asp-action="Delete" asp-route-id="@ticket.Id"
-                       class="btn btn-danger">Delete</a>
+                            <a asp-controller="Document" asp-action="Change" asp-route-id="@document.Id"
+                       class="btn btn-warning">Change uploaded document</a>
+                            <a asp-controller="Document" asp-action="Delete" asp-route-id="@document.Id"
+                       class="btn btn-danger">Delete uploaded document</a>
                         </td>
-                    }*@
+                    }
 
                     </tr>
                 }        
