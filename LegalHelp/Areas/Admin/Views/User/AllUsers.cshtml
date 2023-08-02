@@ -83,8 +83,10 @@ else
                                 <a asp-area="Admin" asp-controller="User" asp-action="MakeLegalAdvisor" asp-route-legalAdvisorUserId="@member.UserId"
                        class="btn btn-primary">Make Legal Advisor</a>
                        <p></p>
+                @*                <a asp-area="Identity" asp-controller="Account" asp-action="Manage"
+                       class="btn btn-primary">Edit User</a>*@
                                 <a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@member.UserId"
-                       class="btn btn-primary">Edit User</a>
+                       class="btn btn-danger">Edit User</a>
                                 <a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@member.UserId"
                        class="btn btn-danger">Delete User</a>
                             </td>
