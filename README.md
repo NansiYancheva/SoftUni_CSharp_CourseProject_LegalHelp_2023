@@ -48,7 +48,7 @@ Admin:
 
 TO be updated:
 - to edit a ticket with resolved status
-- to edit/delete only legal advice to the ticket and not the ticket itself
+- to delete only legal advice to the ticket and not the ticket itself
 - to edit(change)/delete document to the ticket and not the ticket itself
 - to manage all reviews for tickets, legal advices, documents, team members - meaning to delete/edit/add
 - to create/edit/delete user - to be checked if this will be in compliance with GDPR - or only to be done for legal advisor/uploader
