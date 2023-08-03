@@ -1,0 +1,33 @@
+﻿@model LegalAdviseFormModel
+
+@{
+    ViewBag.Title = "Delete Legal Advise";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<h8>Ticket Subject: @Model.TicketSubject</h8>
+<p></p>
+<h9>Ticket Description: @Model.TicketDescription</h9>
+<p></p>
+<h9>Current Legal Advise: @Model.AdviseResponse</h9>
+<p></p>
+
+<div class="row">
+
+
+    <form method="post" asp-area="Admin" asp-controller="LegalAdviseAdmin" asp-action="DeleteLegalAdvise" asp-route-id="@Model.Id">
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="TicketSubject" value="@Model.TicketSubject" />
+        <input type="hidden" asp-for="TicketDescription" value="@Model.TicketDescription" />
+        
+        <p></p>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

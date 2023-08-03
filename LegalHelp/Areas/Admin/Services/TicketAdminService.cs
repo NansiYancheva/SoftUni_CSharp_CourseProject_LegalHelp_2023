@@ -25,5 +25,15 @@
 
             return legalAdvise.TicketId.ToString();
         }
+
+        public async Task RemoveLegalAdviseFromTicket(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+              .Tickets
+              .FirstOrDefaultAsync(x => x.Id.ToString() == ticketId);
+
+            ticket.LegalAdviseId = null;
+            ticket.Response = null;
+        }
     }
 }

@@ -37,6 +37,14 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteLegalAdviseByIdAsync(string id)
+        {
+            LegalAdvise legalAdviseToDelete = await this.dbContext
+                .LegalAdvises
+                .FirstAsync(h => h.Id.ToString() == id);
 
+            this.dbContext.Remove(legalAdviseToDelete);
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

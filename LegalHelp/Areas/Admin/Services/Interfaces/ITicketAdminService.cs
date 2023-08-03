@@ -3,5 +3,6 @@
     public interface ITicketAdminService
     {
         Task<string> GetTicketIdByLegalAdviseIdAsync(string id);
+        Task RemoveLegalAdviseFromTicket(string ticketId);
     }
 }
