@@ -1,8 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
-
-namespace LegalHelpSystem.Web.ViewModels.LegalAdvise
+﻿namespace LegalHelpSystem.Web.ViewModels.LegalAdvise
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class LegalAdviseViewModel
     {
         public string Id { get; set; } = null!;

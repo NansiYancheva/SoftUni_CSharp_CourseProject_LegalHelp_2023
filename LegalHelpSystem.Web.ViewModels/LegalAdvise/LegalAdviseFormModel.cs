@@ -5,6 +5,7 @@
     public class LegalAdviseFormModel
     {
 
+        public string? Id { get; set; } 
 
         [Required]
         [StringLength(AdviseResponseMaxLength, MinimumLength = AdviseResponseMinLength)]

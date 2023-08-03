@@ -1,0 +1,32 @@
+﻿@model LegalAdviseFormModel
+@{
+    ViewData["Title"] = "Edit Legal Advise";
+}
+
+<h8>Ticket Subject: @Model.TicketSubject</h8>
+<p></p>
+<h9>Ticket Description: @Model.TicketDescription</h9>
+<p></p>
+<h9>Current Legal Advise: @Model.AdviseResponse</h9>
+<p></p>
+
+<div class="row">
+
+
+    <form method="post" asp-area="Admin" asp-controller="LegalAdviseAdmin" asp-action="EditLegalAdvise" asp-route-id="@Model.Id">
+     <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="TicketSubject" value="@Model.TicketSubject" />
+        <input type="hidden" asp-for="TicketDescription" value="@Model.TicketDescription" />
+        <div class="form-group">
+            <label asp-for="AdviseResponse"></label>
+            <input asp-for="AdviseResponse" class="form-control" placeholder="Enter the corrected legal advise">
+            <span asp-validation-for="AdviseResponse" class="small text-danger"></span>
+        </div>
+        <p></p>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

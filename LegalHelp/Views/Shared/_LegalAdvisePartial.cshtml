@@ -48,9 +48,9 @@
                     @if (this.User.IsAdmin())
                     {
                         <td>
-                            <a asp-controller="LegalAdvise" asp-action="Edit" asp-route-id="@legalAdvise.Id"
+                            <a asp-area="Admin" asp-controller="LegalAdviseAdmin" asp-action="EditLegalAdvise" asp-route-id="@legalAdvise.Id"
                        class="btn btn-warning">Edit given legal advise</a>
-                            <a asp-controller="LegalAdvise" asp-action="Delete" asp-route-id="@legalAdvise.Id"
+                            <a asp-area="Admin" asp-controller="LegalAdviseAdmin" asp-action="DeleteLegalAdvise" asp-route-id="@legalAdvise.Id"
                        class="btn btn-danger">Delete given legal advise</a>
                         </td>
                     }
