@@ -1,0 +1,33 @@
+﻿@model DocumentFormModel
+
+@{
+    ViewBag.Title = "Delete Document";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<h8>Document to Ticket Subject: @Model.TicketSubject</h8>
+<p></p>
+<h9>Document to Ticket Description: @Model.TicketDescription</h9>
+<p></p>
+<h9>Document Name: @Model.DocumentName</h9>
+<p></p>
+
+<div class="row">
+
+
+    <form method="post" asp-area="Admin" asp-controller="DocumentAdmin" asp-action="DeleteDocument" asp-route-id="@Model.Id">
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="TicketSubject" value="@Model.TicketSubject" />
+        <input type="hidden" asp-for="TicketDescription" value="@Model.TicketDescription" />
+        <input type="hidden" asp-for="DocumentName" value="@Model.DocumentName" />
+
+        <p></p>
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

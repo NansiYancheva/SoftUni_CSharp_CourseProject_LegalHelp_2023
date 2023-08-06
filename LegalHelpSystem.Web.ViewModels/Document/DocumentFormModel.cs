@@ -12,6 +12,7 @@
         {
             this.Types = new HashSet<DocumentSelectTypeFormModel>();
         }
+        public string? Id { get; set; }
 
         [Required]
         public string TicketId { get; set; } = null!;

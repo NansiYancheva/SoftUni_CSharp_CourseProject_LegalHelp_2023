@@ -7,7 +7,7 @@
     using LegalHelpSystem.Web.Areas.Admin.Services.Interfaces;
 
     using static Common.NotificationMessagesConstants;
-    using LegalHelpSystem.Data.Models;
+
 
 
     public class LegalAdviseAdminController : BaseAdminController
@@ -27,7 +27,7 @@
 
             this.legalAdviseAdminService = _legalAdviseAdminService;
         }
-        //??
+
         [Route("LegalAdviseAdmin/EditLegalAdvise")]
         //Edit
         [HttpGet]
@@ -79,6 +79,8 @@
             }
             try
             {
+                await this.legalAdviseAdminService.RemoveReviewsOfLegalAdviseAsync(id);
+
                 await this.legalAdviseAdminService.EditLegalAdviseByIdAndFormModelAsync(id, model);
             }
             catch (Exception)
@@ -147,11 +149,12 @@
                 //first remove legalAdviseIdFromTicket
                 await this.ticketAdminService
                     .RemoveLegalAdviseFromTicket(ticketId);
+                //remove the reviews
+                await this.legalAdviseAdminService.RemoveReviewsOfLegalAdviseAsync(id);
+                //change ticket status to not resolved
+                await this.ticketAdminService.ChangeTicketStatusAsync(ticketId);
                 //After that delete the legalAdvise itself
                 await this.legalAdviseAdminService.DeleteLegalAdviseByIdAsync(id);
-                //conflict - legalAdviseId in ticket
-
-                //what will happen with the reviews?
 
                 this.TempData[WarningMessage] = "The legal advise was successfully deleted!";
                 return this.RedirectToAction("All", "LegalAdvise", new { Area = "" });

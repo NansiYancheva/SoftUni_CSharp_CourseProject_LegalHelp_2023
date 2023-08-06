@@ -46,10 +46,12 @@ Admin:
 - have admin home page which redirects to other pages
 - can make user uploader/legal advisor
 - can edit/delete only legal advice to the ticket and not the ticket itself
+- can delete only the document attached to the ticket and not the ticket itself
 
 TO be updated:
 - to edit a ticket with resolved status
-- to edit(change)/delete document to the ticket and not the ticket itself
+- to delete the review itself which is attached to the legal advise before deleting/editing the legal advise
+- to add document to the ticket 
 - to manage all reviews for tickets, legal advices, documents, team members - meaning to delete/edit/add
 - to create/edit/delete user - to be checked if this will be in compliance with GDPR - or only to be done for legal advisor/uploader
 - to remove the "role" of legal advisor/uploader from an user

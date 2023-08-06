@@ -43,7 +43,18 @@
                 .LegalAdvises
                 .FirstAsync(h => h.Id.ToString() == id);
 
-            this.dbContext.Remove(legalAdviseToDelete);
+            this.dbContext.LegalAdvises.Remove(legalAdviseToDelete);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task RemoveReviewsOfLegalAdviseAsync(string id)
+        {
+            LegalAdvise legalAdvise = await this.dbContext
+               .LegalAdvises
+               .FirstAsync(h => h.Id.ToString() == id);
+
+            legalAdvise.Reviews.Clear();
+
             await this.dbContext.SaveChangesAsync();
         }
     }

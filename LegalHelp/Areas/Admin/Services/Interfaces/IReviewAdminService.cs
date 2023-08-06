@@ -1,0 +1,7 @@
+﻿namespace LegalHelpSystem.Web.Areas.Admin.Services.Interfaces
+{
+    public interface IReviewAdminService
+    {
+        Task DeleteTheReviewItSelfByDocumentIdAsync(string id);
+    }
+}

@@ -34,6 +34,40 @@
 
             ticket.LegalAdviseId = null;
             ticket.Response = null;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task<string> GetTicketIdBDocumentIdAsync(string id)
+        {
+            Document document = await this.dbContext
+               .Documents
+               .FirstOrDefaultAsync(x => x.Id.ToString() == id);
+
+            return document.TicketId.ToString();
+        }
+
+        public async Task RemoveDocumentFromTicket(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+              .Tickets
+              .FirstOrDefaultAsync(x => x.Id.ToString() == ticketId);
+
+            ticket.DocumentId = null;
+            ticket.Document = null;
+
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public async Task ChangeTicketStatusAsync(string ticketId)
+        {
+            Ticket ticket = await this.dbContext
+              .Tickets
+              .FirstOrDefaultAsync(x => x.Id.ToString() == ticketId);
+
+            ticket.ResolvedTicketStatus = false;
+
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

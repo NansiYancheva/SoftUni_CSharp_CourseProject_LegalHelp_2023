@@ -54,9 +54,9 @@
                     @if (this.User.IsAdmin())
                     {
                         <td>
-                            <a asp-controller="Document" asp-action="Change" asp-route-id="@document.Id"
+                            <a asp-area="Admin" asp-controller="DocumentAdmin" asp-action="Change" asp-route-id="@document.Id"
                        class="btn btn-warning">Change uploaded document</a>
-                            <a asp-controller="Document" asp-action="Delete" asp-route-id="@document.Id"
+                            <a asp-area="Admin" asp-controller="DocumentAdmin" asp-action="DeleteDocument" asp-route-id="@document.Id"
                        class="btn btn-danger">Delete uploaded document</a>
                         </td>
                     }
