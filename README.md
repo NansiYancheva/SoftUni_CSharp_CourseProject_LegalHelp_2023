@@ -48,9 +48,11 @@ Admin:
 - can edit/delete only legal advice to the ticket and not the ticket itself
 - can delete only the document attached to the ticket and not the ticket itself
 - can edit a ticket with resolved status
+- can do the following for the reviews:
+	- can remove the list of reviews from given legal advise/uploaded document
+	- can remove the reviews themself when deleting given legal advise/uploaded document
 
 TO be updated:
-- to delete the review itself which is attached to the legal advise before deleting/editing the legal advise
 - to manage all reviews for tickets, legal advices, documents, team members - meaning to delete/edit/add
 - to create/edit/delete user - to be checked if this will be in compliance with GDPR - or only to be done for legal advisor/uploader
 - to remove the "role" of legal advisor/uploader from an user
