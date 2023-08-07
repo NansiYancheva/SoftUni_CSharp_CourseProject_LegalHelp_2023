@@ -96,7 +96,7 @@
 
             bool resolvedStatus = await this.ticketService
                  .ResolvedTicket(id);
-            if (resolvedStatus == true)
+            if (resolvedStatus == true && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved and cannot be edited!";
 
@@ -147,7 +147,7 @@
 
             bool resolvedStatus = await this.ticketService
                   .ResolvedTicket(id);
-            if (resolvedStatus == true)
+            if (resolvedStatus == true && !this.User.IsAdmin())
             {
                 this.TempData[ErrorMessage] = "Ticket with the provided id was already resolved and cannot be edited!";
 

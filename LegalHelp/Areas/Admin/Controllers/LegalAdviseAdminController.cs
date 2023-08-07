@@ -16,16 +16,17 @@
         private readonly ILegalAdviseAdminService legalAdviseAdminService;
         private readonly ITicketAdminService ticketAdminService;
         private readonly ITicketService ticketService;
+        private readonly IReviewAdminService reviewAdminService;
 
 
 
-        public LegalAdviseAdminController(ILegalAdviseService _legalAdviseService, ITicketAdminService _ticketAdminService, ITicketService _ticketService, ILegalAdviseAdminService _legalAdviseAdminService)
+        public LegalAdviseAdminController(ILegalAdviseService _legalAdviseService, ITicketAdminService _ticketAdminService, ITicketService _ticketService, ILegalAdviseAdminService _legalAdviseAdminService, IReviewAdminService _reviewAdminService)
         {
             this.legalAdviseService = _legalAdviseService;
             this.ticketAdminService = _ticketAdminService;
             this.ticketService = _ticketService;
-
             this.legalAdviseAdminService = _legalAdviseAdminService;
+            this.reviewAdminService = _reviewAdminService;
         }
 
         [Route("LegalAdviseAdmin/EditLegalAdvise")]
@@ -78,8 +79,7 @@
                 return this.RedirectToAction("All", "LegalAdvise", new { Area = "" });
             }
             try
-            {
-                await this.legalAdviseAdminService.RemoveReviewsOfLegalAdviseAsync(id);
+            { 
 
                 await this.legalAdviseAdminService.EditLegalAdviseByIdAndFormModelAsync(id, model);
             }
@@ -153,6 +153,10 @@
                 await this.legalAdviseAdminService.RemoveReviewsOfLegalAdviseAsync(id);
                 //change ticket status to not resolved
                 await this.ticketAdminService.ChangeTicketStatusAsync(ticketId);
+
+                //delete the review by document id
+                await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdviseIdAsync(id);
+
                 //After that delete the legalAdvise itself
                 await this.legalAdviseAdminService.DeleteLegalAdviseByIdAsync(id);
 

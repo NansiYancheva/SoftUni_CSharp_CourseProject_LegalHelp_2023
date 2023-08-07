@@ -3,5 +3,6 @@
     public interface IReviewAdminService
     {
         Task DeleteTheReviewItSelfByDocumentIdAsync(string id);
+        Task DeleteTheReviewItSelfByLegalAdviseIdAsync(string id);
     }
 }

@@ -16,7 +16,7 @@
                 <th scope="col">Reviews of team member</th>
                 @if (this.User.IsAdmin())
                 {
-                    <th scope="col">Change or Delete Document</th>
+                    <th scope="col">Delete Document</th>
                 }
             </tr>
         </thead>
@@ -54,8 +54,6 @@
                     @if (this.User.IsAdmin())
                     {
                         <td>
-                            <a asp-area="Admin" asp-controller="DocumentAdmin" asp-action="Change" asp-route-id="@document.Id"
-                       class="btn btn-warning">Change uploaded document</a>
                             <a asp-area="Admin" asp-controller="DocumentAdmin" asp-action="DeleteDocument" asp-route-id="@document.Id"
                        class="btn btn-danger">Delete uploaded document</a>
                         </td>

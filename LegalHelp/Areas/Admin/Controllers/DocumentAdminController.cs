@@ -92,9 +92,6 @@
                 await this.reviewAdminService.DeleteTheReviewItSelfByDocumentIdAsync(id);
                 //After that delete the legalAdvise itself
                 await this.documentAdminService.DeleteDocumentByIdAsync(id);
-              
-
-                //what will happen with the reviews?
 
                 this.TempData[WarningMessage] = "The document was successfully deleted!";
                 return this.RedirectToAction("All", "Document", new { Area = "" });

@@ -19,11 +19,33 @@
         public async Task DeleteTheReviewItSelfByDocumentIdAsync(string id)
         {
             Review review = await this.dbContext
-             .Reviews
-             .FirstOrDefaultAsync(x => x.DocumentId.ToString() == id);
+                     .Reviews
+                     .FirstOrDefaultAsync(x => x.DocumentId.ToString() == id);
 
-            this.dbContext.Reviews.Remove(review);
-            await this.dbContext.SaveChangesAsync();
+            while (review != null)
+            {
+                this.dbContext.Reviews.Remove(review);
+                await this.dbContext.SaveChangesAsync();
+                review = await this.dbContext
+                    .Reviews
+                    .FirstOrDefaultAsync(x => x.LegalAdviseId.ToString() == id);
+            }
+        }
+
+        public async Task DeleteTheReviewItSelfByLegalAdviseIdAsync(string id)
+        {
+            Review review = await this.dbContext
+                    .Reviews
+                    .FirstOrDefaultAsync(x => x.LegalAdviseId.ToString() == id);
+
+            while (review != null)
+            {
+                this.dbContext.Reviews.Remove(review);
+                await this.dbContext.SaveChangesAsync();
+                review = await this.dbContext
+                   .Reviews
+                   .FirstOrDefaultAsync(x => x.LegalAdviseId.ToString() == id);
+            }
         }
     }
 }
