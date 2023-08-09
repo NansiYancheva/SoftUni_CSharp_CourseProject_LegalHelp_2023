@@ -15,12 +15,12 @@
             this.dbContext = _dbContext;
         }
 
-        public async Task RemoveReviewsOfUploaderAsync(string v)
+        public async Task RemoveReviewsOfUploaderAsync(string uploaderUserId)
         {
             Uploader uploader = await this.dbContext
-              .LegalAdvisors
+              .Uploaders
               .Include(x => x.Reviews)
-              .FirstAsync(x => x.UserId.ToString() == legalAdvisorUserId);
+              .FirstAsync(x => x.UserId.ToString() == uploaderUserId);
 
             uploader.Reviews.Clear();
 

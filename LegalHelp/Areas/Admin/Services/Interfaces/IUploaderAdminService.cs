@@ -2,5 +2,6 @@
 {
     public interface IUploaderAdminService
     {
+        Task RemoveReviewsOfUploaderAsync(string uploaderUserId);
     }
 }

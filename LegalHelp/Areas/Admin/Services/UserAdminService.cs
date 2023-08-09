@@ -13,16 +13,19 @@
         private readonly ILegalAdviseAdminService legalAdviseAdminService;
         private readonly ITicketAdminService ticketAdminService;
         private readonly ILegalAdvisorAdminService legalAdvisorAdminService;
-
+        private readonly IDocumentAdminService documentAdminService;
         private readonly IReviewAdminService reviewAdminService;
+        private readonly IUploaderAdminService uploaderAdminService;
 
-        public UserAdminService(LegalHelpDbContext dbContext, ITicketAdminService _ticketAdminService, ILegalAdviseAdminService _legalAdviseAdminService, IReviewAdminService _reviewAdminService, ILegalAdvisorAdminService _legalAdvisorAdminService)
+        public UserAdminService(LegalHelpDbContext dbContext, ITicketAdminService _ticketAdminService, ILegalAdviseAdminService _legalAdviseAdminService, IReviewAdminService _reviewAdminService, ILegalAdvisorAdminService _legalAdvisorAdminService, IDocumentAdminService _documentAdminService, IUploaderAdminService _uploaderAdminService)
         {
             this.dbContext = dbContext;       
             this.ticketAdminService = _ticketAdminService;          
             this.legalAdviseAdminService = _legalAdviseAdminService;
             this.reviewAdminService = _reviewAdminService;
             this.legalAdvisorAdminService = _legalAdvisorAdminService;
+            this.documentAdminService = _documentAdminService;
+            this.uploaderAdminService = _uploaderAdminService;
         }
 
         public async Task CreateUploader(string userId)
@@ -44,30 +47,28 @@
               .FirstOrDefaultAsync(x => x.UserId.ToString() == uploaderUserId);
 
 
-            foreach (var document in existingLegalAdvisor.LegalAdvises)
+            foreach (var document in existingUploader.UploadedDocuments)
             {
                 string id = document.Id.ToString();
-                //find ticket to which the legal advise is given
+                //find ticket to which the document is given
                 string ticketId = await this.ticketAdminService
-                  .GetTicketIdByLegalAdviseIdAsync(id);
-                //first remove legalAdviseIdFromTicket
+                   .GetTicketIdBDocumentIdAsync(id);
+                //first remove document from ticket
                 await this.ticketAdminService
-                    .RemoveLegalAdviseFromTicket(ticketId);
+                    .RemoveDocumentFromTicket(ticketId);
                 //remove the reviews
-                await this.legalAdviseAdminService.RemoveReviewsOfLegalAdviseAsync(id);
+                await this.documentAdminService.RemoveReviewsOfDocumentAsync(id);
                 //change ticket status to not resolved
                 await this.ticketAdminService.ChangeTicketStatusAsync(ticketId);
-                //delete the review itself by legal advise id
-                await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdviseIdAsync(id);
-                //After that delete the legalAdvise itself
-                await this.legalAdviseAdminService.DeleteLegalAdviseByIdAsync(id);
+                //delete the review by document id
+                await this.reviewAdminService.DeleteTheReviewItSelfByDocumentIdAsync(id);
+                //After that delete the document itself
+                await this.documentAdminService.DeleteDocumentByIdAsync(id);
             }
-            //delete all reviews of the legal advisor
-            await this.legalAdvisorAdminService.RemoveReviewsOfLegalAdvisorAsync(existingLegalAdvisor.UserId.ToString());
+            //delete all reviews of the uploader
+            await this.uploaderAdminService.RemoveReviewsOfUploaderAsync(existingUploader.UserId.ToString());
             //delete the review itself
-            await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdvisorIdAsync(existingLegalAdvisor.UserId.ToString());
-
-
+            await this.reviewAdminService.DeleteTheReviewItSelfByUploaderIdAsync(existingUploader.UserId.ToString());
 
             this.dbContext.Uploaders.Remove(existingUploader);
             await this.dbContext.SaveChangesAsync();

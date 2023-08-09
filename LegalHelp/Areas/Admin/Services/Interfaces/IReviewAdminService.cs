@@ -5,5 +5,6 @@
         Task DeleteTheReviewItSelfByDocumentIdAsync(string id);
         Task DeleteTheReviewItSelfByLegalAdviseIdAsync(string id);
         Task DeleteTheReviewItSelfByLegalAdvisorIdAsync(string legalAdvisorUserId);
+        Task DeleteTheReviewItSelfByUploaderIdAsync(string uploaderUserId);
     }
 }
