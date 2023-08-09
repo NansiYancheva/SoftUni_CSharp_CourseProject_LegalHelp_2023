@@ -51,6 +51,7 @@
         {
             LegalAdvise legalAdvise = await this.dbContext
                .LegalAdvises
+               .Include(x => x.Reviews)
                .FirstAsync(h => h.Id.ToString() == id);
 
             legalAdvise.Reviews.Clear();

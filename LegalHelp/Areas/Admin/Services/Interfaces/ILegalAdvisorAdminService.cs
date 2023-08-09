@@ -3,5 +3,6 @@
     public interface ILegalAdvisorAdminService
     {
         Task<string> ChooseLegalAdvisorUserIdAsync();
+        Task RemoveReviewsOfLegalAdvisorAsync(string legalAdvisorUserId);
     }
 }

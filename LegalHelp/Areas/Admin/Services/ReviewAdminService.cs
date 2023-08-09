@@ -47,5 +47,21 @@
                    .FirstOrDefaultAsync(x => x.LegalAdviseId.ToString() == id);
             }
         }
+
+        public async Task DeleteTheReviewItSelfByLegalAdvisorIdAsync(string legalAdvisorUserId)
+        {
+            Review review = await this.dbContext
+                   .Reviews
+                   .FirstOrDefaultAsync(x => x.LegalAdvisor.UserId.ToString() == legalAdvisorUserId);
+
+            while (review != null)
+            {
+                this.dbContext.Reviews.Remove(review);
+                await this.dbContext.SaveChangesAsync();
+                review = await this.dbContext
+                   .Reviews
+                   .FirstOrDefaultAsync(x => x.LegalAdvisor.UserId.ToString() == legalAdvisorUserId);
+            }
+        }
     }
 }

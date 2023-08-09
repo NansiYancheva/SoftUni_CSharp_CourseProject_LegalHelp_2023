@@ -24,5 +24,17 @@
 
             return choosenLegalAdvisor.Id.ToString();
         }
+
+        public async Task RemoveReviewsOfLegalAdvisorAsync(string legalAdvisorUserId)
+        {
+            LegalAdvisor legalAdvisor = await this.dbContext
+              .LegalAdvisors
+              .Include(x => x.Reviews)
+              .FirstAsync(x => x.UserId.ToString() == legalAdvisorUserId);
+
+            legalAdvisor.Reviews.Clear();
+
+            await this.dbContext.SaveChangesAsync();
+        }
     }
 }

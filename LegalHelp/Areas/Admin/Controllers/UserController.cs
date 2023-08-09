@@ -73,6 +73,7 @@
             }
             try
             {
+
                 await this.userAdminService.UnmakeUploader(uploaderUserId);
                 this.TempData[SuccessMessage] = "You have successfully remove the role of an uploader!";
             }

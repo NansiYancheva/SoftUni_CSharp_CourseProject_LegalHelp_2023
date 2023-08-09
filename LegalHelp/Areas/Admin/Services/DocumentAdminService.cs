@@ -31,6 +31,7 @@
         {
             Document document = await this.dbContext
                      .Documents
+                     .Include(x => x.Reviews)
                      .FirstAsync(h => h.Id.ToString() == id);
 
             document.Reviews.Clear();
