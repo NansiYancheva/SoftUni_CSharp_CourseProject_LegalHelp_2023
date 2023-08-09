@@ -51,11 +51,11 @@ Admin:
 - can do the following for the reviews:
 	- can remove the list of reviews from given legal advise/uploaded document
 	- can remove the reviews themself when deleting given legal advise/uploaded document
+- can make/unmake user to have the functions of legal advisor/uploader
 
 TO be updated:
 - to manage all reviews for tickets, legal advices, documents, team members - meaning to delete/edit/add
-- to create/edit/delete user - to be checked if this will be in compliance with GDPR - or only to be done for legal advisor/uploader
-- to remove the "role" of legal advisor/uploader from an user
+
 
 
 ⚒️ Built With

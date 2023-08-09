@@ -99,23 +99,11 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="teamDropdown">
 
-                                           @* @if (isUploader)
-                                            {
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>
+                                        @if (this.User.IsAdmin())
+                                        {
+                                            <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="AllUsers">Manage Users</a></li>
+                                        }
                                             <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="AllTeamMembers">All team members</a></li>
-                                            }
-
-                                            else if (isLegalAdvisor)
-                                            {
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="AllTeamMembers">All team members</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="Uploader" asp-action="Become">Become Uploader of legal documents</a></li>
-                                                <li><a class="dropdown-item" asp-area="" asp-controller="LegalAdvisor" asp-action="Become">Become Legal Advisor</a></li>*@
-                                            <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="AllTeamMembers">All team members</a></li>
-                                            @*}*@
                                         </ul>
                                     </div>
                                 </li>

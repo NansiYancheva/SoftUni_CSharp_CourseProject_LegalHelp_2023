@@ -43,10 +43,8 @@ else
                        class="btn btn-success">Add Review</a>
                             </td>
                             <td>
-                                <a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@member.LegalAdvisorUserId"
-                       class="btn btn-primary">Edit User</a>
-                                <a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@member.LegalAdvisorUserId"
-                       class="btn btn-danger">Delete User</a>
+                                <a asp-area="Admin" asp-controller="User" asp-action="UnmakeLegalAdvisor" asp-route-legalAdvisorUserId="@member.LegalAdvisorUserId"
+                       class="btn btn-warning">Remove Legal Advisor Role</a>
                             </td>
 
 
@@ -64,10 +62,8 @@ else
                        class="btn btn-success">Add Review</a>
                             </td>
                             <td>
-                                <a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@member.UploaderUserId"
-                       class="btn btn-primary">Edit User</a>
-                                <a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@member.UploaderUserId"
-                       class="btn btn-danger">Delete User</a>
+                                <a asp-area="Admin" asp-controller="User" asp-action="UnmakeUploader" asp-route-uploaderUserId="@member.UploaderUserId"
+                       class="btn btn-warning">Remove Uploader Role</a>
                             </td>
                         }
 
@@ -83,12 +79,6 @@ else
                                 <a asp-area="Admin" asp-controller="User" asp-action="MakeLegalAdvisor" asp-route-legalAdvisorUserId="@member.UserId"
                        class="btn btn-primary">Make Legal Advisor</a>
                        <p></p>
-                @*                <a asp-area="Identity" asp-controller="Account" asp-action="Manage"
-                       class="btn btn-primary">Edit User</a>*@
-                                <a asp-area="" asp-controller="User" asp-action="Edit" asp-route-id="@member.UserId"
-                       class="btn btn-danger">Edit User</a>
-                                <a asp-area="" asp-controller="User" asp-action="Delete" asp-route-id="@member.UserId"
-                       class="btn btn-danger">Delete User</a>
                             </td>
                         }
                     </tr>

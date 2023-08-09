@@ -60,6 +60,32 @@
             return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
         }
 
+        [Route("User/UnmakeUploader")]
+        [HttpGet]
+        public async Task<IActionResult> UnmakeUploader(string uploaderUserId)
+        {
+            bool isUploader = await this.uploaderService.UploaderExistsByUserIdAsync(uploaderUserId);
+            if (!isUploader)
+            {
+                this.TempData[ErrorMessage] = "The user is not an uploader!";
+
+                return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
+            }
+            try
+            {
+                await this.userAdminService.UnmakeUploader(uploaderUserId);
+                this.TempData[SuccessMessage] = "You have successfully remove the role of an uploader!";
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] =
+                    "Unexpected error occurred while removing the role of an uploader! Please try again later.";
+
+                return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
+            }
+            return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
+        }
+
         [Route("User/MakeLegalAdvisor")]
         [HttpGet]
         public async Task<IActionResult> MakeLegalAdvisor(string legalAdvisorUserId)
@@ -80,6 +106,32 @@
             {
                 this.TempData[ErrorMessage] =
                     "Unexpected error occurred while creating a legal advisor! Please try again later.";
+
+                return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
+            }
+            return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
+        }
+
+        [Route("User/UnmakeLegalAdvisor")]
+        [HttpGet]
+        public async Task<IActionResult> UnmakeLegalAdvisor(string legalAdvisorUserId)
+        {
+            bool isLegalAdvisor = await this.legalAdvisorService.LegalAdvisorExistsByUserIdAsync(legalAdvisorUserId);
+            if (!isLegalAdvisor)
+            {
+                this.TempData[ErrorMessage] = "The user is not a legal advisor!";
+
+                return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
+            }
+            try
+            {
+                await this.userAdminService.UnmakeLegalAdvisor(legalAdvisorUserId);
+                this.TempData[SuccessMessage] = "You have successfully remove the role of a legal advisor!";
+            }
+            catch (Exception)
+            {
+                this.TempData[ErrorMessage] =
+                    "Unexpected error occurred while removing the role of a legal advisor! Please try again later.";
 
                 return this.RedirectToAction("AllUsers", "User", new { Area = AdminAreaName });
             }
