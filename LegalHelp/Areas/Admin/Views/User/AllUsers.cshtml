@@ -37,9 +37,9 @@ else
                             <td>@member.LegalAdvisorName</td>
                             <td>@member.Email</td>
                             <td>
-                                <a asp-controller="Review" asp-action="View" asp-route-id="@member.LegalAdvisorUserId"
+                                <a asp-area="" asp-controller=" Review" asp-action="View" asp-route-id="@member.LegalAdvisorUserId"
                        class="btn btn-primary">View Reviews</a>
-                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisorUserId"
+                                <a asp-area="" asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisorUserId"
                        class="btn btn-success">Add Review</a>
                             </td>
                             <td>
@@ -56,9 +56,9 @@ else
                             <td>@member.UploaderName</td>
                             <td>@member.Email</td>
                             <td>
-                                <a asp-controller="Review" asp-action="View" asp-route-id="@member.UploaderUserId"
+                                <a asp-area="" asp-controller="Review" asp-action="View" asp-route-id="@member.UploaderUserId"
                        class="btn btn-primary">View Reviews</a>
-                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@member.UploaderUserId"
+                                <a asp-area=""  asp-controller="Review" asp-action="Add" asp-route-objectid="@member.UploaderUserId"
                        class="btn btn-success">Add Review</a>
                             </td>
                             <td>

@@ -56,19 +56,20 @@
                 //first remove document from ticket
                 await this.ticketAdminService
                     .RemoveDocumentFromTicket(ticketId);
+                //delete the review by document id
+                await this.reviewAdminService.DeleteTheReviewItSelfByDocumentIdAsync(id);
                 //remove the reviews
                 await this.documentAdminService.RemoveReviewsOfDocumentAsync(id);
                 //change ticket status to not resolved
                 await this.ticketAdminService.ChangeTicketStatusAsync(ticketId);
-                //delete the review by document id
-                await this.reviewAdminService.DeleteTheReviewItSelfByDocumentIdAsync(id);
                 //After that delete the document itself
                 await this.documentAdminService.DeleteDocumentByIdAsync(id);
             }
-            //delete all reviews of the uploader
-            await this.uploaderAdminService.RemoveReviewsOfUploaderAsync(existingUploader.UserId.ToString());
             //delete the review itself
             await this.reviewAdminService.DeleteTheReviewItSelfByUploaderIdAsync(existingUploader.UserId.ToString());
+            //delete all reviews of the uploader
+            await this.uploaderAdminService.RemoveReviewsOfUploaderAsync(existingUploader.UserId.ToString());
+
 
             this.dbContext.Uploaders.Remove(existingUploader);
             await this.dbContext.SaveChangesAsync();
@@ -103,19 +104,20 @@
                 //first remove legalAdviseIdFromTicket
                 await this.ticketAdminService
                     .RemoveLegalAdviseFromTicket(ticketId);
+                //delete the review itself by legal advise id
+                await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdviseIdAsync(id);
                 //remove the reviews
                 await this.legalAdviseAdminService.RemoveReviewsOfLegalAdviseAsync(id);
                 //change ticket status to not resolved
                 await this.ticketAdminService.ChangeTicketStatusAsync(ticketId);
-                //delete the review itself by legal advise id
-                await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdviseIdAsync(id);
                 //After that delete the legalAdvise itself
                 await this.legalAdviseAdminService.DeleteLegalAdviseByIdAsync(id);
             }
-            //delete all reviews of the legal advisor
-            await this.legalAdvisorAdminService.RemoveReviewsOfLegalAdvisorAsync(existingLegalAdvisor.UserId.ToString());
             //delete the review itself
             await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdvisorIdAsync(existingLegalAdvisor.UserId.ToString());
+            //delete all reviews of the legal advisor
+            await this.legalAdvisorAdminService.RemoveReviewsOfLegalAdvisorAsync(existingLegalAdvisor.UserId.ToString());
+
             this.dbContext.LegalAdvisors.Remove(existingLegalAdvisor);
             await this.dbContext.SaveChangesAsync();
         }
