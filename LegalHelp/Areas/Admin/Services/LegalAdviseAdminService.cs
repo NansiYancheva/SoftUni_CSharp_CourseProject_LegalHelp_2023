@@ -58,5 +58,14 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<string> FindLegalAdviseIdByTicketIdAsync(string id)
+        {
+            LegalAdvise legalAdvise = await this.dbContext
+              .LegalAdvises
+              .FirstAsync(x => x.TicketId.ToString() == id);
+
+            return legalAdvise.Id.ToString();
+        }
     }
 }

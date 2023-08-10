@@ -36,7 +36,8 @@
                     DocumentType = h.DocumentType.Name,
                     Description = h.Description,
                     TicketId = h.TicketId.ToString(),
-                    UploaderName = $"{h.Uploader.User.FirstName} {h.Uploader.User.LastName}"
+                    UploaderName = $"{h.Uploader.User.FirstName} {h.Uploader.User.LastName}",
+                    UploaderUserId = h.Uploader.UserId.ToString()
                 })
                 .ToListAsync();
 

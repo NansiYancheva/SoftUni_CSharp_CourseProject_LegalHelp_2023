@@ -6,6 +6,7 @@
     {
         Task DeleteLegalAdviseByIdAsync(string id);
         Task EditLegalAdviseByIdAndFormModelAsync(string id, LegalAdviseFormModel model);
+        Task<string> FindLegalAdviseIdByTicketIdAsync(string id);
         Task<string> GetLegalAdviseAsResponse(string id);
         Task RemoveReviewsOfLegalAdviseAsync(string id);
     }

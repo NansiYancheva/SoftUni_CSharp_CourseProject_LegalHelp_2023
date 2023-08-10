@@ -117,9 +117,9 @@
                                 <td>
 
                                     <form method="get" action="@Url.Action("Download", "Document")">
-                    <button type="submit" class="action-button">Download document</button>
-                    <input type="hidden" name="ticketId" value="@ticket.Id" />
-                    </form>
+                                        <button type="submit" class="action-button">Download document</button>
+                                        <input type="hidden" name="ticketId" value="@ticket.Id" />
+                                    </form>
 
 
                                 </td>
@@ -137,9 +137,9 @@
                                 {
                                     <td>
                                         <form method="get" action="@Url.Action("Upload", "Document")">
-                    <button type="submit" class="action-button">Upload a document</button>
-                    <input type="hidden" name="ticketId" value="@ticket.Id" />
-                    </form>
+                                            <button type="submit" class="action-button">Upload a document</button>
+                                            <input type="hidden" name="ticketId" value="@ticket.Id" />
+                                        </form>
                                     </td>
                                 }
                                 else
@@ -166,6 +166,8 @@
 
 
                     }
+
+                    @* team member*@
                     @if (ticket.TicketCategory == "Request for advise")
                     {
                         if (ticket.LegalAdviseId != null)
@@ -173,13 +175,21 @@
                             <td>
                                 <span>Name: @ticket.LegalAdvisorName</span>
                             </td>
-                            <td>
-                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.LegalAdvisorUserId"
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <td>
+                                    <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.LegalAdvisorUserId"
                        class="btn btn-primary">View Reviews</a>
-                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.LegalAdvisorUserId"
+                                    <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.LegalAdvisorUserId"
                        class="btn btn-success">Add Review</a>
-
-                            </td>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <span>Please login/register to view the reviews</span>
+                                </td>
+                            }
                         }
                         else
                         {
@@ -199,13 +209,22 @@
                             <td>
                                 <span>Name: @ticket.UploaderName</span>
                             </td>
-                            <td>
-                                <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.UploaderUserId"
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <td>
+                                    <a asp-controller="Review" asp-action="View" asp-route-id="@ticket.UploaderUserId"
                        class="btn btn-primary">View Reviews</a>
-                                <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.UploaderUserId"
+                                    <a asp-controller="Review" asp-action="Add" asp-route-objectid="@ticket.UploaderUserId"
                        class="btn btn-success">Add Review</a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <span>Please login/register to view the reviews</span>
+                                </td>
+                            }
 
-                            </td>
                         }
                         else
                         {
@@ -216,11 +235,7 @@
                                 <span>The ticket is not resolved by any team member and you can'd find reviews</span>
                             </td>
                         }
-
                     }
-
-
-
 
                     @if (this.User.IsAdmin())
                     {

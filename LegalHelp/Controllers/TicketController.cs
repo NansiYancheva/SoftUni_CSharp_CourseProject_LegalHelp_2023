@@ -6,19 +6,30 @@
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.ViewModels.Ticket;
     using LegalHelpSystem.Web.Infrastructure.Extensions;
+    using LegalHelpSystem.Web.Areas.Admin.Services.Interfaces;
 
     using static Common.NotificationMessagesConstants;
+    using LegalHelpSystem.Web.Areas.Admin.Services;
+    using LegalHelpSystem.Data.Models;
 
 
     public class TicketController : BaseController
     {
         private readonly ITicketCategoryService ticketCategoryService;
         private readonly ITicketService ticketService;
+        private readonly ITicketAdminService ticketAdminService;
+        private readonly IDocumentAdminService documentAdminService;
+        private readonly IReviewAdminService reviewAdminService;
+        private readonly ILegalAdviseAdminService legalAdviseAdminService;
 
-        public TicketController(ITicketCategoryService _ticketCategoryService, ITicketService _ticketService)
+        public TicketController(ITicketCategoryService _ticketCategoryService, ITicketService _ticketService, ITicketAdminService _ticketAdminService, IDocumentAdminService _documentAdminService, IReviewAdminService _reviewAdminService, ILegalAdviseAdminService _legalAdviseAdminService)
         {
             this.ticketCategoryService = _ticketCategoryService;
             this.ticketService = _ticketService;
+            this.ticketAdminService = _ticketAdminService;
+            this.documentAdminService = _documentAdminService;
+            this.reviewAdminService = _reviewAdminService;
+            this.legalAdviseAdminService = _legalAdviseAdminService;
         }
         //Add
         [HttpGet]
@@ -229,7 +240,43 @@
             }
             try
             {
-                await this.ticketService.DeleteTicketByIdAsync(id);
+                if (model.ResolvedTicketStatus == true)
+                {
+                    if (model.DocumentName != null)
+                    {
+                        string documentId = 
+                         await this.documentAdminService
+                                   .FindDocumentIdByTicketIdAsync(id);
+                        await this.ticketAdminService
+                                  .RemoveDocumentFromTicket(id);
+                        await this.documentAdminService
+                                  .RemoveReviewsOfDocumentAsync(documentId);
+                        await this.reviewAdminService
+                                  .DeleteTheReviewItSelfByDocumentIdAsync(documentId);
+                        await this.documentAdminService
+                                  .DeleteDocumentByIdAsync(documentId);
+                    }
+                    else if (model.Response != null)
+                    {
+                        string legalAdviseId =
+                        await this.legalAdviseAdminService
+                                  .FindLegalAdviseIdByTicketIdAsync(id);
+                        //first remove legalAdviseIdFromTicket
+                        await this.ticketAdminService
+                                  .RemoveLegalAdviseFromTicket(id);
+                        //remove the reviews
+                        await this.legalAdviseAdminService
+                                  .RemoveReviewsOfLegalAdviseAsync(legalAdviseId);
+                        //delete the review by legal advise id
+                        await this.reviewAdminService
+                                  .DeleteTheReviewItSelfByLegalAdviseIdAsync(legalAdviseId);
+                        //After that delete the legalAdvise itself
+                        await this.legalAdviseAdminService
+                                  .DeleteLegalAdviseByIdAsync(legalAdviseId);
+                    }
+                }
+                await this.ticketService
+                          .DeleteTicketByIdAsync(id);
 
                 this.TempData[WarningMessage] = "The ticket was successfully deleted!";
                 return this.RedirectToAction("Mine", "Ticket");

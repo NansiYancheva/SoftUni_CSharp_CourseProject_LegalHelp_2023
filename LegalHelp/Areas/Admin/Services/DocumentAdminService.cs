@@ -27,6 +27,15 @@
             await this.dbContext.SaveChangesAsync();
         }
 
+        public async Task<string> FindDocumentIdByTicketIdAsync(string id)
+        {
+            Document document = await this.dbContext
+                    .Documents
+                    .FirstAsync(x => x.TicketId.ToString() == id);
+
+            return document.Id.ToString();
+        }
+
         public async Task RemoveReviewsOfDocumentAsync(string id)
         {
             Document document = await this.dbContext

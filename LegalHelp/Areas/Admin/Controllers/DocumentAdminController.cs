@@ -45,15 +45,19 @@
             {
                 string ticketId = await this.ticketAdminService
                     .GetTicketIdBDocumentIdAsync(id);
+                string documentName = await this.documentService
+             .GetDocumentNameAsync(id);
+                string ticketDescription = await this.ticketService
+                    .GetTicketDescription(ticketId);
+                string ticketSubject = await this.ticketService
+                    .GetTicketSubjectAsync(ticketId);
+
                 DocumentFormModel documentFormModel = new DocumentFormModel
                 {
-                    TicketSubject = await this.ticketService
-                    .GetTicketSubjectAsync(ticketId),
-                    TicketDescription = await this.ticketService
-                    .GetTicketDescription(ticketId),
+                    TicketSubject = ticketSubject,
+                    TicketDescription = ticketDescription,
                     TicketId = ticketId,
-                    DocumentName = await this.documentService
-             .GetDocumentNameAsync(id),
+                    DocumentName = documentName,
                     Id = id
                 };
 
