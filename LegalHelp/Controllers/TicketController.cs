@@ -218,6 +218,7 @@
         }
         //Delete        
         [HttpPost]
+        //the model is not transfering between the get and the post request - we have to fix it in delete.cshtml - with hidden input????
         public async Task<IActionResult> Delete(string id, TicketPerDeleteFormModel model)
         {
             bool ticketExists = await this.ticketService
@@ -249,10 +250,10 @@
                                    .FindDocumentIdByTicketIdAsync(id);
                         await this.ticketAdminService
                                   .RemoveDocumentFromTicket(id);
-                        await this.documentAdminService
-                                  .RemoveReviewsOfDocumentAsync(documentId);
                         await this.reviewAdminService
                                   .DeleteTheReviewItSelfByDocumentIdAsync(documentId);
+                        await this.documentAdminService
+                                  .RemoveReviewsOfDocumentAsync(documentId);
                         await this.documentAdminService
                                   .DeleteDocumentByIdAsync(documentId);
                     }
@@ -264,12 +265,12 @@
                         //first remove legalAdviseIdFromTicket
                         await this.ticketAdminService
                                   .RemoveLegalAdviseFromTicket(id);
-                        //remove the reviews
-                        await this.legalAdviseAdminService
-                                  .RemoveReviewsOfLegalAdviseAsync(legalAdviseId);
                         //delete the review by legal advise id
                         await this.reviewAdminService
                                   .DeleteTheReviewItSelfByLegalAdviseIdAsync(legalAdviseId);
+                        //remove the reviews
+                        await this.legalAdviseAdminService
+                                  .RemoveReviewsOfLegalAdviseAsync(legalAdviseId);
                         //After that delete the legalAdvise itself
                         await this.legalAdviseAdminService
                                   .DeleteLegalAdviseByIdAsync(legalAdviseId);

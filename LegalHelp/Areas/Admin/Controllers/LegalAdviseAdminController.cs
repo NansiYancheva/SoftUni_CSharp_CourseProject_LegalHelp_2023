@@ -149,14 +149,12 @@
                 //first remove legalAdviseIdFromTicket
                 await this.ticketAdminService
                     .RemoveLegalAdviseFromTicket(ticketId);
+                //delete the review by legal advise id
+                await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdviseIdAsync(id);
                 //remove the reviews
                 await this.legalAdviseAdminService.RemoveReviewsOfLegalAdviseAsync(id);
                 //change ticket status to not resolved
                 await this.ticketAdminService.ChangeTicketStatusAsync(ticketId);
-
-                //delete the review by document id
-                await this.reviewAdminService.DeleteTheReviewItSelfByLegalAdviseIdAsync(id);
-
                 //After that delete the legalAdvise itself
                 await this.legalAdviseAdminService.DeleteLegalAdviseByIdAsync(id);
 

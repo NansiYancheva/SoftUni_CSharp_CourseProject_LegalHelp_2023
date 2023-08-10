@@ -13,10 +13,16 @@
             <div class="form-group">
                 <label asp-for="Subject" class="control-label"></label>
                 <input asp-for="Subject" class="form-control" disabled="disabled" />
+
+                <input type="hidden" asp-for="Subject" value="@Model.Subject" />
+
             </div>
             <div class="form-group">
                 <label asp-for="RequestDescription" class="control-label"></label>
                 <input asp-for="RequestDescription" class="form-control" disabled="disabled" />
+
+                <input type="hidden" asp-for="RequestDescription" value="@Model.RequestDescription" />
+
             </div>
             <div class="form-group">
                 @if (Model.ResolvedTicketStatus == true)
@@ -28,6 +34,9 @@
                     <p>The ticket is not resolved.</p>
                 }
             </div>
+
+            <input type="hidden" asp-for="ResolvedTicketStatus" value="@Model.ResolvedTicketStatus" />
+
             <div class="form-group">
                 @if (Model.Response == null && Model.DocumentName == null)
                 {
@@ -36,16 +45,25 @@
                 else if (Model.Response != null)
                 {
                     <p>You will delete the following legal advise: @Model.Response</p>
+
+                    <input type="hidden" asp-for="Response" value="@Model.Response" />
+
                 }
                 else if (Model.DocumentName != null)
                 {
                     <p>You will delete the above mentioned document from the website, but not from your personal computer.</p>
+
+                    <input type="hidden" asp-for="DocumentName" value="@Model.DocumentName" />
+
                 }
             </div>
            @* <div class="form-group">
                 <label asp-for="Response" class="control-label"></label>
                 <input asp-for="Response" class="form-control" disabled="disabled" />
             </div>*@
+
+
+
             <div class="form-group mt-2">
                 <input type="submit" value="Delete" class="btn btn-danger" />
             </div>

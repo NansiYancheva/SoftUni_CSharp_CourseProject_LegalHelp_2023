@@ -228,11 +228,6 @@
                 .Tickets
                  .FirstOrDefaultAsync(h => h.Id.ToString() == ticketId);
 
-            if (ticket == null)
-            {
-                return "Ticket was deleted and there is no ticket subject";
-            }
-
             return ticket.Subject;
         }
         public async Task<string> GetTicketDescription(string ticketId)
@@ -240,11 +235,6 @@
             Ticket ticket = await this.dbContext
                 .Tickets
                 .FirstOrDefaultAsync(h => h.Id.ToString() == ticketId);
-
-            if(ticket == null)
-            {
-                return "Ticket was deleted and there is no ticket description";
-            }
 
             return ticket.RequestDescription;
         }
