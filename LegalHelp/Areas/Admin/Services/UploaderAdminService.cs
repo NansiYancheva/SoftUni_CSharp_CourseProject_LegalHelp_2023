@@ -15,6 +15,15 @@
             this.dbContext = _dbContext;
         }
 
+        public async Task<string> ChooseUploaderUserIdAsync()
+        {
+            Uploader choosenUploader = await this.dbContext
+            .Uploaders
+            .FirstAsync(h => h.Id.ToString() != null);
+
+            return choosenUploader.Id.ToString();
+        }
+
         public async Task RemoveReviewsOfUploaderAsync(string uploaderUserId)
         {
             Uploader uploader = await this.dbContext
@@ -41,7 +50,7 @@
                 uploader.Reviews.Remove(reviewToBeRemoved);
                 await this.dbContext.SaveChangesAsync();
                 reviewToBeRemoved = uploader.Reviews.Where(x => x.TextReview == textReview).FirstOrDefault();
-            }  
+            }
         }
     }
 }

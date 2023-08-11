@@ -37,7 +37,7 @@ else
                             <td>@member.LegalAdvisorName</td>
                             <td>@member.Email</td>
                             <td>
-                                <a asp-area="" asp-controller=" Review" asp-action="View" asp-route-id="@member.LegalAdvisorUserId"
+                                <a asp-area="" asp-controller="Review" asp-action="View" asp-route-id="@member.LegalAdvisorUserId"
                        class="btn btn-primary">View Reviews</a>
                                 <a asp-area="" asp-controller="Review" asp-action="Add" asp-route-objectid="@member.LegalAdvisorUserId"
                        class="btn btn-success">Add Review</a>

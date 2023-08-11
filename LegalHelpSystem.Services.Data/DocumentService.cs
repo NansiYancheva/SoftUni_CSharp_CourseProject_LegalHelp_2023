@@ -57,7 +57,8 @@
                     Name = la.Name,
                     DocumentType = la.DocumentType.Name,
                     Description = la.Description,
-                    UploaderName = $"{la.Uploader.User.FirstName} {la.Uploader.User.LastName}"
+                    UploaderName = $"{la.Uploader.User.FirstName} {la.Uploader.User.LastName}",
+                    TicketId = la.TicketId.ToString()
                 })
                 .ToListAsync();
 

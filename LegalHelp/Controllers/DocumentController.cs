@@ -6,26 +6,28 @@
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using LegalHelpSystem.Web.ViewModels.Document;
     using LegalHelpSystem.Services.Data.Interfaces;
+    using LegalHelpSystem.Web.Areas.Admin.Services.Interfaces;
     using static Common.NotificationMessagesConstants;
-
 
 
     public class DocumentController : BaseController
     {
         private readonly IDocumentService documentService;
         private readonly IUploaderService uploaderService;
+        private readonly IUploaderAdminService uploaderAdminService;
         private readonly ITicketService ticketService;
         private readonly IDocumentTypeService documentTypeService;
         private readonly IUserService userService;
 
 
-        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService, IUserService _userService)
+        public DocumentController(IDocumentService _documentService, IUploaderService _uploaderService, ITicketService _ticketService, IDocumentTypeService _documentTypeService, IUserService _userService, IUploaderAdminService _uploaderAdminService)
         {
             this.documentService = _documentService;
             this.uploaderService = _uploaderService;
             this.ticketService = _ticketService;
             this.documentTypeService = _documentTypeService;
             this.userService = _userService;
+            this.uploaderAdminService = _uploaderAdminService;
         }
 
         //All - get
@@ -108,11 +110,11 @@
             }
             bool isUploader =
                 await this.uploaderService.UploaderExistsByUserIdAsync(this.User.GetId()!);
-            if (!isUploader)
+            if (!isUploader && !this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an uploader in order to upload legal document!";
+                this.TempData[ErrorMessage] = "You must be an uploader in order to upload legal document!";
 
-                return this.RedirectToAction("Become", "Uploader");
+                return this.RedirectToAction("All", "Ticket");
             }
 
             try
@@ -156,11 +158,11 @@
             }
             bool isUploader =
                 await this.uploaderService.UploaderExistsByUserIdAsync(this.User.GetId()!);
-            if (!isUploader)
+            if (!isUploader && !this.User.IsAdmin())
             {
-                this.TempData[ErrorMessage] = "You must become an uploader in order to upload legal document!";
+                this.TempData[ErrorMessage] = "You must be an uploader in order to upload legal document!";
 
-                return this.RedirectToAction("Become", "Uploader");
+                return this.RedirectToAction("All", "Ticket");
             }
             bool typesExists =
                 await this.documentTypeService.ExistsByIdAsync(model.DocumentTypeId);
@@ -179,7 +181,20 @@
                         byte[] fileBytes = memoryStream.ToArray();
 
                         //
-                        string? uploaderId = await this.uploaderService.GetUploaderIdByUserIdAsync(this.User.GetId()!);
+                        string uploaderId;
+
+                        if (isUploader)
+                        {
+                            uploaderId = await this.uploaderService.GetUploaderIdByUserIdAsync(this.User.GetId()!);
+                        }
+                        //if an admin will add document there should be an uploader Id in order to add the document
+                        //this wont be a practise but just in case an admin should add a document
+                        else
+                        {
+                            uploaderId = await this.uploaderAdminService
+                                .ChooseUploaderUserIdAsync();
+                        }
+                        
                         //
                         string documentId = await this.documentService.UploadDocumentAsync(model, uploaderId!, fileBytes);
                         //

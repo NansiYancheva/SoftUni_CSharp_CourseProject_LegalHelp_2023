@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DocumentAllViewModel>
+﻿@using LegalHelpSystem.Web.Infrastructure.Extensions;
+@model IEnumerable<DocumentAllViewModel>
 @{
     ViewData["Title"] = "My Uploaded Documents";
 }
@@ -13,8 +14,52 @@
 else
 {
     <h6 class="text-center">Your Total Uploaded Documents are @Model.Count()</h6>
-    <div class="row">
-        <partial name="_DocumentAllPartial" model="@Model" />
+
+    <div class="text-center row">
+        <h4 class="text-center">Your Total Reviews</h4>
+        <td>
+            <a asp-controller="Review" asp-action="View" asp-route-id="@User.GetId()"
+           class="btn btn-primary">View Reviews</a>
+        </td>
+    </div>
+
+    <div class="text-center row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Document Type</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">File</th>
+                    <th scope="col">Reviews of document</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+
+                @foreach (var document in Model)
+                {
+                    <tr>
+                        <th scope="row"></th>
+                        <td>@document.Name</td>
+                        <td>@document.DocumentType</td>
+                        <td>@document.Description</td>
+                        <td>
+                            <form method="get" action="@Url.Action("Download", "Document")">
+                                <button type="submit" class="action-button">Download document</button>
+                                <input type="hidden" name="ticketId" value="@document.TicketId" />
+                            </form>
+                        </td>
+                        <td>
+                            <a asp-controller="Review" asp-action="View" asp-route-id="@document.Id"
+                       class="btn btn-primary">View Reviews</a>
+                            <a asp-controller="Review" asp-action="Add" asp-route-objectid="@document.Id"
+                       class="btn btn-success">Add Review</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 }
 
