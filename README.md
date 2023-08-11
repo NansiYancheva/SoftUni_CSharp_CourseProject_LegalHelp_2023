@@ -52,10 +52,7 @@ Admin:
 	- can remove the list of reviews from given legal advise/uploaded document
 	- can remove the reviews themself when deleting given legal advise/uploaded document
 - can make/unmake user to have the functions of legal advisor/uploader
-
-TO be updated:
-- to manage all reviews for tickets, legal advices, documents, team members - meaning to delete/edit/add
-
+- can delete single review from tickets, legal advices, documents, team members
 
 
 ⚒️ Built With
@@ -83,9 +80,6 @@ Data Validation in the Models and Input View Models
     The admin must be admin@legalhelp.bg because it is set as DevelopmentAdminEmail.
     After that you should create two users - one for legal advisor and one for uploader and through the admin profile to make them in these roles.
     At the end you should test the application with a user.
-
-TO be updated:
-To be seeded admin, legal advisor, uploader and one user
 
 
 🔝 Acknowledgments

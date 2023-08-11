@@ -36,5 +36,22 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task RemoveSingleReviewFromListOfReviewsOfLegalAdvisorAsync(string objectId, string textReview)
+        {
+            LegalAdvisor legalAdvisor = await this.dbContext
+              .LegalAdvisors
+              .Include(x => x.Reviews)
+              .FirstAsync(x => x.UserId.ToString() == objectId);
+
+            Review reviewToBeRemoved = legalAdvisor.Reviews.Where(x => x.TextReview == textReview).FirstOrDefault();
+
+            while (reviewToBeRemoved != null)
+            {
+                legalAdvisor.Reviews.Remove(reviewToBeRemoved);
+                await this.dbContext.SaveChangesAsync();
+                reviewToBeRemoved = legalAdvisor.Reviews.Where(x => x.TextReview == textReview).FirstOrDefault();
+            }
+        }
     }
 }

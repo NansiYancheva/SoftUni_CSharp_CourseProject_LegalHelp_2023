@@ -5,5 +5,6 @@
         Task DeleteDocumentByIdAsync(string id);
         Task<string> FindDocumentIdByTicketIdAsync(string id);
         Task RemoveReviewsOfDocumentAsync(string id);
+        Task RemoveSingleReviewFromListOfReviewsOfDocumentAsync(string objectId, string textReview);
     }
 }

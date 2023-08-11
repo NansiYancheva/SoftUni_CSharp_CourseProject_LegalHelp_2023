@@ -218,7 +218,6 @@
         }
         //Delete        
         [HttpPost]
-        //the model is not transfering between the get and the post request - we have to fix it in delete.cshtml - with hidden input????
         public async Task<IActionResult> Delete(string id, TicketPerDeleteFormModel model)
         {
             bool ticketExists = await this.ticketService

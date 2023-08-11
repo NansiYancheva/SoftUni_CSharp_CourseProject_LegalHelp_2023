@@ -107,6 +107,7 @@
             return new ReviewsViewModel
             {
                 Object = $"{legalAdvisor.User.FirstName} {legalAdvisor.User.LastName}",
+                ObjectId = id,
                 TextReviews = listOfTextReviews,
                 TotalStars = aggTotalStars
             };

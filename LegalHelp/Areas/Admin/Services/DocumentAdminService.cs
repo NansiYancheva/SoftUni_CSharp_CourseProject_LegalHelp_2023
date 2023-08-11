@@ -47,5 +47,22 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task RemoveSingleReviewFromListOfReviewsOfDocumentAsync(string objectId, string textReview)
+        {
+            Document document = await this.dbContext
+             .Documents
+             .Include(x => x.Reviews)
+             .FirstAsync(x => x.Id.ToString() == objectId);
+
+            Review reviewToBeRemoved = document.Reviews.Where(x => x.TextReview == textReview).FirstOrDefault();
+
+            while (reviewToBeRemoved != null)
+            {
+                document.Reviews.Remove(reviewToBeRemoved);
+                await this.dbContext.SaveChangesAsync();
+                reviewToBeRemoved = document.Reviews.Where(x => x.TextReview == textReview).FirstOrDefault();
+            }
+        }
     }
 }

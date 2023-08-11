@@ -164,6 +164,7 @@
             return new ReviewsViewModel
             {
                 Object = legalAdvise.AdviseResponse,
+                ObjectId = id,
                 TextReviews = listOfTextReviews,
                 TotalStars = aggTotalStars
             };

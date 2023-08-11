@@ -26,5 +26,22 @@
 
             await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task RemoveSingleReviewFromListOfReviewsOfUploaderAsync(string objectId, string textReview)
+        {
+            Uploader uploader = await this.dbContext
+             .Uploaders
+             .Include(x => x.Reviews)
+             .FirstAsync(x => x.UserId.ToString() == objectId);
+
+            Review reviewToBeRemoved = uploader.Reviews.Where(x => x.TextReview == textReview).FirstOrDefault();
+
+            while (reviewToBeRemoved != null)
+            {
+                uploader.Reviews.Remove(reviewToBeRemoved);
+                await this.dbContext.SaveChangesAsync();
+                reviewToBeRemoved = uploader.Reviews.Where(x => x.TextReview == textReview).FirstOrDefault();
+            }  
+        }
     }
 }

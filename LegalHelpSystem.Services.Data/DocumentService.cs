@@ -183,6 +183,7 @@
             return new ReviewsViewModel
             {
                 Object = document.Name,
+                ObjectId = id,
                 TextReviews = listOfTextReviews,
                 TotalStars = aggTotalStars
             };

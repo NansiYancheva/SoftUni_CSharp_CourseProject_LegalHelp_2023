@@ -1,4 +1,5 @@
-﻿@model ReviewsViewModel
+﻿@using LegalHelpSystem.Web.Infrastructure.Extensions;
+@model ReviewsViewModel
 @{
     ViewBag.Title = "All Reviews for";
 }
@@ -13,22 +14,30 @@
 }
 else
 {
-   
- <body>
-    <div style="text-align: center;">
-        <h4>Total Stars: @Model.TotalStars</h4>
+
+    <body>
+        <div style="text-align: center;">
+            <h4>Total Stars: @Model.TotalStars</h4>
             <hr />
-                <div style="text-align: left;">
-        <h6>Comments:</h6>
-        <ul>
-            @foreach (var review in Model.TextReviews)
-            {
-                <li>@review</li>
-            }
-        </ul>
-    </div>
+            <div style="text-align: left;">
+                <h6>Comments:</h6>
+                <ul>
+                    @foreach (var review in Model.TextReviews)
+                    {
+                        <li>@review</li>
+                        if (this.User.IsAdmin())
+                        {
+                            <a asp-area="Admin" asp-controller="ReviewAdmin" asp-action="DeleteReview" 
+                            asp-route-objectId="@Model.ObjectId" 
+                            asp-route-textReview="@review"
+                            class="btn btn-danger">Delete Review</a>
+                        }
+
+                    }
+                </ul>
+            </div>
         </div>
-</body>
+    </body>
 }
 
 @*@section Scripts {

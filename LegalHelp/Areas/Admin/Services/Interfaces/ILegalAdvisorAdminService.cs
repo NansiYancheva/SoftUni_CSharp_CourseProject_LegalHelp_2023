@@ -4,5 +4,6 @@
     {
         Task<string> ChooseLegalAdvisorUserIdAsync();
         Task RemoveReviewsOfLegalAdvisorAsync(string legalAdvisorUserId);
+        Task RemoveSingleReviewFromListOfReviewsOfLegalAdvisorAsync(string objectId, string textReview);
     }
 }
