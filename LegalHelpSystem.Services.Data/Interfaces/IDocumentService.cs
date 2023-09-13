@@ -25,5 +25,7 @@
         Task<bool> DocumentExistsByIdAsync(string objectId);
         Task<string> GetDocumentNameAsync(string objectId);
         Task<ReviewsViewModel> GetDocumentReviews(string id);
+        Task<string> AddDocToDBAsync(DocumentFormForFillInModel model, byte[] documentBytes);
+        Task<DocumentForDownloadViewModel> GetDocumentForFillingInByDocTypeIdAsync(int documentTypeId);
     }
 }

@@ -10,6 +10,8 @@
     using LegalHelpSystem.Web.ViewModels.Document;
     using LegalHelpSystem.Data.Models;
     using LegalHelpSystem.Web.ViewModels.Review;
+    using System;
+
 
     public class DocumentService : IDocumentService
     {
@@ -187,6 +189,41 @@
                 ObjectId = id,
                 TextReviews = listOfTextReviews,
                 TotalStars = aggTotalStars
+            };
+        }
+
+        public async Task<string> AddDocToDBAsync(DocumentFormForFillInModel model, byte[] documentBytes)
+        {
+            //to select random uploader and ticket because we can not create document without such properties
+            //but something else - after that if you check the ticket status and if the check is if the ticket have document to it - it will cause error - this needs to be fixed
+            Uploader uploader = await this.dbContext.Uploaders.FirstOrDefaultAsync();
+            Ticket ticket = await this.dbContext.Tickets.FirstOrDefaultAsync();
+            
+            Document newDocument = new Document
+            {
+                DocumentTypeId = model.DocumentTypeId,
+                UploaderId = uploader.Id,
+                TicketId = ticket.Id,
+                Name = $"{model.UserName}.docx", 
+                AttachedFile = documentBytes, 
+            };
+
+            await this.dbContext.Documents.AddAsync(newDocument);
+            await this.dbContext.SaveChangesAsync();
+
+            return newDocument.Name;
+        }
+
+        public async Task<DocumentForDownloadViewModel> GetDocumentForFillingInByDocTypeIdAsync(int documentTypeId)
+        {
+           Document doc = await this.dbContext
+            .Documents
+                .FirstOrDefaultAsync(x => x.DocumentTypeId == documentTypeId);
+
+            return new DocumentForDownloadViewModel
+            {
+                DocumentName = doc.Name,
+                DocumentFile = doc.AttachedFile
             };
         }
     }

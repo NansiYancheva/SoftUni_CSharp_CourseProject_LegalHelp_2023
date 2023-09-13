@@ -1,0 +1,38 @@
+﻿@model DocumentFormForFillInModel
+@{
+    ViewData["Title"] = "Request Ready Doc";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" placeholder="Names...">
+                <span asp-validation-for="UserName" class="small text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DocumentTypeId"></label>
+                <select asp-for="DocumentTypeId" class="form-control">
+                    @foreach (var category in Model.Types)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="DocumentTypeId" class="small text-danger"></span>
+            </div>
+
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Request" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

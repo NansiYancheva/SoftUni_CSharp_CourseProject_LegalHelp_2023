@@ -3,12 +3,14 @@
     using Microsoft.AspNetCore.Mvc;
     using System;
 
+
     using LegalHelpSystem.Web.Infrastructure.Extensions;
     using LegalHelpSystem.Web.ViewModels.Document;
     using LegalHelpSystem.Services.Data.Interfaces;
     using LegalHelpSystem.Web.Areas.Admin.Services.Interfaces;
     using static Common.NotificationMessagesConstants;
-
+    using Xceed.Words.NET;
+    using Microsoft.CodeAnalysis;
 
     public class DocumentController : BaseController
     {
@@ -271,6 +273,84 @@
                 return this.GeneralError();
             }
 
+        }
+
+        //FillInFormForDownloadReadyDoc
+        [HttpGet]
+        public async Task<IActionResult> RequestReadyDoc()
+        {
+            try
+            {
+                DocumentFormForFillInModel formModel = new DocumentFormForFillInModel()
+                {
+                    Types = await this.documentTypeService.AllDocumentTypesAsync()
+                };
+
+                return View(formModel);
+            }
+            catch (Exception)
+            {
+                return this.GeneralError();
+            }
+        }
+        //FillInFormForDownloadReadyDoc
+        [HttpPost]
+        public async Task<IActionResult> RequestReadyDoc(DocumentFormForFillInModel model)
+        {
+            bool typesExists =
+                 await this.documentTypeService.ExistsByIdAsync(model.DocumentTypeId);
+            if (!typesExists)
+            {
+                this.ModelState.AddModelError(nameof(model.DocumentTypeId), "Selected category does not exist!");
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                model.Types = await this.documentTypeService.AllDocumentTypesAsync();
+
+                return this.View(model);
+            }
+
+            try
+            {
+                //Declaration from employee
+                if(model.DocumentTypeId == 1)
+                {
+                    DocumentForDownloadViewModel docToBeFilledIn = await this.documentService.GetDocumentForFillingInByDocTypeIdAsync(model.DocumentTypeId);
+
+                    using (MemoryStream stream = new MemoryStream(docToBeFilledIn.DocumentFile))
+                    {
+                        using (DocX doc = DocX.Load(stream))
+                        {
+
+                            doc.ReplaceText("name", model.UserName);
+
+                            byte[] documentBytes;
+
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                doc.SaveAs(ms);
+                                documentBytes = ms.ToArray();
+                            }
+
+                            string fileName = await documentService.AddDocToDBAsync(model, documentBytes);
+
+                            return File(documentBytes, "application/vnd.openxmlformats-officedocument.wordprocessingml.document", fileName);
+                        }
+                    }
+                }
+                else
+                {
+                    return this.View(model);
+                }
+            }
+            catch (Exception)
+            {
+                this.ModelState.AddModelError(string.Empty, "Unexpected error occurred while trying to fill in the form request! Please try again later or contact administrator!");
+                model.Types = await this.documentTypeService.AllDocumentTypesAsync();
+
+                return this.View(model);
+            }
         }
 
     }

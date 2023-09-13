@@ -25,7 +25,7 @@
                .Select(c => new DocumentSelectTypeFormModel()
                {
                    Id = c.Id,
-                   Name = c.Name,
+                   Name = c.Name
                })
                .ToArrayAsync();
 
